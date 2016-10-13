@@ -83,10 +83,10 @@ DATABASES = {
         'USER': 'univalledbuser',
         'PASSWORD': '94536998',
         'HOST': '127.0.0.1',
-        'PORT': '',
+        'PORT': '5432',
     }
 }
-
+git remote add origin git@github.com:alexpoison100/univalle-cloned.git
 
 # Password validation
 # https://docs.djangoproject.com/en/1.9/ref/settings/#auth-password-validators
