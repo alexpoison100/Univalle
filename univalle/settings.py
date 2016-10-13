@@ -86,7 +86,6 @@ DATABASES = {
         'PORT': '5432',
     }
 }
-git remote add origin git@github.com:alexpoison100/univalle-cloned.git
 
 # Password validation
 # https://docs.djangoproject.com/en/1.9/ref/settings/#auth-password-validators
