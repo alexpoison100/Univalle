@@ -249,7 +249,7 @@ font-weight: 900;
 }
 
 .color{
-	color: #EE2024;
+	color: #EE2024; /*titulo univalle*/
 }
 
 a.fa.fa-angle-down {
@@ -384,7 +384,7 @@ img.img-circle.team-img {
 	width: 200px;
 	height: 40px;
 	background: -webkit-linear-gradient(#4f4f4f, #0a0a0a);/*color del menu*/
-	background: -mz-linear-gradient(#4f4f4f, #0a0a0a);
+	background: -moz-linear-gradient(#4f4f4f, #0a0a0a);
 	border-radius: 40px 40px 40px 40px;
 	border: 2px solid #000000;
 }
