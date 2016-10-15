@@ -97,18 +97,18 @@
                 <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
           <ul class="nav navbar-nav navbar-right">
-            <li><a href="#tf-inicio" class="page-scroll">Inicio</a></li>
-            <li><a href="#tf-about" class="page-scroll">Acerca de Univalle</a></li>
-            <li><a href="#tf-team" class="page-scroll">Team</a></li>
-            <li><a href="#tf-services" class="page-scroll">Services</a></li>
-            <li><a href="#tf-works" class="page-scroll">Noticias</a></li>
-            <li><a href="#tf-testimonials" class="page-scroll">Testimonials</a></li>
-            <li><a href="#tf-contact" class="page-scroll">Contáctanos</a></li>
+            <li><a href="#tf-inicio" class="page-scroll"><strong>Inicio</strong></a></li>
+            <li><a href="#tf-about" class="page-scroll"><strong>Acerca de Univalle</strong></a></li>
+            <li><a href="#tf-team" class="page-scroll"><strong>Team</strong></a></li>
+            <li><a href="#tf-admisiones" class="page-scroll"><strong>Admisiones</strong></a></li>
+            <li><a href="#tf-noticias" class="page-scroll"><strong>Noticias</strong></a></li>
+            <li><a href="#tf-contact" class="page-scroll"><strong>Contáctanos</strong></a></li>
             {%if user.is_authenticated %}
-            <li><a href="#" class="page-scroll">Estudiantes</a></li>
+            <li><a href="#" class="page-scroll"><strong>Inscripciones</strong></a></li>
+            <li><a href="{% url 'vista_resultados' %}" class="page-scroll"><strong>Resultados</strong></a></li>
             {% endif %} 
             {%if user.is_authenticated and user.is_staff%} <!-- si el usuario es admin o root puede entrar al panel administrador -->
-            <li><a href="#" class="page-scroll">Administrador</a></li>
+            <li><a href="#" class="page-scroll"><strong>Administrador</strong></a></li>
             {% endif %} 
           </ul>
         </div><!-- /.navbar-collapse -->
@@ -178,7 +178,7 @@
         <div class="overlay">
             <div class="container">
                 <div class="section-title center">
-                    <h2>Meet <strong>our team</strong></h2>
+                    <h2>Area de <strong>Team</strong></h2>
                     <div class="line">
                         <hr>
                     </div>
@@ -278,30 +278,43 @@
         </div>
     </div>
 
-    <!-- Services Section
+    <!-- admisiones Section
     ==========================================-->
-    <div id="tf-services" class="text-center">
+    <div id="tf-admisiones" class="text-center">
         <div class="container">
             <div class="section-title center">
-                <h2>Take a look at <strong>our services</strong></h2>
+                <h2>Área de <strong>Admisiones</strong></h2>
                 <div class="line">
                     <hr>
                 </div>
                 <div class="clearfix"></div>
-                <small><em>Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus Bonorum et Malorum" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32.</em></small>
+                <small><em>
+                    La Universidad del Valle ofrece una amplia y variada oferta educativa, 
+                    compuesta por 10 carreras en las facultad de Ingeniería. Cuenta con 8 sedes regionales en el valle
+                    del Cauca y dos en la ciudad de Cali.
+
+                    Oferta Académica brinda información de cada una de las carreras, incluyendo descripción, 
+                    perfil del aspirante, duración y modalidad de los estudios, requisitos de ingreso, plan de estudios, 
+                    opciones de titulación, campo y mercado de trabajo, situación laboral de los egresados, entidad 
+                    académica donde se imparte, servicios a los estudiantes, entre otros aspectos.
+                </em></small>
             </div>
             <div class="space"></div>
             <div class="row">
-                <div class="col-md-3 col-sm-6 service">
-                    <i class="fa fa-desktop"></i>
-                    <h4><strong>Web design</strong></h4>
-                    <p>The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32.</p>
+                <div class="col-md-3 col-sm-6 service" align="center">
+                    <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                    <div class="fondo">
+                        <a href="#"><h4><strong>Pregrado</strong></h4></a>
+                    </div>
+                    <p>Calendario Académico<br>Oferta Académica</p>
                 </div>
 
-                <div class="col-md-3 col-sm-6 service">
-                    <i class="fa fa-mobile"></i>
-                    <h4><strong>Mobile Apps</strong></h4>
-                    <p>The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32.</p>
+                <div class="col-md-3 col-sm-6 service" align="center">
+                    <i class="fa fa-graduation-cap" aria-hidden="true"></i>
+                    <div class="fondo">
+                        <a href="http://admisiones.univalle.edu.co/new/posgrados/index.php"><h4><strong>Postgrado</strong></h4></a>
+                    </div>
+                    <p>Calendario Académico<br>Ofertas de Programas</p>
                 </div>
 
                 <div class="col-md-3 col-sm-6 service">
@@ -361,7 +374,7 @@
 
     <!-- Noticias y actualidad Section
     ==========================================-->
-    <div id="tf-works">
+    <div id="tf-noticias">
         <div class="container"> <!-- Container -->
             <div class="section-title text-center center">
                 <h1>Noticias y <strong>Actualidad</strong></h1>
@@ -433,7 +446,7 @@
                                     <div class="clearfix"></div>
                                     <i class="fa fa-plus"></i>
                                 </div>
-                                <img src="img/noticias/4.jpg" class="img-responsive" alt="...">
+                                <img src="/media/img/noticias/4.jpg" class="img-responsive" alt="...">
                             </a>
                         </div>
                     </div>
@@ -597,7 +610,7 @@
 
 
 <nav id="footer-info">
-        <div id="tf-services" class="text-align: right">
+        <div id="tf-admisiones" class="text-align: right">
             <div class="container">
                
                 <div class="row">
@@ -626,7 +639,7 @@
                         <p>A.A.25360</p>
                     </div>
 
-                    <div class="col-md-2 col-sm-6 service">
+                    <div class="col-md-3 col-sm-6 service">
                         <div class="pull-right fnav">
                             <h4><strong>Redes Sociales:</strong></h4>
                             <ul class="footer-social">

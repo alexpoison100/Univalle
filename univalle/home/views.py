@@ -86,3 +86,8 @@ def register_view(request):
 	ctx	= {'form':form}
 	return render(request,'registro.html', ctx)
 	
+def resultados_view(request):
+	mensaje ="Esto es un mensaje desde mi vista"
+
+	ctx = {'mensaje':mensaje}
+	return render(request,'resultados.html',ctx)

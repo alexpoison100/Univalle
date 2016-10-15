@@ -5,7 +5,7 @@ body, html{
 	font-family: 'Lato', sans-serif;
 	text-rendering: optimizeLegibility !important;
 	-webkit-font-smoothing: antialiased !important;
-	color: #5a5a5a;
+	color: #000000;
 }
 /*login logout dropdowm menu*/
 
@@ -46,15 +46,17 @@ a {text-decoration:none;}
 }
 
 .profile {
-	padding:10px;
+	padding:5px 5px 5px 5px;
 	border:1px solid #000;
 	border-radius:3px;
 	box-shadow:0 1px 0 #555 inset, 0 1px 7px #111;
-	background:-webkit-linear-gradient(#222, #111);
+	background: -webkit-linear-gradient(#3f3f3f, #0a0a0a);/*color del menu*/
+	background: -mz-linear-gradient(#3f3f3f, #0a0a0a);
 }
 .profile:hover {
 	cursor:pointer;
-	background:-webkit-linear-gradient(#1f1f1f, #0a0a0a);
+	background:-webkit-linear-gradient(#2f2f2f, #0a0a0a);
+	background:-mz-linear-gradient(#2f2f2f, #0a0a0a);
 }
 .profile .name {
 	font-size:16px;
@@ -115,7 +117,6 @@ font-weight: 900;
 }
 h4{
 	text-transform: uppercase;
-	color:#FFFFFF;
 }
 h5{
 	text-transform: uppercase;
@@ -170,7 +171,8 @@ ul, ol{
 	transition: all 0.8s;
 }
 #tf-menu.navbar-default {
-	background:-webkit-linear-gradient(#1f1f1f, #0a0a0a);/*color del menu*/
+	background: -webkit-linear-gradient(#4f4f4f, #0a0a0a);/*color del menu*/
+	background: -mz-linear-gradient(#4f4f4f, #0a0a0a);/*color del menu*/
 	border-color: rgba(231, 231, 231, 0);
 }
 #tf-menu a.navbar-brand {
@@ -279,9 +281,9 @@ ul.about-list li span{
 	margin-right: 10px;
 }
 
-/* Team Section */
+/* team Section */
 #tf-team{
-	background: url(../img/03.jpg);
+	background: url(../img/03.png);
 	background-size: cover;
 	background-position: center;
 	background-attachment: fixed;
@@ -375,8 +377,25 @@ img.img-circle.team-img {
 	background: #EE2024;
 }
 
-/* Services Section */
-#tf-services{
+/* Admisiones Section */
+
+.fondo {
+	padding: 1px 1px 1px 1px;
+	width: 200px;
+	height: 40px;
+	background: -webkit-linear-gradient(#4f4f4f, #0a0a0a);/*color del menu*/
+	background: -mz-linear-gradient(#4f4f4f, #0a0a0a);
+	border-radius: 40px 40px 40px 40px;
+	border: 2px solid #000000;
+}
+.fondo a {
+	color:#FFFFFF;
+}
+.fondo a:hover {
+	color:#EE2024;
+}
+
+#tf-admisiones{
 	padding: 80px 0;
 }
 
@@ -384,7 +403,7 @@ img.img-circle.team-img {
 	margin-top: 40px;
 }
 
-#tf-services i.fa {
+#tf-admisiones i.fa {
 	font-size: 40px;
 	border: 4px solid #EE2024;
 	width: 100px;
@@ -395,12 +414,12 @@ img.img-circle.team-img {
 	transition: all 0.5s;
 }
 
-#tf-services i.fa.fa-mobile{
+#tf-admisiones i.fa.fa-mobile{
 	font-size: 50px;
 	padding: 20px 25px;
 }
 
-#tf-services .service:hover>i.fa{
+#tf-admisiones .service:hover>i.fa{
 	background: #EE2024;
 	color: #ffffff;
 }
@@ -435,7 +454,7 @@ img.img-circle.team-img {
 }
 /* Noticias Section 
 ==============================*/
-#tf-works{
+#tf-noticias{
 	padding: 80px 0;
 }
 .categories{ 
@@ -444,7 +463,7 @@ img.img-circle.team-img {
 ul.cat li{
 	display: inline-block;
 }
-#tf-works li.pull-right {
+#tf-noticias li.pull-right {
 	margin-top: 10px;
 }
 ol.type li{
@@ -488,6 +507,7 @@ ol.type li a.active { font-weight: 700; }
 }
 .portfolio-item{
 	margin-bottom: 30px;
+	border: 2px solid #000000;
 }
 .portfolio-item .hover-bg{
 	height: 260px;
@@ -506,6 +526,7 @@ ol.type li a.active { font-weight: 700; }
 	width: 100%;
 	opacity: 0;
     transition: all 0.5s;
+   
 }
 .hover-bg .hover-text>h4{
 	opacity: 0;
@@ -534,7 +555,7 @@ ol.type li a.active { font-weight: 700; }
 .hover-bg:hover .hover-text{
 	opacity: 1;
 }
-#tf-works i.fa {
+#tf-noticias i.fa {
 	height: 30px;
 	width: 30px;
 	border: 1px solid #EE2024;
@@ -542,6 +563,7 @@ ol.type li a.active { font-weight: 700; }
 	padding: 5px;
 	border-radius: 50%;
 	color: #EE2024;
+	
 }
 /* Testimonials Section */
 #tf-testimonials{
@@ -622,6 +644,7 @@ button.btn.tf-btn.btn-default {
 	padding: 10px 40px;
 	color: #ffffff;
 	text-transform: uppercase;
+	border-radius: 40px 40px 40px 40px;
 }
 button.btn.tf-btn.btn-default:hover{
 	background: #FCAC45;

@@ -10,7 +10,7 @@ class ContactForm(forms.Form):
 
 class LoginForm(forms.Form):
 	Usuario = forms.CharField(widget=forms.TextInput(attrs={'type':"text", 'class':"form-control",'placeholder':'Ingrese Usuario'}))
-	Contrasena = forms.CharField(label="Contraseña",widget=forms.PasswordInput(render_value=False, attrs={'placeholder':'Ingrese Contraseña',}))
+	Contrasena = forms.CharField(label="Contraseña",widget=forms.PasswordInput(render_value=False, attrs={'placeholder':'Ingrese Contraseña'}))
 
 class RegisterForm(forms.Form):
 	username = forms.CharField(label="Nombre de Usuario",widget=forms.TextInput(attrs={'type':"text", 'class':"form-control",'placeholder':"Ingrese Usuario"}))
@@ -44,3 +44,7 @@ class RegisterForm(forms.Form):
 			pass
 		else:
 			raise forms.ValidationError('Contrasena no coinciden')
+
+
+
+

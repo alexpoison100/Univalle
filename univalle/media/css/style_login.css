@@ -24,10 +24,12 @@ form {
 	margin: auto;
 	width: 50%;
 	max-width: 500px;
-	background:-webkit-linear-gradient(#1f1f1f, #0a0a0a);/*color del menu*/
+	background: -webkit-linear-gradient(#4f4f4f, #0a0a0a);/*color del menu*/
+	background: -mz-linear-gradient(#4f4f4f, #0a0a0a);
 	border-color: rgba(231, 231, 231, 0);
 	padding: 30px;
 	border: 1px solid rgba(0,0,0,0.2);
+	border-radius: 40px 40px 40px 40px;
 }
 
 h2 {
@@ -79,7 +81,7 @@ button.btn.btn-default:hover{
 
 @media (max-width: 768px){
 	form {
-		width: 75%;
+		width: 50%;
 	}
 }
 
