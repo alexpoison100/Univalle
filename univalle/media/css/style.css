@@ -51,12 +51,12 @@ a {text-decoration:none;}
 	border-radius:3px;
 	box-shadow:0 1px 0 #555 inset, 0 1px 7px #111;
 	background: -webkit-linear-gradient(#3f3f3f, #0a0a0a);/*color del menu*/
-	background: -mz-linear-gradient(#3f3f3f, #0a0a0a);
+	background: -moz-linear-gradient(#3f3f3f, #0a0a0a);
 }
 .profile:hover {
 	cursor:pointer;
-	background:-webkit-linear-gradient(#2f2f2f, #0a0a0a);
-	background:-mz-linear-gradient(#2f2f2f, #0a0a0a);
+	background: -webkit-linear-gradient(#2f2f2f, #0a0a0a);
+	background: -moz-linear-gradient(#2f2f2f, #0a0a0a);
 }
 .profile .name {
 	font-size:16px;
@@ -172,7 +172,7 @@ ul, ol{
 }
 #tf-menu.navbar-default {
 	background: -webkit-linear-gradient(#4f4f4f, #0a0a0a);/*color del menu*/
-	background: -mz-linear-gradient(#4f4f4f, #0a0a0a);/*color del menu*/
+	background: -moz-linear-gradient(#4f4f4f, #0a0a0a);/*color del menu*/
 	border-color: rgba(231, 231, 231, 0);
 }
 #tf-menu a.navbar-brand {
@@ -507,7 +507,7 @@ ol.type li a.active { font-weight: 700; }
 }
 .portfolio-item{
 	margin-bottom: 30px;
-	border: 2px solid #000000;
+	border: 2px solid #C4C4C4;
 }
 .portfolio-item .hover-bg{
 	height: 260px;
