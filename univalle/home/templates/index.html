@@ -65,7 +65,7 @@
           </button>
 
               <div class="col-md-6">
-                        <a href="#tf-inicio"><img src="/media/img/logo.png" class="img-responsive"width="770" height="430" border="0"></a>
+                        <a href="/"><img src="/media/img/logo.png" class="img-responsive"width="770" height="430" border="0"></a>
              </div>
         </div>
         <!-- ingresar usuario -->
@@ -104,7 +104,7 @@
             <li><a href="#tf-noticias" class="page-scroll"><strong>Noticias</strong></a></li>
             <li><a href="#tf-contact" class="page-scroll"><strong>Contáctanos</strong></a></li>
             {%if user.is_authenticated %}
-            <li><a href="#" class="page-scroll"><strong>Inscripciones</strong></a></li>
+            <li><a href="{% url 'vista_inscripciones' %}" class="page-scroll"><strong>Inscripciones</strong></a></li>
             <li><a href="{% url 'vista_resultados' %}" class="page-scroll"><strong>Resultados</strong></a></li>
             {% endif %} 
             {%if user.is_authenticated and user.is_staff%} <!-- si el usuario es admin o root puede entrar al panel administrador -->

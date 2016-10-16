@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block title %} Inscripciones {% endblock %}
+
+{% block content %}
+	<form action="." method="POST">
+		<h2>INSCRIPCIONES</h2>
+		{% csrf_token %}
+		<br>
+		{{form.as_p}}
+		<div align=left>
+			<button class="btn  btn-default" type="submit"> Enviar </button>
+		</div>
+		<div align=right>
+			<button class="btn  btn-default" type="reset"> Limpiar </button>
+		
+		</div>
+		
+		<br>
+		{{informacion}}
+	</form>
+
+{% endblock %}

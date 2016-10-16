@@ -1567,6 +1567,13 @@ pre code {
   margin-right: auto;
   margin-left: auto;
 }
+.containerFormularios {
+  padding-top: 60px;
+  padding-right: 15px;
+  padding-left: 200px;
+  margin-right: auto;
+  margin-left: auto;
+}
 @media (min-width: 768px) {
   .container {
     width: 750px;
@@ -1588,6 +1595,22 @@ pre code {
   margin-right: auto;
   margin-left: auto;
 }
+@media (min-width: 768px) {
+  .containerFormularios {
+    width: 750px;
+  }
+}
+@media (min-width: 992px) {
+  .containerFormularios {
+    width: 970px;
+  }
+}
+@media (min-width: 1200px) {
+  .containerFormularios {
+    width: 1170px;
+  }
+}
+
 .row {
   margin-right: -15px;
   margin-left: -15px;

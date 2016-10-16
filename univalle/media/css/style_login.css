@@ -10,7 +10,7 @@
 	box-sizing: border-box;
 }
 body {
-	background: url(../img/06.jpg);
+	background: #ffffff;
 	background-size: cover;
 	background-position: center;
 	background-attachment: fixed;
@@ -81,6 +81,8 @@ button.btn.btn-default:hover{
 	-webkit-box-shadow: none;
 	box-shadow: none;
 }
+
+
 
 @media (max-width: 768px){
 	form {

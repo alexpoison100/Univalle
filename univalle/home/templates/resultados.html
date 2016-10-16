@@ -1,11 +1,17 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-<head>
+{% extends 'base.html' %}
+{% block title %} ResultadoForm {% endblock %}
 
-</head>
-<body>
-    Hola resultados
-    
-</body>
-</html>
+{% block content %}
+    <div>
+        
+        <form action="." method="POST">
+            <h2>RESULTADOS</h2>
+            {{mensaje}}
+            <br>
+            {{ form.programas_academicos }} 
+            <button class="btn  btn-default" type="submit"> Generar Listado </button>
+        </form>
+    </div>
+
+
+{% endblock %}

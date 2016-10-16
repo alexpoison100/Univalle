@@ -1,6 +1,8 @@
+# -*- coding: utf-8 -*- 
 from django.shortcuts import render
 from django.template import RequestContext
-from univalle.home.forms import ContactForm, LoginForm, RegisterForm
+from univalle.home.forms import *
+from univalle.home.models import *
 from django.core.mail import EmailMultiAlternatives #Enviamos html
 from django.contrib.auth import login, logout, authenticate 
 from django.http import HttpResponseRedirect
@@ -40,8 +42,6 @@ def about_view(request):
 	mensaje ="Esto es un mensaje desde mi vista"
 	ctx = {'msg':mensaje}
 	return render(request,'about.html',ctx)
-
-
 
 def login_view(request):
 	mensaje=""
@@ -87,7 +87,46 @@ def register_view(request):
 	return render(request,'registro.html', ctx)
 	
 def resultados_view(request):
-	mensaje ="Esto es un mensaje desde mi vista"
-
-	ctx = {'mensaje':mensaje}
+	mensaje ="Seleccione la Carrera a la que se inscribió"
+	form = ResultadoForm()
+	ctx = {'form':form, 'mensaje':mensaje}
 	return render(request,'resultados.html',ctx)
+	
+def add_inscripciones_view(request):
+	if request.user.is_authenticated():
+		if request.method == "POST":
+			formulario = InscripcionesForm(request.POST)
+			info = "Inicializando"
+			
+			if formulario.is_valid():
+				cedula = formulario.cleaned_data['cedula']
+				nombre = formulario.cleaned_data['nombre']
+				apellido = formulario.cleaned_data['apellido']
+				snp = formulario.cleaned_data['snp']
+				programasAcademico.nombre = formulario.cleaned_data['programas_academicos']
+			
+				i = inscripciones() #creo una instancia de la clase inscripcion
+				
+				i.cedula = cedula
+				i.nombre = nombre
+				i.apellido = apellido
+				i.snp = snp
+				i.carrera = programasAcademico.nombre
+				
+				i.save() #guardar inscripcion
+				info = "Inscripción Satisfactoria!!!!!!"
+				formulario = InscripcionesForm()
+			else:
+				info = "Informacion con datos incorrectos"
+			form = InscripcionesForm()
+			ctx = {'form':formulario, 'informacion':info}
+			return render(request,'inscripciones.html',ctx)
+
+		else:
+			formulario = InscripcionesForm()
+		ctx = {'form':formulario}
+		return render(request,'inscripciones.html',ctx)
+	else:
+		return HttpResponseRedirect('/')
+
+	
