@@ -53,8 +53,26 @@ class ResultadoForm(forms.Form):
 		Nombre = forms.CharField(label='Nombre',widget=forms.TextInput(attrs={'type':"text", 'class':"form-control",'placeholder':'Ingrese Nombres'}))
 
 class InscripcionesForm(forms.Form):
-	cedula = forms.CharField(label='Cédula',widget=forms.TextInput(attrs={'type':"number",'class':"form-control",'placeholder':'Ingrese Número de Cédula'}))
+	cedula = forms.IntegerField(label='Cédula',widget=forms.TextInput(attrs={'type':"number",'class':"form-control",'placeholder':'Ingrese Número de Cédula'}))
 	nombre = forms.CharField(label='Nombre',widget=forms.TextInput(attrs={'type':"text", 'class':"form-control",'placeholder':'Ingrese Nombres'}))
 	apellido = forms.CharField(label='Apellido',widget=forms.TextInput(attrs={'type':"text", 'class':"form-control",'placeholder':'Ingrese Apellidos'}))
 	snp = forms.CharField(label='Código SNP',widget=forms.TextInput(attrs={'type':"text", 'class':"form-control",'placeholder':'Ingrese su SNP'}))
 	programas_academicos= forms.ModelChoiceField(label='Seleccione la Carrera',widget=forms.Select(attrs={'class': "form-control"}), queryset=programasAcademico.objects.all())
+
+		#validar si el número de cédula ya existe
+	def clean_cedula(self):
+		cedula = self.cleaned_data['cedula']
+		try:
+			i = inscripciones.objects.get(cedula=cedula)
+		except inscripciones.DoesNotExist:
+			return cedula #para que valide el formulario como si fuera correcto
+		raise forms.ValidationError('Cédula ya existe')
+		
+		#validar si el número de cédula ya existe
+	def clean_snp(self):
+		snp = self.cleaned_data['snp']
+		try:
+			i = inscripciones.objects.get(snp=snp)
+		except inscripciones.DoesNotExist:
+			return snp #para que valide el formulario como si fuera correcto
+		raise forms.ValidationError('Código SNP ya existe')

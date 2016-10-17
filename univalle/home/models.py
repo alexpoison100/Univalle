@@ -1,7 +1,8 @@
+# -*- coding: utf-8 -*-
+
 from django.db import models
 from django.db import models
 from django.contrib.auth.models import User
-
 
 # Create your models here.
 def url(obj, filename):
@@ -33,7 +34,7 @@ class inscripciones(models.Model):
 	carrera		=models.CharField(max_length=100)
 
 	def __str__(self):
-	 return '%s - %s  %s - %s' % (self.cedula, self.nombre, self.apellido, self.snp)
+	 return '%s - %s' % (self.cedula, self.snp)
 		
 		
 		

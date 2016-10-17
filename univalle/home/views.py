@@ -33,9 +33,10 @@ def index_view(request):
 			msg = EmailMultiAlternatives("Correo de Contacto",html_content,'from@server.com',[to_admin])
 			msg.attach_alternative(html_content,'text/html')#definimos el contenido como HTML
 			msg.send()#Enviamos el correo
+		
 	else:
 		formulario = ContactForm()
-	ctx = {'form':formulario,'nombre':nombre,'correo':correo,'asunto':asunto,'mensaje':mensaje,'info_enviado':info_enviado}
+	ctx = {'form':formulario,'info_enviado':info_enviado}
 	return render(request,'index.html',ctx)
 
 def about_view(request):
