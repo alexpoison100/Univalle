@@ -7,6 +7,9 @@ body, html{
 	-webkit-font-smoothing: antialiased !important;
 	color: #000000;
 }
+ul.errorlist{
+	color:#EE2024;
+}
 /*login logout dropdowm menu*/
 
 ul, li {
@@ -714,4 +717,3 @@ nav#footer p{
 	text-decoration: none;
 	color: #FCAC45;
 }
-

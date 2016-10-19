@@ -7,14 +7,14 @@
 		{% csrf_token %}
 		<br>
 		{{form.as_p}}
-		<div align=left>
-			<button class="btn  btn-default" type="submit"> Enviar </button>
+		<div align=center>
+			<li><button class="btn  btn-default" type="submit"> Enviar </button>
+			<button class="btn  btn-default" type="reset"> Limpiar </button></li>
 		</div>
-		<div align=right>
-			<button class="btn  btn-default" type="reset"> Limpiar </button>
-		
+		<div align="left">
+			<h5><a href="/" class="">Atrás</a></h5>
 		</div>
-		
+	
 		<br>
 		{{informacion}}
 	</form>

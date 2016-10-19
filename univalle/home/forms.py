@@ -20,7 +20,7 @@ class RegisterForm(forms.Form):
 	email = forms.EmailField(label="Correo Electrónico",widget=forms.TextInput(attrs={'type':"text",'class':"form-control",'placeholder':"Ingrese Correo Electrónico"}))
 	password_one = forms.CharField(label="Contraseña",widget=forms.PasswordInput(render_value=False, attrs={'class':"form-control",'placeholder':"Ingrese Contraseña"}))
 	password_two = forms.CharField(label="Confirmar Contraseña",widget=forms.PasswordInput(render_value=False, attrs={'class':"form-control",'placeholder':"Confirme Contraseña"}))
-
+	
 	#validar si el usuario ya existe
 	def clean_username(self):
 		username = self.cleaned_data['username']
@@ -46,18 +46,14 @@ class RegisterForm(forms.Form):
 		if password_one == password_two:
 			pass
 		else:
-			raise forms.ValidationError('Contrasena no coinciden')
-
-class ResultadoForm(forms.Form):
-		programas_academicos= forms.ModelChoiceField(widget=forms.Select(attrs={'class': "form-control"}), queryset=programasAcademico.objects.all())
-		Nombre = forms.CharField(label='Nombre',widget=forms.TextInput(attrs={'type':"text", 'class':"form-control",'placeholder':'Ingrese Nombres'}))
-
+			raise forms.ValidationError('Contraseña no coinciden')
+			
 class InscripcionesForm(forms.Form):
 	cedula = forms.IntegerField(label='Cédula',widget=forms.TextInput(attrs={'type':"number",'class':"form-control",'placeholder':'Ingrese Número de Cédula'}))
 	nombre = forms.CharField(label='Nombre',widget=forms.TextInput(attrs={'type':"text", 'class':"form-control",'placeholder':'Ingrese Nombres'}))
 	apellido = forms.CharField(label='Apellido',widget=forms.TextInput(attrs={'type':"text", 'class':"form-control",'placeholder':'Ingrese Apellidos'}))
 	snp = forms.CharField(label='Código SNP',widget=forms.TextInput(attrs={'type':"text", 'class':"form-control",'placeholder':'Ingrese su SNP'}))
-	programas_academicos= forms.ModelChoiceField(label='Seleccione la Carrera',widget=forms.Select(attrs={'class': "form-control"}), queryset=programasAcademico.objects.all())
+	programas_academicos= forms.ModelChoiceField(label='Seleccione la Carrera',widget=forms.Select(attrs={'class':"form-control"}), queryset=programasAcademico.objects.all())
 
 		#validar si el número de cédula ya existe
 	def clean_cedula(self):
@@ -76,3 +72,8 @@ class InscripcionesForm(forms.Form):
 		except inscripciones.DoesNotExist:
 			return snp #para que valide el formulario como si fuera correcto
 		raise forms.ValidationError('Código SNP ya existe')
+
+class ResultadoForm(forms.Form):
+		programas_academicos= forms.ModelChoiceField(widget=forms.Select(attrs={'class': "form-control"}), queryset=programasAcademico.objects.all())
+		Nombre = forms.CharField(label='Nombre',widget=forms.TextInput(attrs={'type':"text", 'class':"form-control",'placeholder':'Ingrese Nombres'}))
+

@@ -60,6 +60,8 @@ def login_view(request):
 					return HttpResponseRedirect('/')
 				else:
 					mensaje="Usuario y/o password incorrecto"
+			else:
+					mensaje="Falta llenar campos vacios"
 		form = LoginForm()
 		ctx = {'form':form, 'mensaje':mensaje}
 		return render(request,'login.html',ctx)
@@ -69,6 +71,7 @@ def logout_view(request):
 	return HttpResponseRedirect('/')
 
 def register_view(request):
+	info="inicializado"
 	form = RegisterForm()
 	if request.method == "POST":
 		form = RegisterForm(request.POST)
@@ -81,6 +84,7 @@ def register_view(request):
 			u.save()#guarda el usuario
 			return render(request,'thanks_register.html')
 		else:
+			info = "Datos incorrectos"
 			ctx = {'form':form}
 			return render(request,'registro.html',ctx)
 

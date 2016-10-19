@@ -10,10 +10,9 @@ def url(obj, filename):
 		return ruta
 		
 class userProfile(models.Model):
-	
+
 	user 		= models.OneToOneField(User)
 	photo		= models.ImageField(upload_to=url)
-	telefono	= models.CharField(max_length=30)
 	e_mail		= models.EmailField(max_length=254)
 
 	def __unicode__(self):

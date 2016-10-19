@@ -3,9 +3,12 @@
 
 {% block content %}
 	<form>
-		<h2>Gracias por Registrarte</h2>
-		<input type="button" onclick="location.href='/login/'" value="Iniciar Sesión">
+		<h3>Gracias por Registrarte</h3>
+		<div align="center" class="fondoref">
+			<a href="{% url 'vista_login' %}"><h4><strong>Iniciar Sesión</strong></h4></a>
+		</div>
 		
+
 	</form>
 	
 {% endblock %}
