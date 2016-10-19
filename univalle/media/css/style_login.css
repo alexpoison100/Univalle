@@ -42,15 +42,15 @@ h2 {
 }
 
 input {
-	background: #F52323;
-	border-color: #F52323;
-	color: #ffffff;
+	background: #ffffff;
+	border-color: #ffffff;
+	color: #555;
 	display: block;
-	padding: 10px;
+	padding: 5px;
 	width: 100%;
 	margin: 15px 0;
 	font-size: 20px;
-	border-radius: 40px 40px 40px 40px;
+	border-radius: 10px 10px 10px 10px;
 }
 button:hover{
 	background: #FCAC45;
