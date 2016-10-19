@@ -6,20 +6,20 @@ from univalle.home.models import *
 
 
 class ContactForm(forms.Form):
-	Nombre	= forms.CharField(label="Nombre",widget=forms.TextInput(attrs={'type':"text",'class':"form-control"}))
-	Correo	= forms.EmailField(label="Correo Electrónico",widget=forms.TextInput(attrs={'type':"email",'class':"form-control",'placeholder':"Ingrese Correo Electrónico"}))
-	Asunto	= forms.CharField(label="Asunto",widget=forms.TextInput(attrs={'type':"text",'class':"form-control"}))
-	Mensaje	= forms.CharField(label="Mensaje",widget=forms.Textarea(attrs={'class':"form-control",'rows':3}))
+	Nombre	= forms.CharField(label="Nombre",widget=forms.TextInput(attrs={'required': True,'type':"text",'class':"form-control"}))
+	Correo	= forms.EmailField(label="Correo Electrónico",widget=forms.TextInput(attrs={'required': True,'type':"email",'class':"form-control",'placeholder':"Ingrese Correo Electrónico"}))
+	Asunto	= forms.CharField(label="Asunto",widget=forms.TextInput(attrs={'required': True,'type':"text",'class':"form-control"}))
+	Mensaje	= forms.CharField(label="Mensaje",widget=forms.Textarea(attrs={'required': True,'class':"form-control",'rows':3}))
 
 class LoginForm(forms.Form):
-	Usuario = forms.CharField(widget=forms.TextInput(attrs={'type':"text", 'class':"form-control",'placeholder':'Ingrese Usuario'}))
-	Contrasena = forms.CharField(label="Contraseña",widget=forms.PasswordInput(render_value=False, attrs={'class':"form-control",'placeholder':'Ingrese Contraseña'}))
+	Usuario = forms.CharField(widget=forms.TextInput(attrs={'required': True,'type':"text", 'class':"form-control",'placeholder':'Ingrese Usuario'}))
+	Contrasena = forms.CharField(label="Contraseña",widget=forms.PasswordInput(render_value=False, attrs={'required': True,'class':"form-control",'placeholder':'Ingrese Contraseña'}))
 
 class RegisterForm(forms.Form):
-	username = forms.CharField(label="Nombre de Usuario",widget=forms.TextInput(attrs={'type':"text", 'class':"form-control",'placeholder':"Ingrese Usuario"}))
+	username = forms.CharField(label="Nombre de Usuario",widget=forms.TextInput(attrs={'required': True,'type':"text", 'class':"form-control",'placeholder':"Ingrese Usuario"}))
 	email = forms.EmailField(label="Correo Electrónico",widget=forms.TextInput(attrs={'type':"text",'class':"form-control",'placeholder':"Ingrese Correo Electrónico"}))
-	password_one = forms.CharField(label="Contraseña",widget=forms.PasswordInput(render_value=False, attrs={'class':"form-control",'placeholder':"Ingrese Contraseña"}))
-	password_two = forms.CharField(label="Confirmar Contraseña",widget=forms.PasswordInput(render_value=False, attrs={'class':"form-control",'placeholder':"Confirme Contraseña"}))
+	password_one = forms.CharField(label="Contraseña",widget=forms.PasswordInput(render_value=False, attrs={'required': True,'class':"form-control",'placeholder':"Ingrese Contraseña"}))
+	password_two = forms.CharField(label="Confirmar Contraseña",widget=forms.PasswordInput(render_value=False, attrs={'required': True,'class':"form-control",'placeholder':"Confirme Contraseña"}))
 	
 	#validar si el usuario ya existe
 	def clean_username(self):
@@ -49,11 +49,11 @@ class RegisterForm(forms.Form):
 			raise forms.ValidationError('Contraseña no coinciden')
 			
 class InscripcionesForm(forms.Form):
-	cedula = forms.IntegerField(label='Cédula',widget=forms.TextInput(attrs={'type':"number",'class':"form-control",'placeholder':'Ingrese Número de Cédula'}))
-	nombre = forms.CharField(label='Nombre',widget=forms.TextInput(attrs={'type':"text", 'class':"form-control",'placeholder':'Ingrese Nombres'}))
-	apellido = forms.CharField(label='Apellido',widget=forms.TextInput(attrs={'type':"text", 'class':"form-control",'placeholder':'Ingrese Apellidos'}))
-	snp = forms.CharField(label='Código SNP',widget=forms.TextInput(attrs={'type':"text", 'class':"form-control",'placeholder':'Ingrese su SNP'}))
-	programas_academicos= forms.ModelChoiceField(label='Seleccione la Carrera',widget=forms.Select(attrs={'class':"form-control"}), queryset=programasAcademico.objects.all())
+	cedula = forms.IntegerField(label='Cédula',widget=forms.TextInput(attrs={'required': True,'type':"number",'class':"form-control",'placeholder':'Ingrese Número de Cédula'}))
+	nombre = forms.CharField(label='Nombre',widget=forms.TextInput(attrs={'required': True,'type':"text", 'class':"form-control",'placeholder':'Ingrese Nombres'}))
+	apellido = forms.CharField(label='Apellido',widget=forms.TextInput(attrs={'required': True,'type':"text", 'class':"form-control",'placeholder':'Ingrese Apellidos'}))
+	snp = forms.CharField(label='Código SNP',widget=forms.TextInput(attrs={'required': True,'type':"text", 'class':"form-control",'placeholder':'Ingrese su SNP'}))
+	programas_academicos= forms.ModelChoiceField(label='Seleccione la Carrera',widget=forms.Select(attrs={'required': True,'class':"form-control"}), queryset=programasAcademico.objects.all())
 
 		#validar si el número de cédula ya existe
 	def clean_cedula(self):
@@ -74,6 +74,5 @@ class InscripcionesForm(forms.Form):
 		raise forms.ValidationError('Código SNP ya existe')
 
 class ResultadoForm(forms.Form):
-		programas_academicos= forms.ModelChoiceField(widget=forms.Select(attrs={'class': "form-control"}), queryset=programasAcademico.objects.all())
-		Nombre = forms.CharField(label='Nombre',widget=forms.TextInput(attrs={'type':"text", 'class':"form-control",'placeholder':'Ingrese Nombres'}))
+		programas_academicos= forms.ModelChoiceField(widget=forms.Select(attrs={'required': True,'class': "form-control"}), queryset=programasAcademico.objects.all())
 

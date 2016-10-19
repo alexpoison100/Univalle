@@ -10,7 +10,7 @@
 	box-sizing: border-box;
 }
 body {
-	background: #ffffff;
+	background: url(../img/06.jpg);
 	background-size: cover;
 	background-position: center;
 	background-attachment: fixed;
