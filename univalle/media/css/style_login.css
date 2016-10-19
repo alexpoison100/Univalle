@@ -109,6 +109,27 @@ button.btn.btn-default:hover{
 	border-color: #FCAC45;
 	color: #060B90;
 }
+/*-----------------boton login, registro,inscripciones, gracias por registrarse--------------------*/
+.btn-defaultg {
+  color: #fff;
+  background-color: #EE2024;
+  border-color: #EE2024;
+  border-radius: 20px;
+  padding: 10px 30px 10px 30px; /*centro los nombres de los botones*/
+  
+}
+
+.btn-defaultg:hover,
+.btn-defaultg:focus,
+.btn-defaultg.focus,
+.btn-defaultg:active,
+.btn-defaultg.active,
+.open > .dropdown-toggle.btn-defaultg {
+  color: #fff;
+  background-color: #fcac45;
+  border-color: #fcac45;
+}
+
 
 @media (max-width: 768px){
 	form {
