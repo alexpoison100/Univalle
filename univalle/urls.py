@@ -14,7 +14,7 @@ urlpatterns = patterns('',
         'email_template_name':'RecuperarPassword/password_reset_email.html'}, 
         name = 'password_reset'),
         
-    url(r'^reset/password_reset_done', password_reset_done,{'template_name':'RecuperarPassword/password_reset_done.html'},
+    url(r'^reset/password_msj_done', password_reset_done,{'template_name':'RecuperarPassword/password_msj_done.html'},
         name = 'password_reset_done'),
         
     url(r'^reset/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>.+)/$', password_reset_confirm,{'template_name':'RecuperarPassword/password_reset_confirm.html'},
@@ -22,5 +22,6 @@ urlpatterns = patterns('',
        
     url(r'^reset/done', password_reset_complete, {'template_name': 'RecuperarPassword/password_reset_complete.html'},
         name = 'password_reset_complete'),
-
+        
+       
 )

@@ -4,6 +4,7 @@
 {% block content %}
 	<form action="." method="POST">
 		<h2>Registro</h2>
+		<br>
 		{% csrf_token %}
 		{{form.as_p}}
 		<div align="center">

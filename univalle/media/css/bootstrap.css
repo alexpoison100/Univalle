@@ -5,6 +5,12 @@
  */
 
 /*! normalize.css v3.0.2 | MIT License | git.io/normalize */
+/* El tamaño por defecto de 200px ya estaría establecido previamente */
+.imagen {
+  height: auto;
+  max-width: 170%;
+}
+
 html {
   font-family: sans-serif;
   -webkit-text-size-adjust: 100%;
