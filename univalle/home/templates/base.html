@@ -15,34 +15,34 @@
 	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1">
     <!-- Favicons
     ================================================== -->
-    <link rel="shortcut icon" href="/media/img/favicon.ico" type="image/x-icon">
-    <link rel="apple-touch-icon" href="/media/img/apple-touch-icon.png">
-    <link rel="apple-touch-icon" sizes="72x72" href="/media/img/apple-touch-icon-72x72.png">
-    <link rel="apple-touch-icon" sizes="114x114" href="/media/img/apple-touch-icon-114x114.png">
+    <link rel="shortcut icon" href="/media/home/img/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" href="/media/home/img/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="/media/home/img/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="/media/home/img/apple-touch-icon-114x114.png">
 
 
     <!-- Bootstrap -->
     <!-- <link rel="stylesheet" type="text/css"  href="css/bootstrap.css">-->
-    <link rel="stylesheet" type="text/css" href="/media/css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="/media/home/css/bootstrap.css">
     <!-- <link rel="stylesheet" type="text/css" href="fonts/font-awesome/css/font-awesome.css">-->
-    <link rel="stylesheet" type="text/css" href="/media/fonts/font-awesome/css/font-awesome.css">
+    <link rel="stylesheet" type="text/css" href="/media/home/fonts/font-awesome/css/font-awesome.css">
 
     <!-- Slider
     ================================================== -->
-    <link href="/media/css/owl.carousel.css" rel="stylesheet" media="screen">
-    <link href="/media/css/owl.theme.css" rel="stylesheet" media="screen">
+    <link href="/media/home/css/owl.carousel.css" rel="stylesheet" media="screen">
+    <link href="/media/home/css/owl.theme.css" rel="stylesheet" media="screen">
 
     <!-- Stylesheet
     ================================================== -->
-    <link rel="stylesheet" type="text/css"  href="/media/css/style.css">
-    <link rel="stylesheet" type="text/css" href="/media/css/responsive.css">
+    <link rel="stylesheet" type="text/css"  href="/media/home/css/style.css">
+    <link rel="stylesheet" type="text/css" href="/media/home/css/responsive.css">
 
     <link href='http://fonts.googleapis.com/css?family=Lato:100,300,400,700,900,100italic,300italic,400italic,700italic,900italic' rel='stylesheet' type='text/css'>
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,700,300,600,800,400' rel='stylesheet' type='text/css'>
 
-    <script type="text/javascript" src="/media/js/modernizr.custom.js"></script>
+    <script type="text/javascript" src="/media/home/js/modernizr.custom.js"></script>
 
-	<link rel="stylesheet" type="text/css" href="/media/css/style_login.css">
+	<link rel="stylesheet" type="text/css" href="/media/home/css/style_login.css">
 	
 </head>
 <body>
@@ -61,7 +61,7 @@
           </button>
 
               <div class="col-md-6">
-                        <a href="/"><img src="/media/img/logo.png" class="img-responsive"width="770" height="430" border="0"></a>
+                        <a href="/"><img src="/media/home/img/logo.png" class="img-responsive"width="770" height="430" border="0"></a>
              </div>
         </div>
         <!-- ingresar usuario -->
@@ -71,10 +71,10 @@
                     <!-- user profile -->
                     <div align="center" class="profile">
                         {% if user.is_authenticated %}
-                        <img src="/media/img/user.png"/>
+                        <img src="/media/home/img/user.png"/>
                         <a href="" class="name">{{user.username}}</a>
                         {% else %}
-                        <img src="/media/img/nouser.png"/>
+                        <img src="/media/home/img/nouser.png"/>
                         <a href="" class="name">Mi Cuenta</a>
                         {% endif %} 
                         <!-- more menu -->

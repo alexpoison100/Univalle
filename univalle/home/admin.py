@@ -7,3 +7,4 @@ from univalle.home.models import *
 admin.site.register(userProfile)
 #admin.site.register(programasAcademico)
 admin.site.register(inscripciones)
+
