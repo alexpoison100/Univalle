@@ -53,6 +53,8 @@ class InscripcionesForm(forms.Form):
 	nombre = forms.CharField(label='Nombre',widget=forms.TextInput(attrs={'required': True,'type':"text", 'class':"form-control",'placeholder':'Ingrese Nombres'}))
 	apellido = forms.CharField(label='Apellido',widget=forms.TextInput(attrs={'required': True,'type':"text", 'class':"form-control",'placeholder':'Ingrese Apellidos'}))
 	snp = forms.CharField(label='Código SNP',widget=forms.TextInput(attrs={'required': True,'type':"text", 'class':"form-control",'placeholder':'Ingrese su SNP'}))
+	Puntaje_icfes = forms.CharField(label='Puntaje_icfes',widget=forms.TextInput(attrs={'required': False,'type':"text", 'class':"form-control"}))
+
 	programas_academicos= forms.ModelChoiceField(label='Seleccione la Carrera',widget=forms.Select(attrs={'required': True,'class':"form-control"}), queryset=programasAcademico.objects.all())
 
 		#validar si el número de cédula ya existe
