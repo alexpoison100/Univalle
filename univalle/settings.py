@@ -136,5 +136,4 @@ EMAIL_USE_TLS = True
 MEDIA_ROOT = os.path.normpath(os.path.join(os.path.dirname(__file__),'media/'))
 MEDIA_URL = '/media/'
 
-
-#esta es una prueba para github
+#alex prueba    
