@@ -89,18 +89,38 @@
                 </li>
             </ul>
         </div>
-	
+        
+	    <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="/" class="page-scroll"><strong>Inicio</strong></a></li>
+            <li><a href="/#tf-about" class="page-scroll"><strong>Acerca de Univalle</strong></a></li>
+            <li><a href="/#tf-team" class="page-scroll"><strong>Team</strong></a></li>
+            <li><a href="/#tf-admisiones" class="page-scroll"><strong>Admisiones</strong></a></li>
+            <li><a href="/#tf-noticias" class="page-scroll"><strong>Noticias</strong></a></li>
+            <li><a href="/#tf-contact" class="page-scroll"><strong>Contáctanos</strong></a></li>
+            {%if user.is_authenticated %}
+            <li><a href="{% url 'vista_inscripciones' %}" class="page-scroll"><strong>Inscripciones</strong></a></li>
+            <li><a href="{% url 'vista_resultados' %}" class="page-scroll"><strong>Resultados</strong></a></li>
+            {% endif %} 
+            {%if user.is_authenticated and user.is_staff%} <!-- si el usuario es admin o root puede entrar al panel administrador -->
+            <li><a href="https://univalle-cloned-alexpoison100.c9users.io/admin/" class="page-scroll"><strong>Administrador</strong></a></li>
+            {% endif %} 
+          </ul>
+        </div><!-- /.navbar-collapse -->
       </div><!-- /.container-fluid -->
     </nav>
     
      <!-- formulario Section
     ==========================================-->
-    <div id="tf-admisiones" class="text-center">
-        <div class="containerFormularios">
-            <div class="section-title center">
+    <div id="tf-admisiones" class="container">
+        <div class="text-center">
+            <div class="containerFormularios">
+                <div class="section-title center">
     				{% block content %}
 
 					{% endblock %}
+                </div>
             </div>
         </div>
     </div>

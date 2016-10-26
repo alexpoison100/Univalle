@@ -1574,9 +1574,9 @@ pre code {
   margin-left: auto;
 }
 .containerFormularios {
-  padding-top: 60px;
-  padding-right: 15px;
-  padding-left: 200px;
+  padding-top: 100px;
+  padding-right: auto;
+  padding-left: auto;
   margin-right: auto;
   margin-left: auto;
 }
