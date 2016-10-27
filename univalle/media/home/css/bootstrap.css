@@ -1313,6 +1313,7 @@ mark,
 }
 .text-center {
   text-align: center;
+  font-weight: bold; /*negrita al font*/
 }
 .text-justify {
   text-align: justify;
@@ -1574,7 +1575,7 @@ pre code {
   margin-left: auto;
 }
 .containerFormularios {
-  padding-top: 100px;
+  padding-top: 170px;
   padding-right: auto;
   padding-left: auto;
   margin-right: auto;
