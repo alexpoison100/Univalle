@@ -1,0 +1,85 @@
+{% extends "base_admin.html" %}
+{% block title %}Crear usuario{% endblock title %}
+{% block content %}
+    <h1 class="page-header text-overflow">Creación de usuario administrador y/o superior</h1>
+<div class="panel">
+    <div class="panel-heading panel-colorful panel-primary">
+        <h3 class="panel-title">Registro de usuario</h3>
+    </div>
+    <br>
+    <div id="demo-custom-toolbar" class="table-toolbar-right" style="text-align: right">
+        <a href="/listar_user/" class="btn btn-mint btn-labeled fa fa-list-alt text-lg"><b>Listar usuarios</b></a>
+    </div>
+    <form name="FormularioRegistroUsuario" id="demo-bv-bsc-tabs" class="form-horizontal" action="" method="post">
+            {% csrf_token %}
+            <div class="panel-body">
+            <fieldset>
+                <div class="form-group">
+                <label class="col-lg-3 control-label">Usuario</label>
+                    <div class="col-lg-7">
+                    {{ form.username }}
+                    </div>
+                </div>
+            </fieldset>
+
+            <fieldset>
+                <div class="form-group">
+                <label class="col-lg-3 control-label">Correo electrónico</label>
+                <div class="col-lg-7">
+                {{ form.email }}
+                </div>
+                </div>
+            </fieldset>
+            
+            <fieldset>
+                <div class="form-group">
+                <label class="col-lg-3 control-label">Contraseña</label>
+                <div class="col-lg-7">
+                {{ form.password_one }}
+                </div>
+                </div>
+            </fieldset>
+            
+            <fieldset>
+                <div class="form-group">
+                <label class="col-lg-3 control-label">Confirmar Contraseña</label>
+                <div class="col-lg-7">
+                {{ form.password_two }}
+                </div>
+                </div>
+            </fieldset>
+            
+            <fieldset>
+                               <!-- Rol y opciones-->
+                <div class="form-group">
+                    <label class="col-lg-3 control-label">Rol</label>
+                        <div class="col-lg-7">
+                            <div class="radio">
+                                <!--{% for radio in form.rol %}-->
+                                <!--    <label class="form-radio form-icon active" id="alert-fields-votante">-->
+                                <!--        {{ radio.tag }}-->
+                                <!--    </label>-->
+                                <!--    {{ radio.choice_label}}-->
+                                <!--{% endfor %}-->
+                            </div>
+                        </div>
+                </div>
+                    
+
+            </fieldset>
+        <!--===================================================-->
+
+        <!--===================================================-->
+        {{ form.info }}
+        </div>
+            <div class="panel-footer">
+                <div class="row">
+                    <div class="col-sm-7 col-sm-offset-3">
+                    <button class="btn btn-default" type="submit" name="btncreate">Crear Usuario</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+</div>
+
+{% endblock %}

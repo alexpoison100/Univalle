@@ -1,0 +1,20 @@
+{% extends "base_admin.html" %}
+{% block title %}Consultar, editar y eliminar usuarios{% endblock title %}
+{% block content %}
+    <h1 class="page-header text-overflow">Listado de usuarios administradores y/o superiores</h1>
+<div class="panel">
+    <div class="panel-heading panel-colorful panel-primary">
+        <h3 class="panel-title">Listado de usuarios</h3>
+    </div>
+    <div id="demo-custom-toolbar" class="table-toolbar-left" style="text-align: right">
+        <a href="{% url 'registro_usuario' %}" class="btn btn-mint btn-labeled fa fa-plus"><b>Crear usuario</b></a>
+    </div>
+    <div class="panel-body">
+    <form name="formDelete" method="post">
+    {% csrf_token %}
+        
+    </form>
+    </div>
+</div>
+   
+{% endblock %}

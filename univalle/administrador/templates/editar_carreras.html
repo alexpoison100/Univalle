@@ -1,0 +1,51 @@
+{% extends "base_admin.html" %}
+{% block title %}Editar Carreras{% endblock title %}
+{% block content %}
+    <h1 class="page-header text-overflow">Edición de Carrera Universitaria</h1>
+<div class="panel">
+    <div class="panel-heading panel-colorful panel-primary">
+        <h3 class="panel-title">Editar Carrera</h3>
+    </div>
+    <br>
+    <div id="demo-custom-toolbar" class="table-toolbar-right" style="text-align: right">
+        <a href="/listar_carreras/page/1/*" class="btn btn-success btn-sm fa fa-list-alt text-lg"><b> Listar Carreras</b></a>
+    </div>
+    <form name="FormularioRegistroUsuario" id="demo-bv-bsc-tabs" class="form-horizontal" action="" method="post">
+            {% csrf_token %}
+            <div class="panel-body">
+            <fieldset>
+                <div class="form-group">
+                <label class="col-lg-3 control-label">Código</label>
+                    <div class="col-lg-7" readonly="readonly">
+                    {{ form.codigo }}
+                    </div>
+                </div>
+            </fieldset>
+
+            <fieldset>
+                <div class="form-group">
+                <label class="col-lg-3 control-label">Nombre de la Carrera</label>
+                <div class="col-lg-7">
+                {{ form.nombre }}
+                </div>
+                </div>
+            </fieldset>
+        <!--===================================================-->
+        
+        </div>
+            <div class="panel-footer">
+                <div class="row">
+                    <div class="col-sm-7 col-sm-offset-3">
+                    <button id="btn-envio" class="btn btn-danger" type="submit" name="btncreate">Actualizar</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+</div>
+<script>
+    window.onload= function() {
+        llamarMensajes('{{ llamarMensaje }}' , '{{ mensaje }}');
+    };
+</script>
+
+{% endblock %}

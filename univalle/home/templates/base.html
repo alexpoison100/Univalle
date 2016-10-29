@@ -48,7 +48,7 @@
 <body>
 	 <!-- Navigation
     ==========================================-->
-    <nav id="tf-menu" class="navbar navbar-default navbar-fixed-top">
+    <nav id="tf-menu1" class="navbar navbar-default navbar-fixed-top">
             
       <div class="container">
         <!-- Brand and toggle get grouped for better mobile display -->
@@ -98,7 +98,7 @@
             <li><a href="/#tf-team" class="page-scroll"><strong>Team</strong></a></li>
             <li><a href="/#tf-admisiones" class="page-scroll"><strong>Admisiones</strong></a></li>
             <li><a href="/#tf-noticias" class="page-scroll"><strong>Noticias</strong></a></li>
-            <li><a href="/#tf-contact" class="page-scroll"><strong>Contáctanos</strong></a></li>
+            <li><a href="/#tf-testimonials" class="page-scroll"><strong>Contáctanos</strong></a></li>
             {%if user.is_authenticated %}
             <li><a href="{% url 'vista_inscripciones' %}" class="page-scroll"><strong>Inscripciones</strong></a></li>
             <li><a href="{% url 'vista_resultados' %}" class="page-scroll"><strong>Resultados</strong></a></li>
@@ -113,19 +113,16 @@
     
      <!-- formulario Section
     ==========================================-->
-    <div id="tf-admisiones" class="container">
-        <div class="text-center">
+     <div id="tf-base" class="text-center">
+        <div class="overlay">
             <div class="containerFormularios">
-                <div class="section-title center">
-    				{% block content %}
-
-					{% endblock %}
-                </div>
+                {% block content %}
+                
+                {% endblock %}
             </div>
         </div>
     </div>
-
-	
+    
 </body>
 
 

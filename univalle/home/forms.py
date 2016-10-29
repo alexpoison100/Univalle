@@ -6,10 +6,10 @@ from univalle.home.models import *
 
 
 class ContactForm(forms.Form):
-	Nombre	= forms.CharField(label="Nombre",widget=forms.TextInput(attrs={'required': True,'type':"text",'class':"form-control"}))
+	Nombre	= forms.CharField(label="Nombre",widget=forms.TextInput(attrs={'required': True,'type':"text",'class':"form-control",'placeholder':'Ingrese Nombre'}))
 	Correo	= forms.EmailField(label="Correo Electrónico",widget=forms.TextInput(attrs={'required': True,'type':"email",'class':"form-control",'placeholder':"Ingrese Correo Electrónico"}))
-	Asunto	= forms.CharField(label="Asunto",widget=forms.TextInput(attrs={'required': True,'type':"text",'class':"form-control"}))
-	Mensaje	= forms.CharField(label="Mensaje",widget=forms.Textarea(attrs={'required': True,'class':"form-control",'rows':3}))
+	Asunto	= forms.CharField(label="Asunto",widget=forms.TextInput(attrs={'required': True,'type':"text",'class':"form-control",'placeholder':'Ingrese Asunto'}))
+	Mensaje	= forms.CharField(label="Mensaje",widget=forms.Textarea(attrs={'required': True,'class':"form-control",'rows':5,'placeholder':'Ingrese Mensaje'}))
 
 class LoginForm(forms.Form):
 	Usuario = forms.CharField(widget=forms.TextInput(attrs={'required': True,'type':"text", 'class':"form-control",'placeholder':'Ingrese Usuario'}))

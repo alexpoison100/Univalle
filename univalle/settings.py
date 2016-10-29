@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'univalle.home',
+    'univalle.administrador',
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -59,7 +60,8 @@ AUTH_PROFILE_MODULE= 'home.userProfile'#identificar o definir el perfil de los u
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'home/templates'),],
+        'DIRS': [os.path.join(BASE_DIR, 'home/templates'),
+                 os.path.join(BASE_DIR, 'admin/templates'),],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

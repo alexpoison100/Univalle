@@ -19,11 +19,13 @@ class userProfile(models.Model):
 		return self.user.username
 	
 class programasAcademico(models.Model):
-	codigo		=models.IntegerField()
+	codigo		=models.BigIntegerField(null=False, unique=True, primary_key=True)
 	nombre		=models.CharField(max_length=100)
+	status		=models.BooleanField(default=True)
+
 
 	def __unicode__(self):
-		return self.nombre
+		return '%s - %s' % (self.codigo, self.nombre)
 
 class inscripciones(models.Model):
 	cedula		=models.IntegerField()

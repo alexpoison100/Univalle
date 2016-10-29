@@ -1,0 +1,76 @@
+{% extends "base_admin.html" %}
+{% block title %}Consultar, editar y eliminar carreras{% endblock title %}
+{% block content %}
+    <h1 class="page-header text-overflow">Listado de carreras de la Universidad</h1>
+<div class="panel">
+    <div class="panel-heading panel-colorful panel-primary">
+        <h3 class="panel-title">Listado de las carreras Universitaria</h3>
+    </div>
+    <div id="demo-custom-toolbar" class="table-toolbar-left" style="text-align: right">
+        <a href="{% url 'vista_crear_carrera' %}" class="btn btn-success btn-sm fa fa-plus"><b> Crear carrera</b></a>
+    </div>
+    <div class="panel-body">
+    <form name="formDelete" method="post">
+{% if carreras %}
+        <table id="demo-dt-delete" class="table table-striped table-bordered" cellspacing="0" width="100%">
+            <thead>
+                <tr>
+                    <th class="min-desktop">Código</th>
+                    <th class="min-tablet">Nombre</th>
+                    <th class="min-tablet">Acción</th>
+                </tr>
+            </thead>
+        {% for c in carreras %}
+            <tbody>
+                
+                    <tr>
+                        <td>{{ c.codigo }}</td>
+                        <td>{{ c.nombre }} </td>
+                        <td>
+                            <!--acciones - boton editar y eliminar-->
+                            <a class="btn btn-success btn-xs add-tooltip" data-toggle="tooltip" href="/editar_carrera/{{ c.codigo }}" data-original-title="Editar" data-container="body"><i class="fa fa-pencil"></i></a>
+                            <a id="{{ usuario.username }}" name="usuario" class="demo-bootbox-confirm"  data-toggle="tooltip" href="#" data-original-title="Eliminar" data-container="body"><i class="btn btn-xs btn-danger add-tooltip btn-info fa fa-times"></i></a>
+                        </td>
+                    </tr>
+            </tbody>
+        {% endfor %}
+        </table>
+{% else %}
+        <h2>No existen carreras</h2>
+{% endif %}
+
+{% if carreras %}
+        <div >
+        <table id="demo-dt-delete"  width="15%">
+            <thead>
+                <tr>
+                    <th class="min-tablet"><a href="/listar_carreras/page/1/"> << </a></th>
+                     {% if carreras.has_previous %}
+                    <th class="min-tablet"><a href="/listar_carreras/page/{{carreras.previous_page_number}}"> Prev </a></th>
+                    {% else %}
+                    <th class="min-tablet"><a href="#"> Prev </a></th>
+                    {% endif %}
+                    {% if carreras.has_next %}
+                    <th class="min-tablet"><a href="/listar_carreras/page/{{carreras.next_page_number}}"> Next </a></th>
+                    {% else %}
+                    <th class="min-tablet"><a href="#"> Next </a></th>
+                    {% endif %}
+                    <th class="min-tablet"><a href="/listar_carreras/page/{{carreras.paginator.num_pages}}"> >> </a></th>
+                    
+                </tr>
+            </thead>
+        </table>
+        
+         <table id="demo-dt-delete" class="table table-striped table-bordered" cellspacing="0" width="100%">
+            <thead>
+                <tr>
+                    <th class="min-desktop"><h4><b>Página {{ carreras.number }} de {{ carreras.paginator.num_pages}}</b></h4></th>
+                </tr>
+            </thead>   
+        </table>
+        </div>
+    </form>
+    </div>
+</div>
+{% endif %}   
+{% endblock %}

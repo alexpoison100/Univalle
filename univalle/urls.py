@@ -7,7 +7,10 @@ from django.contrib.auth.views import password_reset, password_reset_done, passw
 urlpatterns = patterns('',
     (r'^admin/', include(admin.site.urls)),
     (r'^', include('univalle.home.urls')),
+    (r'^', include('univalle.administrador.urls')),
     (r'^media/(?P<path>.*)$', 'django.views.static.serve',{'document_root':settings.MEDIA_ROOT}),
+    
+    
     
     # vistas del reset del password
     url(r'^reset/password_reset', password_reset,{'template_name':'RecuperarPassword/password_reset_form.html', 
