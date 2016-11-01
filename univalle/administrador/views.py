@@ -5,10 +5,11 @@ from univalle.administrador.forms import *
 from univalle.administrador.models import *
 from univalle.home.models import *
 from django.core.mail import EmailMultiAlternatives #Enviamos html
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
 from django.core.paginator import Paginator, EmptyPage, InvalidPage#paginacion de Django
 from django.contrib.auth.models import User
 from django.core.exceptions import MultipleObjectsReturned
+import simplejson
 
 
 # creamos nuestras vistas
@@ -107,9 +108,23 @@ def editar_carrera_view(request,codigo=None):
 		return HttpResponseRedirect('/login')
 
 def listar_carreras_view(request,pagina):
+	#Metodo POST para eliminar programa academico
 	if request.user.is_authenticated():
+		if request.method=="POST":
+			if "programa_id" in request.POST:
+				try:
+					codigo = request.POST['programa_id']
+					p = programasAcademico.objects.get(codigo=codigo)
+					mensaje = {"status":"True","programa_id":p.codigo}
+					p.delete() # Eliminamos objeto de la base de datos
+					return HttpResponse(simplejson.dumps(mensaje),content_type ='application/json')
+				except:
+					mensaje = {"status":"False"}
+					return HttpResponse(simplejson.dumps(mensaje),content_type ='application/json')
+					
+	#Metodo  para listar programas academicos				
 		lista_carr = programasAcademico.objects.filter(status=True)
-		paginator = Paginator(lista_carr,10)
+		paginator = Paginator(lista_carr,7)
 		try:
 			page = int(pagina)
 		except:
@@ -123,13 +138,4 @@ def listar_carreras_view(request,pagina):
 		return render(request, 'listar_carreras.html',ctx)
 	else:
 		return HttpResponseRedirect('/login')
-		
-		
-		
-		
-		
-		
-		
-		
-	
-	
+

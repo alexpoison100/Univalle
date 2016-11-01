@@ -31,7 +31,7 @@
   <!-- bootstrap wysihtml5 - text editor -->
   <link rel="stylesheet" href="/media/administrador/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
   
-  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/4.4.0/bootbox.min.js">
 
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -45,7 +45,7 @@
 
   <header class="main-header">
     <!-- Logo -->
-    <a href="index2.html" class="logo">
+    <a href="{% url 'vista_administrador' %}" class="logo">
       <!-- mini logo for sidebar mini 50x50 pixels -->
       <span class="logo-mini"><b>P-</b>A</span>
       <!-- logo for regular state and mobile devices -->
@@ -254,20 +254,31 @@
        immediately after the control sidebar -->
   <div class="control-sidebar-bg"></div>
 </div>
-<!-- ./wrapper -->
-<script src="/media/administrador/dist/js/demo.js"></script>
-<script src="/media/administrador/bootstrap/js/llamarMensajes.js"></script>
-
 
 <!-- jQuery 2.2.3 -->
 <script src="/media/administrador/plugins/jQuery/jquery-2.2.3.min.js"></script>
-<script src="/media/administrador/plugins/jQuery/notify.js"></script>
 <!-- jQuery UI 1.11.4 -->
 <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
 <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
 <script>
   $.widget.bridge('uibutton', $.ui.button);
 </script>
+
+<!-- ./wrapper -->
+<script src="/media/administrador/dist/js/demo.js"></script>
+<script src="/media/administrador/bootstrap/js/llamarMensajes.js"></script>
+
+
+<!-- jQuery 2.2.3 -->
+<script src="/media/administrador/plugins/jQuery/demo.js"></script>
+<script src="/media/administrador/plugins/jQuery/jquery-2.2.3.min.js"></script>
+<script src="/media/administrador/plugins/jQuery/notify.js"></script>
+<script src="/media/administrador/plugins/jQuery/ui-modals.js"></script>
+<script src="/media/administrador/plugins/jQuery/jquery.form.min.js"></script>
+<!--<script src="/media/administrador/plugins/bootbox/bootbox.min.js"></script>-->
+<!--<script src="/media/administrador/plugins/bootbox/bootbox.js"></script>-->
+<script src="/media/administrador/plugins/jQuery/jquery.js"></script>
+
 <!-- Bootstrap 3.3.6 -->
 <script src="/media/administrador/bootstrap/js/bootstrap.min.js"></script>
 <!-- Morris.js charts -->
@@ -296,6 +307,6 @@
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 <script src="/media/administrador/dist/js/pages/dashboard.js"></script>
 <!-- AdminLTE for demo purposes -->
-
+<script src="/media/administrador/dist/js/demo.js"></script>
 </body>
 </html>

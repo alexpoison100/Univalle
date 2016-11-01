@@ -10,5 +10,5 @@ urlpatterns = patterns('',
     url(r'^crear_carrera/$', views.register_carrera_view,name='vista_crear_carrera'),
     url(r'^editar_carrera/(?P<codigo>.*)/$', views.editar_carrera_view,name='vista_editar_carrera'),
     url(r'^listar_user/$', views.listar_usuario_view,name='vista_listar_user'),
-    url(r'^listar_carreras/page/(?P<pagina>.*)/$', views.listar_carreras_view,name='vista_listar_carreras'),   
+    url(r'^listar_carreras/page/(?P<pagina>.*)/$', views.listar_carreras_view,name='vista_listar_carreras'), 
 )

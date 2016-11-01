@@ -1,6 +1,32 @@
 {% extends "base_admin.html" %}
 {% block title %}Consultar, editar y eliminar carreras{% endblock title %}
 {% block content %}
+
+
+<!--IniciaModal-->
+ <div id="myModal" class="modal fade">
+  <div class="modal-dialog">
+    <div class="modal-content">
+        <h3 id="myModalLabel"> Eliminar Programa Académico</h3>
+      <!-- dialog body -->
+      <div class="modal-body">
+        <p>¿Realmente desea eliminar el programa Académico <span id="modal_name"></span>?</p>
+      </div>
+      <!-- dialog buttons -->
+      <div class="modal-footer">
+        <form method="post" id="frmEliminar">
+              {% csrf_token %}
+              <input type="hidden" id="modal_idPrograma" name="programa_id">
+              <button class="btn btn-success" data-dismiss="modal" aria-hidden="true">Cancelar</button>
+              <button type="submit" class="btn btn-danger">Eliminar</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<!--EndModal-->
+
+
     <h1 class="page-header text-overflow">Listado de carreras de la Universidad</h1>
 <div class="panel">
     <div class="panel-heading panel-colorful panel-primary">
@@ -23,13 +49,13 @@
         {% for c in carreras %}
             <tbody>
                 
-                    <tr>
+                    <tr id="tr{{c.codigo}}">
                         <td>{{ c.codigo }}</td>
                         <td>{{ c.nombre }} </td>
                         <td>
                             <!--acciones - boton editar y eliminar-->
-                            <a class="btn btn-success btn-xs add-tooltip" data-toggle="tooltip" href="/editar_carrera/{{ c.codigo }}" data-original-title="Editar" data-container="body"><i class="fa fa-pencil"></i></a>
-                            <a id="{{ usuario.username }}" name="usuario" class="demo-bootbox-confirm"  data-toggle="tooltip" href="#" data-original-title="Eliminar" data-container="body"><i class="btn btn-xs btn-danger add-tooltip btn-info fa fa-times"></i></a>
+                            <a class="btn btn-success btn-xs add-tooltip" data-toggle="tooltip" href="/editar_carrera/{{ c.codigo }}" data-original-title="Editar" data-container="body"><i class="fa fa-pencil" ></i></a>
+                            <a href="#myModal" role="button" class="btn delete" data-toggle="modal" id="{{ c.codigo }}" data-name=" {{ c.nombre }}" data-container="body" ><i class="btn btn-xs btn-danger add-tooltip btn-info fa fa-trash-o" data-toggle="tooltip" data-original-title="Eliminar"></i></a>
                         </td>
                     </tr>
             </tbody>
