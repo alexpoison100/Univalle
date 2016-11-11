@@ -1,20 +1,102 @@
 {% extends "base_admin.html" %}
 {% block title %}Consultar, editar y eliminar usuarios{% endblock title %}
 {% block content %}
-    <h1 class="page-header text-overflow">Listado de usuarios administradores y/o superiores</h1>
+
+
+<!--IniciaModal-->
+ <div id="myModal" class="modal fade">
+  <div class="modal-dialog">
+    <div class="modal-content">
+        <h3 id="myModalLabel"> Eliminar Usuario</h3>
+      <!-- dialog body -->
+      <div class="modal-body">
+        <p>¿Realmente desea eliminar el Usuario <span id="modal_name"></span>?</p>
+      </div>
+      <!-- dialog buttons -->
+      <div class="modal-footer">
+        <form method="post" id="frmEliminar">
+              {% csrf_token %}
+              <input type="hidden" id="modal_idPrograma" name="programa_id">
+              <button class="btn btn-success" data-dismiss="modal" aria-hidden="true">Cancelar</button>
+              <button type="submit" class="btn btn-danger">Eliminar</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<!--EndModal-->
+
+
+    <h1 class="page-header text-overflow">Listado de usuario administrador y/o superior</h1>
 <div class="panel">
     <div class="panel-heading panel-colorful panel-primary">
-        <h3 class="panel-title">Listado de usuarios</h3>
+        <h3 class="panel-title">Lista de usuarios</h3>
     </div>
     <div id="demo-custom-toolbar" class="table-toolbar-left" style="text-align: right">
-        <a href="{% url 'registro_usuario' %}" class="btn btn-mint btn-labeled fa fa-plus"><b>Crear usuario</b></a>
+        <a href="{% url 'vista_crear_user' %}" class="btn btn-success btn-sm fa fa-plus"><b> Crear Usuario</b></a>
     </div>
     <div class="panel-body">
     <form name="formDelete" method="post">
-    {% csrf_token %}
+{% if usuarios %}
+        <table id="demo-dt-delete" class="table table-striped table-bordered" cellspacing="0" width="100%">
+            <thead>
+                <tr>
+                    <th class="min-tablet">Usuario</th>
+                    <th class="min-tablet">Correo electrónico</th>
+                    <th class="min-tablet">Acción</th>
+                </tr>
+            </thead>
+        {% for u in usuarios %}
+            <tbody>
+                
+                    <tr id="tr{{u.id}}">
+                        <td>{{ u.username }} </td>
+                        <td>{{ u.email }} </td>
+                        <td>
+                            <!--acciones - boton editar y eliminar-->
+                            <a class="btn btn-success btn-xs add-tooltip" data-toggle="tooltip" href="/editar_usuario/{{ u.pk }}" data-original-title="Editar" data-container="body"><i class="fa fa-pencil" ></i></a>
+                            <a href="#myModal" role="button" class="btn delete" data-toggle="modal" id="{{ u.pk }}" data-name=" {{ u.username }}" data-container="body" ><i class="btn btn-xs btn-danger add-tooltip btn-info fa fa-trash-o" data-toggle="tooltip" data-original-title="Eliminar"></i></a>
+                        </td>
+                    </tr>
+            </tbody>
+        {% endfor %}
+        </table>
+{% else %}
+        <h2>No existen Usuarios</h2>
+{% endif %}
+
+{% if usuarios %}
+        <div >
+        <table id="demo-dt-delete"  width="15%">
+            <thead>
+                <tr>
+                    <th class="min-tablet"><a href="/listar_user/page/1/"> << </a></th>
+                     {% if usuarios.has_previous %}
+                    <th class="min-tablet"><a href="/listar_user/page/{{usuarios.previous_page_number}}"> Prev </a></th>
+                    {% else %}
+                    <th class="min-tablet"><a href="#"> Prev </a></th>
+                    {% endif %}
+                    {% if usuarios.has_next %}
+                    <th class="min-tablet"><a href="/listar_user/page/{{usuarios.next_page_number}}"> Next </a></th>
+                    {% else %}
+                    <th class="min-tablet"><a href="#"> Next </a></th>
+                    {% endif %}
+                    <th class="min-tablet"><a href="/listar_user/page/{{usuarios.paginator.num_pages}}"> >> </a></th>
+                    
+                </tr>
+            </thead>
+        </table>
         
+         <table id="demo-dt-delete" class="table table-striped table-bordered" cellspacing="0" width="100%">
+            <thead>
+                <tr>
+                    <th class="min-desktop"><h4><b>Página {{ usuarios.number }} de {{ usuarios.paginator.num_pages}}</b></h4></th>
+                </tr>
+            </thead>   
+        </table>
+        </div>
     </form>
     </div>
 </div>
-   
+{% endif %}   
 {% endblock %}

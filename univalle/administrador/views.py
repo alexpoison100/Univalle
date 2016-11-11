@@ -21,29 +21,100 @@ def administrador_view(request):
 		return HttpResponseRedirect('/login')
 	
 def register_user_view(request):
-	info="inicializado"
-	form = RegisterForm()
-	if request.method == "POST":
-		form = RegisterForm(request.POST)
-		if form.is_valid():
-			username = form.cleaned_data['username']
-			email = form.cleaned_data['email']
-			password_one = form.cleaned_data['password_one']
-			password_two = form.cleaned_data['password_two']
-			u = User.objects.create_user(username=username, email=email, password=password_one)
-			u.save()#guarda el usuario
-			return render(request,'thanks_register.html')
-		else:
-			info = "Información con Datos incorrectos"
-			ctx = {'form':form}
-			return render(request,'registro_usuarios.html',ctx)
-
-	ctx	= {'form':form}
-	return render(request,'registro_usuarios.html', ctx)
-	
-def listar_usuario_view(request):
+	mensaje=""
+	llamarMensaje=""
+	form = RegistroUsuarioForm()
 	if request.user.is_authenticated():
-		return render(request,'listar_usuarios.html',ctx)
+		if request.method == "POST":
+			form = RegistroUsuarioForm(request.POST)
+			if form.is_valid():
+				username = form.cleaned_data['username']
+				email = form.cleaned_data['email']
+				password_one = form.cleaned_data['password_one']
+				password_two = form.cleaned_data['password_two']
+				try:
+					u = User.objects.get(username=username)
+				except User.DoesNotExist:
+					if password_one == password_two:
+						u = User.objects.create_user(username=username, email=email, password=password_one)
+						u.save()#guarda el usuario
+						llamarMensaje= "Registro"
+						mensaje= "Registro Satisfactorio!!!!!!"
+						form = RegistroUsuarioForm()
+					else:
+						llamarMensaje="NoRegistro"
+						mensaje="Contraseña no coinciden"
+				else:
+					llamarMensaje="NoRegistro"
+					mensaje="El usuario ya está registrado"
+			else:
+				llamarMensaje="NoRegistro"
+				mensaje = "Correo ya registrado"
+		ctx = {'form':form, 'mensaje':mensaje, 'llamarMensaje':llamarMensaje}
+		return render(request,'registro_usuarios.html',ctx)
+	else:
+		return HttpResponseRedirect('/login')
+
+def editar_usuario_view(request,pk=None): # Ojooooooo aun falta que funcione esta vista de editar usuario
+	mensaje = ""
+	llamarMensaje=""
+	u = User.objects.get(pk=pk)
+	if request.user.is_authenticated():
+		if request.method == "POST":
+			form = EditarUsuarioForm(request.POST)
+			if form.is_valid():
+				username = form.cleaned_data['username']
+				email = form.cleaned_data['email']
+				
+				u = User()
+				u.pk = pk
+				u.username = username
+				u.email = email
+				u.save() #guardar usuario
+				llamarMensaje= "Registro"
+				mensaje= "Actualización Satisfactoria!!!!!!"
+			else:
+				mensaje = "Datos erróneos"
+		#se carga el formulario con los datos del usuario a editar		
+		if request.method == "GET":
+			form = EditarUsuarioForm(initial={
+				'username': u.username,
+				'email': u.email,
+			})
+		ctx = {'form':form, 'mensaje':mensaje, 'llamarMensaje':llamarMensaje}
+		return render(request,'editar_usuarios.html',ctx)
+	else:
+		return HttpResponseRedirect('/login')
+	
+def listar_usuario_view(request,pagina):
+	#Metodo POST para eliminar usuario
+	if request.user.is_authenticated():
+		if request.method=="POST":
+			if "programa_id" in request.POST:
+				try:
+					pk = request.POST['programa_id']
+					u = User.objects.get(pk=pk)
+					mensaje = {"status":"True","programa_id":u.pk}
+					u.delete() # Eliminamos objeto de la base de datos
+					return HttpResponse(simplejson.dumps(mensaje),content_type ='application/json')
+				except:
+					mensaje = {"status":"False"}
+					return HttpResponse(simplejson.dumps(mensaje),content_type ='application/json')
+					
+	#Metodo  para listar usuarios				
+		lista_user = User.objects.filter()
+		paginator = Paginator(lista_user,7)
+		try:
+			page = int(pagina)
+		except:
+			page = 1
+		try:
+			usuarios = paginator.page(page)
+		except:
+			usuarios = paginator.page(paginator.num_pages)
+			
+		ctx = {'usuarios':usuarios}
+		return render(request, 'listar_usuarios.html',ctx)
 	else:
 		return HttpResponseRedirect('/login')
 		
@@ -98,7 +169,7 @@ def editar_inscripcion_view(request,cedula=None):
 				nombre = form.cleaned_data['nombre']
 				apellido = form.cleaned_data['apellido']
 				snp = form.cleaned_data['snp']
-				programa = str(form.cleaned_data['programas_academicos'])
+				programa = str(form.cleaned_data['programas_academicos'])#convierto el objeto a string
 				
 				i = inscripciones() #creo una instancia de la clase inscripcion
 				
