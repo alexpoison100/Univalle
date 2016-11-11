@@ -1,5 +1,5 @@
 from django.conf.urls import *
-from django.conf.urls import include, url
+from django.conf.urls import *
 from django.contrib import admin
 from django.conf import settings
 from django.contrib.auth.views import password_reset, password_reset_done, password_reset_confirm, password_reset_complete

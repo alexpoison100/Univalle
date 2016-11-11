@@ -46,6 +46,118 @@ def listar_usuario_view(request):
 		return render(request,'listar_usuarios.html',ctx)
 	else:
 		return HttpResponseRedirect('/login')
+		
+def register_inscripcion_view(request):
+	mensaje=""
+	llamarMensaje=""
+	form = RegistroInscripcionesForm()
+	if request.user.is_authenticated():
+		if request.method == "POST":
+			form = RegistroInscripcionesForm(request.POST)
+			if form.is_valid():
+				cedula = form.cleaned_data['cedula']
+				nombre = form.cleaned_data['nombre']
+				apellido = form.cleaned_data['apellido']
+				snp = form.cleaned_data['snp']
+				programa = str(form.cleaned_data['programas_academicos'])
+				try:
+					i = inscripciones.objects.get(cedula=cedula)
+				except inscripciones.DoesNotExist:
+					i = inscripciones() #creo una instancia de la clase inscripcion
+					
+					i.cedula = cedula
+					i.nombre = nombre
+					i.apellido = apellido
+					i.snp = snp
+					i.carrera = programa	
+					
+					i.save() #guardar inscripcion
+					llamarMensaje= "Registro"
+					mensaje= "Registro Satisfactorio!!!!!!"
+					form = RegistroInscripcionesForm()
+				else:
+					llamarMensaje="NoRegistro"
+					mensaje="Ya existe un usuario con este número de Cédula"
+			else:
+				mensaje = "Datos erróneos"
+				
+		ctx = {'form':form, 'mensaje':mensaje, 'llamarMensaje':llamarMensaje}
+		return render(request,'registro_inscripciones.html',ctx)
+	else:
+		return HttpResponseRedirect('/login')
+		
+def editar_inscripcion_view(request,cedula=None):
+	mensaje = ""
+	llamarMensaje=""
+	i = inscripciones.objects.get(cedula=cedula)
+	if request.user.is_authenticated():
+		if request.method == "POST":
+			form = EditarInscripcionesForm(request.POST)
+			if form.is_valid():
+				cedula = form.cleaned_data['cedula']
+				nombre = form.cleaned_data['nombre']
+				apellido = form.cleaned_data['apellido']
+				snp = form.cleaned_data['snp']
+				programa = str(form.cleaned_data['programas_academicos'])
+				
+				i = inscripciones() #creo una instancia de la clase inscripcion
+				
+				i.cedula = cedula
+				i.nombre = nombre
+				i.apellido = apellido
+				i.snp = snp
+				i.carrera = programa
+				
+				i.save() #guardar inscripcion
+				llamarMensaje= "Registro"
+				mensaje= "Actualización Satisfactoria!!!!!!"
+			else:
+				mensaje = "Datos erróneos"
+
+		if request.method == "GET":
+			form = EditarInscripcionesForm(initial={
+				'cedula': i.cedula,
+				'nombre': i.nombre,
+				'apellido': i.apellido,
+				'snp': i.snp,
+				'programas_academicos': i.carrera,
+			})
+		ctx = {'form':form, 'mensaje':mensaje, 'llamarMensaje':llamarMensaje}
+		return render(request,'editar_inscripciones.html',ctx)
+	else:
+		return HttpResponseRedirect('/login')
+
+def listar_inscripciones_view(request,pagina):
+	#Metodo POST para eliminar inscripcion
+	if request.user.is_authenticated():
+		if request.method=="POST":
+			if "programa_id" in request.POST:
+				try:
+					cedula = request.POST['programa_id']
+					i = inscripciones.objects.get(cedula=cedula)
+					mensaje = {"status":"True","programa_id":i.cedula}
+					i.delete() # Eliminamos objeto de la base de datos
+					return HttpResponse(simplejson.dumps(mensaje),content_type ='application/json')
+				except:
+					mensaje = {"status":"False"}
+					return HttpResponse(simplejson.dumps(mensaje),content_type ='application/json')
+					
+	#Metodo  para listar inscripciones				
+		lista_inscrip = inscripciones.objects.filter(status=True)
+		paginator = Paginator(lista_inscrip,7)
+		try:
+			page = int(pagina)
+		except:
+			page = 1
+		try:
+			inscripcion = paginator.page(page)
+		except:
+			inscripcion = paginator.page(paginator.num_pages)
+			
+		ctx = {'inscripcion':inscripcion}
+		return render(request, 'listar_inscripciones.html',ctx)
+	else:
+		return HttpResponseRedirect('/login')
 
 def register_carrera_view(request):
 	mensaje=""
@@ -60,10 +172,10 @@ def register_carrera_view(request):
 				try:
 					p = programasAcademico.objects.get(codigo=codigo)
 				except programasAcademico.DoesNotExist:
-					p = programasAcademico() #creo una instancia de la clase inscripcion
+					p = programasAcademico() #creo una instancia de la clase programaAcademico
 					p.codigo = codigo
 					p.nombre = nombre
-					p.save() #guardar inscripcion
+					p.save() #guardar programa
 					llamarMensaje= "Registro"
 					mensaje= "Registro Satisfactorio!!!!!!"
 					form = CarreraForm()
@@ -138,4 +250,4 @@ def listar_carreras_view(request,pagina):
 		return render(request, 'listar_carreras.html',ctx)
 	else:
 		return HttpResponseRedirect('/login')
-
+		

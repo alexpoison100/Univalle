@@ -72,6 +72,13 @@ class InscripcionesForm(forms.Form):
 		except inscripciones.DoesNotExist:
 			return snp #para que valide el formulario como si fuera correcto
 		raise forms.ValidationError('Código SNP ya existe')
+		
+class EditarInscripcionesForm(forms.Form):
+	cedula = forms.IntegerField(label='Cédula',widget=forms.TextInput(attrs={'required': True,'type':"number",'class':"form-control",'placeholder':'Ingrese Número de Cédula'}))
+	nombre = forms.CharField(label='Nombre',widget=forms.TextInput(attrs={'required': True,'type':"text", 'class':"form-control",'placeholder':'Ingrese Nombres'}))
+	apellido = forms.CharField(label='Apellido',widget=forms.TextInput(attrs={'required': True,'type':"text", 'class':"form-control",'placeholder':'Ingrese Apellidos'}))
+	snp = forms.CharField(label='Código SNP',widget=forms.TextInput(attrs={'required': True,'type':"text", 'class':"form-control",'placeholder':'Ingrese su SNP'}))
+	programas_academicos= forms.ModelChoiceField(label='Seleccione la Carrera',widget=forms.Select(attrs={'required': True,'class':"form-control"}), queryset=programasAcademico.objects.all())
 
 class ResultadoForm(forms.Form):
 		programas_academicos= forms.ModelChoiceField(widget=forms.Select(attrs={'required': True,'class': "form-control"}), queryset=programasAcademico.objects.all())
