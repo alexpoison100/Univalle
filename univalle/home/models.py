@@ -31,6 +31,7 @@ class inscripciones(models.Model):
 	nombre		=models.CharField(max_length=100)
 	apellido	=models.CharField(max_length=100)
 	snp			=models.CharField(max_length=50)
+	ref_pago	=models.IntegerField()
 	carrera		=models.CharField(max_length=100)
 	status		=models.BooleanField(default=True)
 

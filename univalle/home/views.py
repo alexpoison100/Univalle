@@ -108,6 +108,7 @@ def add_inscripciones_view(request):
 				nombre = formulario.cleaned_data['nombre']
 				apellido = formulario.cleaned_data['apellido']
 				snp = formulario.cleaned_data['snp']
+				ref_pago = formulario.cleaned_data['ref_pago']
 				programa = str(formulario.cleaned_data['programas_academicos'])
 			
 				i = inscripciones() #creo una instancia de la clase inscripcion
@@ -116,6 +117,7 @@ def add_inscripciones_view(request):
 				i.nombre = nombre
 				i.apellido = apellido
 				i.snp = snp
+				i.ref_pago = ref_pago
 				i.carrera = programa
 				
 				i.save() #guardar inscripcion

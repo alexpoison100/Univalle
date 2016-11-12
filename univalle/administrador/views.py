@@ -130,6 +130,7 @@ def register_inscripcion_view(request):
 				nombre = form.cleaned_data['nombre']
 				apellido = form.cleaned_data['apellido']
 				snp = form.cleaned_data['snp']
+				ref_pago = formulario.cleaned_data['ref_pago']
 				programa = str(form.cleaned_data['programas_academicos'])
 				try:
 					i = inscripciones.objects.get(cedula=cedula)
@@ -140,6 +141,7 @@ def register_inscripcion_view(request):
 					i.nombre = nombre
 					i.apellido = apellido
 					i.snp = snp
+					i.ref_pago = ref_pago
 					i.carrera = programa	
 					
 					i.save() #guardar inscripcion
@@ -169,6 +171,7 @@ def editar_inscripcion_view(request,cedula=None):
 				nombre = form.cleaned_data['nombre']
 				apellido = form.cleaned_data['apellido']
 				snp = form.cleaned_data['snp']
+				ref_pago = form.cleaned_data['ref_pago']
 				programa = str(form.cleaned_data['programas_academicos'])#convierto el objeto a string
 				
 				i = inscripciones() #creo una instancia de la clase inscripcion
@@ -177,6 +180,7 @@ def editar_inscripcion_view(request,cedula=None):
 				i.nombre = nombre
 				i.apellido = apellido
 				i.snp = snp
+				i.ref_pago = ref_pago
 				i.carrera = programa
 				
 				i.save() #guardar inscripcion
@@ -322,3 +326,32 @@ def listar_carreras_view(request,pagina):
 	else:
 		return HttpResponseRedirect('/login')
 		
+def editar_password_view(request,username=None):
+	mensaje = ""
+	llamarMensaje = ""
+	form = EditarPasswordForm()
+	if request.user.is_authenticated():
+		if request.method == "POST":
+			form = EditarPasswordForm(request.POST)
+			if form.is_valid():
+				password_actual = form.cleaned_data['password_actual']
+				password_one = form.cleaned_data['password_one']
+				password_two = form.cleaned_data['password_two']
+				if password_one == password_two:
+					u = User.objects.get(username=username)
+					u.set_password(password_one)
+					u.save()
+					llamarMensaje= "Registro"
+					mensaje= "Su contraseña se cambió correctamente!!!!!!"
+					form = EditarPasswordForm()
+				else:
+					llamarMensaje="NoRegistro"
+					mensaje="Contraseña no coinciden"
+			else:
+				llamarMensaje="NoRegistro"
+				mensaje="Contraseña Actual No válida"
+			
+		ctx = {'form':form, 'mensaje':mensaje, 'llamarMensaje':llamarMensaje}
+		return render(request,'editar_password.html',ctx)
+	else:
+		return HttpResponseRedirect('/login')
