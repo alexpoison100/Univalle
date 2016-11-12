@@ -11,17 +11,18 @@ class RegistroUsuarioForm(forms.Form):
 	password_two = forms.CharField(label="Confirmar Contraseña",widget=forms.PasswordInput(render_value=False, attrs={'required': True,'class':"form-control",'placeholder':"Confirme Contraseña"}))
 		
 	#validar si ya existe el correo 
-	def clean_email(self):
-		email = self.cleaned_data['email']
-		try:
-			u = User.objects.get(email=email)
-		except User.DoesNotExist:
-			return email #para que valide el formulario como si fuera correcto
-		raise forms.ValidationError('Correo ya registrado')
+	# def clean_email(self):
+	# 	email = self.cleaned_data['email']
+	# 	try:
+	# 		u = User.objects.get(email=email)
+	# 	except User.DoesNotExist:
+	# 		return email #para que valide el formulario como si fuera correcto
+	# 	raise forms.ValidationError('Correo ya registrado')
 		
 class EditarUsuarioForm(forms.Form):
-	username = forms.CharField(label="Nombre de Usuario",widget=forms.TextInput(attrs={'required': True,'type':"text", 'class':"form-control",'placeholder':"Ingrese Usuario"}))
+	username = forms.CharField(label="Nombre de Usuario",widget=forms.TextInput(attrs={'required': True,'type':"text", 'class':"form-control",'placeholder':"Ingrese Usuario",'readonly':"readonly"}))
 	email = forms.EmailField(label="Correo Electrónico",widget=forms.TextInput(attrs={'type':"text",'class':"form-control",'placeholder':"Ingrese Correo Electrónico"}))
+	
 	
 class CarreraForm(forms.Form):
     codigo = forms.IntegerField(label="Código",widget=forms.TextInput(attrs={'required': True,'type':"number",'class':"form-control",'placeholder':'Ingrese Código'}))

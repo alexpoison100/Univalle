@@ -46,7 +46,7 @@ def register_user_view(request):
 						mensaje="Contraseña no coinciden"
 				else:
 					llamarMensaje="NoRegistro"
-					mensaje="El usuario ya está registrado"
+					mensaje="Datos incorrectos"
 			else:
 				llamarMensaje="NoRegistro"
 				mensaje = "Correo ya registrado"
@@ -55,7 +55,7 @@ def register_user_view(request):
 	else:
 		return HttpResponseRedirect('/login')
 
-def editar_usuario_view(request,pk=None): # Ojooooooo aun falta que funcione esta vista de editar usuario
+def editar_usuario_view(request,pk=None):
 	mensaje = ""
 	llamarMensaje=""
 	u = User.objects.get(pk=pk)

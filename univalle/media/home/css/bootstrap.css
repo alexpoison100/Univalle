@@ -1093,6 +1093,7 @@ textarea {
   font-family: inherit;
   font-size: inherit;
   line-height: inherit;
+  color:#555;
 }
 a {
   color: #337ab7;
@@ -1575,7 +1576,7 @@ pre code {
   margin-left: auto;
 }
 .containerFormularios {
-  padding-top: 170px;
+  padding-top: 200px;
   padding-right: auto;
   padding-left: auto;
   margin-right: auto;

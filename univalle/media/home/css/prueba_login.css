@@ -1,0 +1,51 @@
+form {
+	color: #ffffff; /*color fuente blanco*/
+	margin: auto;
+	width: 50%;
+	max-width: 500px;
+    background: -webkit-linear-gradient(#4f4f4f, #0a0a0a);/*color del menu*/
+	background: -moz-linear-gradient(#4f4f4f, #0a0a0a);/*color del menu*/
+	border-color: rgba(231, 231, 231, 0);
+	padding: 30px;
+	border: 1px solid rgba(0,0,0,0.2);
+	border-radius: 40px 40px 40px 40px;
+}
+
+.fondoref {
+	background: #F52323;
+	border-color: #F52323;
+	border-radius: 40px 40px 40px 40px;	
+}
+.fondoref a {
+	padding: 1px 1px 1px 1px;
+	height: 40px;
+	
+}
+.fondoref a {
+	color:#FFFFFF;
+}
+.fondoref a:hover {
+	background: #FCAC45;
+	border-color: #FCAC45;
+	color: #060B90;
+}
+
+.btn-defaultg {
+  color: #fff;
+  background-color: #EE2024;
+  border-color: #EE2024;
+  border-radius: 20px;
+  padding: 10px 30px 10px 30px; /*centro los nombres de los botones*/
+  
+}
+
+.btn-defaultg:hover,
+.btn-defaultg:focus,
+.btn-defaultg.focus,
+.btn-defaultg:active,
+.btn-defaultg.active,
+.open > .dropdown-toggle.btn-defaultg {
+  color: #fff;
+  background-color: #fcac45;
+  border-color: #fcac45;
+}
