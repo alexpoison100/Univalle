@@ -293,6 +293,7 @@ a.fa.fa-angle-down:hover{
 }
 /* About Section */
 #tf-about{
+	background: url(../img/fondoteam.jpg);
 	padding: 80px 0;
 }
 ul.about-list{ margin: 30px 0 0 ;}
@@ -304,6 +305,54 @@ ul.about-list li{
 }
 ul.about-list li span{ 
 	margin-right: 10px;
+}
+
+.main {
+	width:90%;
+	max-width:1000px;
+	margin:20px auto;
+}
+ 
+.slides {
+	width:100%;
+}
+ 
+.slides img {
+	width:100%;
+}
+ 
+.slidesjs-pagination {
+	background:#424242;
+	list-style:none;
+	overflow:hidden;
+}
+ 
+.slidesjs-pagination li {
+	float:left;
+}
+ 
+.slidesjs-pagination li a {
+	display:block;
+	padding:8.5px 20px;
+	color:#fff;
+	text-decoration:none;
+}
+ 
+.slidesjs-pagination li a:hover {
+	background:#000;
+}
+ 
+.slides .active {
+	background:#000;
+}
+ 
+.slidesjs-navigation{
+	background:#000;
+	color:#fff;
+	text-decoration:none;
+	display:inline-block;
+	padding:11px 20px;
+	float:right;
 }
 
 /* team Section */
@@ -405,6 +454,7 @@ img.img-circle.team-img {
 /* Admisiones Section */
 
 .fondo {
+	background: url(../img/03.png);
 	padding: 1px 1px 1px 1px;
 	width: 200px;
 	height: 40px;
@@ -481,6 +531,7 @@ img.img-circle.team-img {
 ==============================*/
 #tf-noticias{
 	padding: 80px 0;
+	background: url(../img/fondoteam.jpg);
 }
 .categories{ 
 	padding: 10px 0;

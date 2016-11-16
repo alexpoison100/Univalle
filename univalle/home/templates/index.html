@@ -24,6 +24,7 @@
     <link rel="stylesheet" type="text/css" href="/media/home/css/bootstrap.css">
     <!-- <link rel="stylesheet" type="text/css" href="fonts/font-awesome/css/font-awesome.css">-->
     <link rel="stylesheet" type="text/css" href="/media/home/fonts/font-awesome/css/font-awesome.css">
+    <link rel="stylesheet" type="text/css" href="/media/home/css/fonts.css">
 
     <!-- Slider
     ================================================== -->
@@ -65,8 +66,8 @@
             <span class="icon-bar"></span>
           </button>
 
-              <div class="col-md-6">
-                        <a href="/"><img src="/media/home/img/logo.png" class="imagen"></a>
+             <div class="col-md-6">
+                <a href="/"><img src="/media/home/img/logo.png" class="imagen"></a>
              </div>
         </div>
         <!-- ingresar usuario -->
@@ -101,8 +102,8 @@
           <ul class="nav navbar-nav navbar-right">
             <li><a href="#tf-inicio" class="page-scroll"><strong>Inicio</strong></a></li>
             <li><a href="#tf-about" class="page-scroll"><strong>Acerca de Univalle</strong></a></li>
-            <li><a href="#tf-team" class="page-scroll"><strong>Team</strong></a></li>
             <li><a href="#tf-admisiones" class="page-scroll"><strong>Admisiones</strong></a></li>
+            <li><a href="#tf-team" class="page-scroll"><strong>Portales</strong></a></li>
             <li><a href="#tf-noticias" class="page-scroll"><strong>Noticias</strong></a></li>
             <li><a href="#tf-testimonials" class="page-scroll"><strong>Contáctanos</strong></a></li>
             {%if user.is_authenticated %}
@@ -124,7 +125,7 @@
         <div class="overlay">
             <div class="content">
                 {%if user.is_authenticated %}
-                <h1>Inscripciones - <strong><span class="color">Universidad del Valle</span></strong></h1>
+                <h1><a href="{% url 'vista_inscripciones' %}">Inscripciones Abiertas - </a><strong><span class="color">Universidad del Valle</span></strong></h1>
                 <a href="#tf-about" class="fa fa-angle-down page-scroll"></a>
                 {% else %}
                 <h1>Bienvenidos a la <strong><span class="color">Universidad del Valle</span></strong></h1>
@@ -141,8 +142,22 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-6">
-                    <img src="/media/home/img/acerca/acerca.jpg" class="img-responsive">
+
+                    <div class="main">
+                        <div class="slides">
+                            <img src="http://images.et.eltiempo.digital/contenido/colombia/cali/IMAGEN/IMAGEN-14833539-2.jpg" class="img-responsive">
+                            <img src="http://locationcolombia.com/wp-content/uploads/2014/05/CALI-Universidad-del-Valle-RICARDO-RESTREPO-2011-3.jpg" class="img-responsive">
+                            <img src="http://www.univalle.edu.co/english/tour/fotos/lagoypatos2.jpg" class="img-responsive">
+                            <img src="http://secretariageneral.univalle.edu.co/imagenes/Otras/admoncentral2.jpg" class="img-responsive">
+                            <img src="http://www.univalle.edu.co/english/tour/fotos/jardin.jpg" class="img-responsive">
+                            <img src="http://ciencias.univalle.edu.co/images/imagenes/noticias/facultad2.JPG" class="img-responsive">
+                            <img src="http://www.fundacioncompartir.org/sites/default/files/universidad-del-valle_innovacion-para-la-construccion_0.jpg">
+                        </div>
+                    </div>
+
                 </div>
+                
+                
                 <div class="col-md-6">
                     <div class="about-text">
                         <div class="section-title">
@@ -165,34 +180,6 @@
                             </li>
                             
                         </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Team Page
-    ==========================================-->
-    <div id="tf-team" class="text-center">
-        <div class="overlay">
-            <div class="container">
-                <div class="section-title center">
-                    <h2>Area de <strong>Team</strong></h2>
-                    <div class="line">
-                        <hr>
-                    </div>
-                </div>
-
-                <div id="team" class="owl-carousel owl-theme row">
-                    <div class="item">
-                        <div class="thumbnail">
-                            <img src="/media/home/img/team/01.jpg" alt="..." class="img-circle team-img">
-                            <div class="caption">
-                                <h3>Jenn Gwapa</h3>
-                                <p>CEO / Founder</p>
-                                <p>Do not seek to change what has come before. Seek to create that which has not.</p>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -255,45 +242,58 @@
         </div>
     </div>
 
-    <!-- Clients Section
+    <!-- team Section
     ==========================================-->
-    <div id="tf-clients" class="text-center">
+   <div id="tf-team" class="text-center">
         <div class="overlay">
             <div class="container">
-
                 <div class="section-title center">
-                    <h2>Some of <strong>our Clients</strong></h2>
+                    <h2>Area de <strong>Portales</strong></h2>
                     <div class="line">
                         <hr>
                     </div>
                 </div>
-                <div id="clients" class="owl-carousel owl-theme">
-                    <div class="item">
-                        <img src="/media/home/img/client/01.png">
-                    </div>
-                    <div class="item">
-                        <img src="/media/home/img/client/02.png">
-                    </div>
-                    <div class="item">
-                        <img src="/media/home/img/client/03.png">
-                    </div>
-                    <div class="item">
-                        <img src="/media/home/img/client/04.png">
-                    </div>
-                    <div class="item">
-                        <img src="/media/home/img/client/05.png">
-                    </div>
-                    <div class="item">
-                        <img src="/media/home/img/client/06.png">
-                    </div>
-                    <div class="item">
-                        <img src="/media/home/img/client/07.png">
-                    </div>
-                </div>
 
+                    <div class="item">
+                        <div class="col-md-3 col-sm-6 service" align="center">
+                            <a href="https://www.gobiernoenlinea.gov.co/"><img src="http://academia.telecentros.org.co/apc-aa-files/36ea1eba85e4fa945732a23ba155a0c3/Gobierno_en_linea_8.png" alt="..." class="img-circle team-img"></a>
+                            <div class="caption">
+                                <h3>Gobierno en línea</h3>
+                            </div>
+                        </div>
+                    </div>
+                    
+
+                    <div class="item">
+                        <div class="col-md-3 col-sm-6 service" align="center">
+                            <a href="http://wp.presidencia.gov.co/Paginas/Presidencia2015.aspx"><img src="https://yt3.ggpht.com/-QQFsS_g6n5g/AAAAAAAAAAI/AAAAAAAAAAA/gY14kk-ASDw/s900-c-k-no-mo-rj-c0xffffff/photo.jpg" alt="..." class="img-circle team-img"></a>
+                            <div class="caption">
+                                <h3>Presidencia de la República</h3>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="item">
+                        <div class="col-md-3 col-sm-6 service" align="center">
+                            <a href="http://www.renata.edu.co/"><img src="http://www.uco.edu.co/web/portal/logo%20final/images/RENATA%20U.jpg" alt="..." class="img-circle team-img"></a>
+                            <div class="caption">
+                                <h3>Renata</h3>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="item">
+                        <div class="col-md-3 col-sm-6 service" align="center">
+                            <a href="http://www.colombiacompra.gov.co/"><img src="http://poxta2.colombiacompra.gov.co:81/images/logo-colombia-compra-eficiente.jpg" alt="..." class="img-circle team-img"></a>
+                            <div class="caption">
+                                <h3>Colombia compra eficiente</h3>
+                            </div>
+                        </div>
+                    </div>
             </div>
         </div>
     </div>
+  
 
     <!-- Noticias y actualidad Section
     ==========================================-->
@@ -564,6 +564,35 @@
     <!-- Javascripts
     ================================================== -->
     <script type="text/javascript" src="/media/home/js/main.js"></script>
+
+    <!-- Javascripts para funcionamiento del slides en la seccion acerca de
+    ================================================== -->
+    <script type="text/javascript" src="/media/home/js/jquery.slides.js"></script>
+    <script>
+ 
+	$(function(){
+  $(".slides").slidesjs({
+    play: {
+      active: true,
+        // [boolean] Generate the play and stop buttons.
+        // You cannot use your own buttons. Sorry.
+      effect: "slide",
+        // [string] Can be either "slide" or "fade".
+      interval: 3000,
+        // [number] Time spent on each slide in milliseconds.
+      auto: true,
+        // [boolean] Start playing the slideshow on load.
+      swap: true,
+        // [boolean] show/hide stop and play buttons
+      pauseOnHover: false,
+        // [boolean] pause a playing slideshow on hover
+      restartDelay: 2500
+        // [number] restart delay on inactive slideshow
+    }
+  });
+});
+ 
+	</script>
 
   </body>
 </html>
