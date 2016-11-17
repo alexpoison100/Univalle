@@ -4,6 +4,12 @@ from django.contrib.auth.models import User
 from univalle.administrador.models import *
 from univalle.home.models import *
 
+
+class CorreoForm(forms.Form):
+	correo	= forms.EmailField(label="Correo Electrónico",widget=forms.TextInput(attrs={'required': True,'type':"email",'class':"form-control",'placeholder':"Para:"}))
+	asunto	= forms.CharField(label="Asunto",widget=forms.TextInput(attrs={'required': True,'type':"text",'class':"form-control",'placeholder':'Ingrese Asunto'}))
+	texto	= forms.CharField(label="Mensaje",widget=forms.Textarea(attrs={'required': True,'class':"textarea",'cols':100, 'placeholder':'Ingrese Mensaje'}))
+
 class RegistroUsuarioForm(forms.Form):
 	username = forms.CharField(label="Nombre de Usuario",widget=forms.TextInput(attrs={'required': True,'type':"text", 'class':"form-control",'placeholder':"Ingrese Usuario"}))
 	email = forms.EmailField(label="Correo Electrónico",widget=forms.TextInput(attrs={'type':"text",'class':"form-control",'placeholder':"Ingrese Correo Electrónico"}))

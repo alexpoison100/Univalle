@@ -10,16 +10,49 @@ from django.core.paginator import Paginator, EmptyPage, InvalidPage#paginacion d
 from django.contrib.auth.models import User
 from django.core.exceptions import MultipleObjectsReturned
 import simplejson
-
+from django.contrib.auth.hashers import check_password#libreria para chequear password actual
 
 # creamos nuestras vistas
 
 def administrador_view(request):
+	#muestra el index pero con el formulario de contacto
+	nombre = ""
+	correo = ""
+	asunto = ""
+	texto = ""
+	mensaje=""
+	llamarMensaje=""
+	totalUsuarios= User.objects.count()#cuenta la cantidad de usuarios registrados
+	totalInscripciones= inscripciones.objects.count()#cuenta la cantidad de usuarios registrados
+	totalCarreras= programasAcademico.objects.count()#cuenta la cantidad de programas academicos
+	form = CorreoForm()
+	
 	if request.user.is_authenticated():
-		return render(request,'index_admin.html')
+		if request.method == "POST":
+			form = CorreoForm(request.POST)
+			if form.is_valid():
+				llamarMensaje= "Registro"
+				mensaje= "Mensaje Enviado!!!!!!"
+				correo = form.cleaned_data['correo']
+				asunto = form.cleaned_data['asunto']
+				texto = form.cleaned_data['texto']
+				
+				#configuracion enviando mensaje via gmail
+				to_admin = correo
+				html_content ="<b>Asunto:</b> %s<br><br><b>Mensaje:</b><br><br>%s"%(asunto,texto)
+				msg = EmailMultiAlternatives("Correo de Contacto",html_content,'from@server.com',[to_admin])
+				msg.attach_alternative(html_content,'text/html')#definimos el contenido como HTML
+				msg.send()#Enviamos el correo
+				form = CorreoForm()
+			else:
+				llamarMensaje= "NoRegistro"
+				mensaje= "Mensaje No Enviado!!!!!!"
+				form = CorreoForm()
+		ctx = {'form':form,'mensaje':mensaje, 'llamarMensaje':llamarMensaje, 'totalCarreras':totalCarreras,'totalUsuarios':totalUsuarios, 'totalInscripciones':totalInscripciones}
+		return render(request,'index_admin.html',ctx)
 	else:
 		return HttpResponseRedirect('/login')
-	
+
 def register_user_view(request):
 	mensaje=""
 	llamarMensaje=""
@@ -337,21 +370,27 @@ def editar_password_view(request,username=None):
 				password_actual = form.cleaned_data['password_actual']
 				password_one = form.cleaned_data['password_one']
 				password_two = form.cleaned_data['password_two']
-				if password_one == password_two:
-					u = User.objects.get(username=username)
-					u.set_password(password_one)
-					u.save()
-					llamarMensaje= "Registro"
-					mensaje= "Su contraseña se cambió correctamente!!!!!!"
-					form = EditarPasswordForm()
+				u = User.objects.get(username=username)
+				if check_password(password_actual, u.password):
+					print 'Contrasena de usuario coincide'
+					if password_one == password_two:
+						u.set_password(password_one)
+						#u.save()
+						llamarMensaje= "Registro"
+						mensaje= "Su contraseña se cambió correctamente!!!!!!"
+						form = EditarPasswordForm()
+					else:
+						llamarMensaje="NoRegistro"
+						mensaje="Contraseña nueva NO coinciden"
 				else:
 					llamarMensaje="NoRegistro"
-					mensaje="Contraseña no coinciden"
+					mensaje="Contrasena Actual NO coincide"
 			else:
 				llamarMensaje="NoRegistro"
-				mensaje="Contraseña Actual No válida"
+				mensaje="Error de datos"
 			
 		ctx = {'form':form, 'mensaje':mensaje, 'llamarMensaje':llamarMensaje}
 		return render(request,'editar_password.html',ctx)
 	else:
 		return HttpResponseRedirect('/login')
+		

@@ -333,7 +333,7 @@ ul.about-list li span{
  
 .slidesjs-pagination li a {
 	display:block;
-	padding:8.5px 20px;
+	padding:8px 20px;
 	color:#fff;
 	text-decoration:none;
 }
@@ -586,7 +586,7 @@ ol.type li a.active { font-weight: 700; }
 	border: 2px solid #C4C4C4;
 }
 .portfolio-item .hover-bg{
-	height: 260px;
+	height: 180px;
 	overflow: hidden;
 	position: relative;
 }

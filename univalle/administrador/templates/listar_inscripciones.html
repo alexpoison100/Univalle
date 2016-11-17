@@ -74,28 +74,29 @@
 {% endif %}
 
 {% if inscripcion %}
-        <div >
-        <table id="demo-dt-delete"  width="15%">
+        <div class="col-sm-7 col-sm-offset-4">
+        <table id="demo-dt-delete" width="15%">
             <thead>
                 <tr>
-                    <th class="min-tablet"><a href="/listar_inscripciones/page/1/"> << </a></th>
+                    <th class="min-tablet"><a class="btn btn-info" href="/listar_inscripciones/page/1/"> Inicio </a></th>
                      {% if inscripcion.has_previous %}
-                    <th class="min-tablet"><a href="/listar_inscripciones/page/{{inscripcion.previous_page_number}}"> Prev </a></th>
+                    <th class="min-tablet"><a class="btn btn-info" href="/listar_inscripciones/page/{{inscripcion.previous_page_number}}"><i class="fa fa-backward" ></i></a></th>
                     {% else %}
-                    <th class="min-tablet"><a href="#"> Prev </a></th>
+                    <th class="min-tablet"><a class="btn btn-info" href="#"><i class="fa fa-backward" ></i></a></th>
                     {% endif %}
                     {% if inscripcion.has_next %}
-                    <th class="min-tablet"><a href="/listar_inscripciones/page/{{inscripcion.next_page_number}}"> Next </a></th>
+                    <th class="min-tablet"><a class="btn btn-info" href="/listar_inscripciones/page/{{inscripcion.next_page_number}}"><i class="fa fa-forward"></i></a></th>
                     {% else %}
-                    <th class="min-tablet"><a href="#"> Next </a></th>
+                    <th class="min-tablet"><a class="btn btn-info" href="#"><i class="fa fa-forward"></i></a></th>
                     {% endif %}
-                    <th class="min-tablet"><a href="/listar_inscripciones/page/{{inscripcion.paginator.num_pages}}"> >> </a></th>
+                    <th class="min-tablet"><a class="btn btn-info" href="/listar_inscripciones/page/{{inscripcion.paginator.num_pages}}"> Final </a></th>
                     
                 </tr>
             </thead>
         </table>
-        
-         <table id="demo-dt-delete" class="table table-striped table-bordered" cellspacing="0" width="100%">
+        </div>
+        <div>
+         <table id="demo-dt-delete" width="100%">
             <thead>
                 <tr>
                     <th class="min-desktop"><h4><b>Página {{ inscripcion.number }} de {{ inscripcion.paginator.num_pages}}</b></h4></th>
