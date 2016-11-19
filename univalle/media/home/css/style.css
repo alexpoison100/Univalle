@@ -349,9 +349,9 @@ ul.about-list li span{
 .slidesjs-navigation{
 	background:#000;
 	color:#fff;
+	padding:11px 20px;
 	text-decoration:none;
 	display:inline-block;
-	padding:11px 20px;
 	float:right;
 }
 

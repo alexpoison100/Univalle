@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
   <head>
-    <title>Bienvenidos a Univalle</title>
     <!-- Basic Page Needs
     ================================================== -->
     <meta charset="utf-8">
     <!--[if IE]><meta http-equiv="x-ua-compatible" content="IE=9" /><![endif]-->
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bienvenidos a Univalle</title>
     <meta name="description" content="Spirit8 is a Digital agency one page template built based on bootstrap framework. This template is design by Robert Berki and coded by Jenn Pereira. It is simple, mobile responsive, perfect for portfolio and agency websites. Get this for free exclusively at ThemeForces.com">
     <meta name="keywords" content="bootstrap theme, portfolio template, digital agency, onepage, mobile responsive, spirit8, free website, free theme, themeforces themes, themeforces wordpress themes, themeforces bootstrap theme">
     <meta name="author" content="ThemeForces.com">
@@ -18,13 +18,9 @@
     <link rel="apple-touch-icon" sizes="72x72" href="/media/home/img/apple-touch-icon-72x72.png">
     <link rel="apple-touch-icon" sizes="114x114" href="/media/home/img/apple-touch-icon-114x114.png">
 
-
     <!-- Bootstrap -->
-    <!-- <link rel="stylesheet" type="text/css"  href="css/bootstrap.css">-->
-    <link rel="stylesheet" type="text/css" href="/media/home/css/bootstrap.css">
-    <!-- <link rel="stylesheet" type="text/css" href="fonts/font-awesome/css/font-awesome.css">-->
+    <link rel="stylesheet" type="text/css"  href="/media/home/css/bootstrap.css">
     <link rel="stylesheet" type="text/css" href="/media/home/fonts/font-awesome/css/font-awesome.css">
-    <link rel="stylesheet" type="text/css" href="/media/home/css/fonts.css">
 
     <!-- Slider
     ================================================== -->
@@ -55,7 +51,6 @@
     <!-- Navigation
     ==========================================-->
     <nav id="tf-menu" class="navbar navbar-default navbar-fixed-top">
-            
       <div class="container">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
@@ -66,9 +61,9 @@
             <span class="icon-bar"></span>
           </button>
 
-             <div class="col-md-6">
-                <a href="/"><img src="/media/home/img/logo.png" class="imagen"></a>
-             </div>
+         <div class="col-md-6">
+            <a href="/"><img src="/media/home/img/logo.png" class="imagen"></a>
+         </div>
         </div>
         <!-- ingresar usuario -->
         
@@ -170,7 +165,11 @@
                             <li>
                                 <span class="fa fa-dot-circle-o"></span>
                                 <strong>Misión</strong>
-                                <p class="intro">La Universidad del Valle tiene como misión formar en el nivel superior, mediante la generación, transformación, aplicación y difusión del conocimiento en los ámbitos de las ciencias, la técnica, la tecnología, las artes, las humanidades y la cultura en general. Atendiendo a su carácter de universidad estatal, autónoma y con vocación de servicio social, asume compromisos indelegables con el desarrollo de la región, la conservación y el respeto del medio ambiente y la construcción de una sociedad más justa y democrática.                                   
+                                <p class="intro">La Universidad del Valle tiene como misión formar en el nivel superior, mediante la generación, 
+                                transformación, aplicación y difusión del conocimiento en los ámbitos de las ciencias, la técnica, la tecnología, 
+                                las artes, las humanidades y la cultura en general. Atendiendo a su carácter de universidad estatal, autónoma y con 
+                                vocación de servicio social, asume compromisos indelegables con el desarrollo de la región, la conservación y el 
+                                respeto del medio ambiente y la construcción de una sociedad más justa y democrática.                                   
                                 </p>
                             </li>
                             <li>
@@ -275,7 +274,7 @@
 
                     <div class="item">
                         <div class="col-md-3 col-sm-6 service" align="center">
-                            <a href="http://www.renata.edu.co/"><img src="http://www.uco.edu.co/web/portal/logo%20final/images/RENATA%20U.jpg" alt="..." class="img-circle team-img"></a>
+                            <a href="http://www.renata.edu.co/"><img src="http://www.utp.edu.co/cms-utp/data/bin/UTP/web/uploads/media/comunicaciones/img/antiguas/renata_13.jpg" alt="..." class="img-circle team-img"></a>
                             <div class="caption">
                                 <h3>Renata</h3>
                             </div>
@@ -305,7 +304,7 @@
                     <hr>
                 </div>
                 <div class="clearfix"></div>
-                <h4><em>Univalle</em></h4>
+                <h1><small><em>Univalle</em></small></h1>
             </div>
             <div class="space"></div>
 
@@ -442,21 +441,21 @@
             </div>
         </div>
     </div>
-
-    <!-- Contact Section
+   <!-- Contact Section
     ==========================================-->
     <div id="tf-testimonials" class="text-center">
-        <div class="overlay">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-8 col-md-offset-2">
-                        <div class="section-title center">
-                            <h2><strong>Contáctanos</strong></h2>
-                            <div class="line">
-                                <hr>
-                            </div>
-                            <div class="clearfix"></div>
-                            <small><em>
+      <div class="overlay">
+        <div class="container">
+
+            <div class="row">
+                <div class="col-md-8 col-md-offset-2">
+                    <div class="section-title center">
+                        <h2><strong>Contáctanos</strong></h2>
+                        <div class="line">
+                            <hr>
+                        </div>
+                        <div class="clearfix"></div>
+                        <small><em>
                                         Edificio 301 Oficina 3027
                                         <br>
                                         Calle 13 # 100-00
@@ -467,36 +466,39 @@
                                         <br>
                                         +57 2 3212100 ext 2709
                                         
-                            </em></small>            
-                        </div>
-                        <div class="container">
-                        {% if info_enviado %}
-                            Gracias por enviar un comentario, nos pondremos en contacto contigo
-                                
-                        {% else %}
-                            <form action="." method="POST">
-                                {% csrf_token %}    <!-- almacena y borra el spam del form -->
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            {{form.as_p}} <!-- as_p salto de linea -->
-                                        </div>
-                                    </div>
-                                    
-                                </div> 
-                                    <button class="btn tf-btn btn-default" type="submit" formtarget="_top"> Enviar comentarios </button>
-                            </form>
-                        {% endif %}
-                        </div>
+                            </em></small>  
                     </div>
                 </div>
+                <div class= "col-md-8 col-md-offset-4">
+                  {% if info_enviado %}
+                            Gracias por enviar un comentario, nos pondremos en contacto contigo
+                                
+                    {% else %}
+                    <form action="." method="POST">
+                        {% csrf_token %}    <!-- almacena y borra el spam del form -->
+                        <div class="row">
+                            <div class="col-md-7">
+                                <div class="form-group">
+                                    {{form.as_p}} <!-- as_p salto de linea -->
+                                </div>
+                            </div>
+                            
+                        </div>
+                        <div class="col-md-8 col-md-offset-1">
+                          <div class="section-title center">
+                            <button class="btn tf-btn btn-default" type="submit" formtarget="_top"> Enviar comentarios </button>
+                          </div>
+                        </div>
+                    </form>
+                    {% endif %}
+                </div>
             </div>
+          </div>
         </div>
     </div>
-
      <!-- footer
     ==========================================-->
-
+    
 <nav id="footer-info">
         <div id="tf-admisiones" class="text-align: right">
             <div class="container">
@@ -569,30 +571,27 @@
     ================================================== -->
     <script type="text/javascript" src="/media/home/js/jquery.slides.js"></script>
     <script>
- 
-	$(function(){
-  $(".slides").slidesjs({
-    play: {
-      active: true,
-        // [boolean] Generate the play and stop buttons.
-        // You cannot use your own buttons. Sorry.
-      effect: "slide",
-        // [string] Can be either "slide" or "fade".
-      interval: 3000,
-        // [number] Time spent on each slide in milliseconds.
-      auto: true,
-        // [boolean] Start playing the slideshow on load.
-      swap: true,
-        // [boolean] show/hide stop and play buttons
-      pauseOnHover: false,
-        // [boolean] pause a playing slideshow on hover
-      restartDelay: 2500
-        // [number] restart delay on inactive slideshow
-    }
-  });
-});
- 
+      $(function(){
+      $(".slides").slidesjs({
+        play: {
+          active: true,
+            // [boolean] Generate the play and stop buttons.
+            // You cannot use your own buttons. Sorry.
+          effect: "slide",
+            // [string] Can be either "slide" or "fade".
+          interval: 3000,
+            // [number] Time spent on each slide in milliseconds.
+          auto: true,
+            // [boolean] Start playing the slideshow on load.
+          swap: true,
+            // [boolean] show/hide stop and play buttons
+          pauseOnHover: false,
+            // [boolean] pause a playing slideshow on hover
+          restartDelay: 2500
+            // [number] restart delay on inactive slideshow
+        }
+      });
+      });
 	</script>
-
-  </body>
+</body>
 </html>
