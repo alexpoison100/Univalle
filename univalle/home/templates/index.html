@@ -73,6 +73,7 @@
                     <!-- user profile -->
                     <div align="center" class="profile">
                         {% if user.is_authenticated %}
+                        <a href="#"><i class="fa fa-circle text-success"></i></a>
                         <img src="/media/home/img/user.png"/>
                         <a href="" class="name">{{user.username}}</a>
                         {% else %}

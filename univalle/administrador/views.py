@@ -217,6 +217,17 @@ def editar_inscripcion_view(request,cedula=None):
 				i.carrera = programa
 				
 				i.save() #guardar inscripcion
+				
+				a = listado_admitidos() #creo una instancia de la clase lista
+				
+				a.cedula = cedula
+				a.nombre = nombre
+				a.apellido = apellido
+				a.puntaje = 320                          #ojoooooooooooooooooooo falta consultar al web service este  puntaje
+				a.carrera = programa
+				
+				a.save() #guardar listado
+				
 				llamarMensaje= "Registro"
 				mensaje= "Actualización Satisfactoria!!!!!!"
 			else:

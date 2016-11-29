@@ -8,6 +8,7 @@ from django.contrib.auth import login, logout, authenticate
 from django.http import HttpResponseRedirect
 from django.core.paginator import Paginator, EmptyPage, InvalidPage#paginacion de Django
 from django.contrib.auth.models import User
+import itertools#contador indice de la tabla
 
 # creamos nuestras vistas
 
@@ -47,7 +48,7 @@ def about_view(request):
 def login_view(request):
 	mensaje=""
 	if request.user.is_authenticated():
-		return HttpResponseRedirect('/')#lo direccionamos a la raiz si esta autenticado
+		return HttpResponseRedirect('/')#lo direccionamos a la raiz si no esta autenticado
 	else:
 		if request.method == "POST":
 			form = LoginForm(request.POST)
@@ -92,10 +93,28 @@ def register_view(request):
 	return render(request,'registro.html', ctx)
 	
 def resultados_view(request):
-	mensaje ="Seleccione la Carrera a la que se inscribió"
-	form = ResultadoForm()
-	ctx = {'form':form, 'mensaje':mensaje}
-	return render(request,'resultados.html',ctx)
+	if request.user.is_authenticated():
+		mensaje =""
+		programas_academicos=""
+		form = ResultadoForm()
+		
+		if request.method == "POST":
+			form = ResultadoForm(request.POST)
+			
+			if form.is_valid():
+				programas_academicos = str(form.cleaned_data['programas_academicos'])
+				form = ResultadoForm(request.POST)
+				return HttpResponseRedirect('/listar_admitidos/pagina/1/programa/%s' % programas_academicos)
+			else:
+				mensaje = "No ha seleccionado ninguna Carrera"
+				ctx = {'form':form}
+				return render(request,'resultados.html',ctx)
+		form = ResultadoForm()
+		ctx = {'form':form, 'mensaje':mensaje}
+		return render(request,'resultados.html',ctx)
+	else:
+		return HttpResponseRedirect('/login')	
+		
 	
 def add_inscripciones_view(request):
 	if request.user.is_authenticated():
@@ -108,7 +127,7 @@ def add_inscripciones_view(request):
 				nombre = formulario.cleaned_data['nombre']
 				apellido = formulario.cleaned_data['apellido']
 				snp = formulario.cleaned_data['snp']
-				ref_pago = formulario.cleaned_data['ref_pago']
+				ref_pago = formulario.cleaned_data['ref_pago']					#ojoooooooooooooooooooo falta consultar al web service este  pago 
 				programa = str(formulario.cleaned_data['programas_academicos'])
 			
 				i = inscripciones() #creo una instancia de la clase inscripcion
@@ -121,6 +140,16 @@ def add_inscripciones_view(request):
 				i.carrera = programa
 				
 				i.save() #guardar inscripcion
+				
+				a = listado_admitidos() #creo una instancia de la clase lista
+				
+				a.cedula = cedula
+				a.nombre = nombre
+				a.apellido = apellido
+				a.puntaje = 320                          #ojoooooooooooooooooooo falta consultar al web service este  puntaje
+				a.carrera = programa
+				
+				a.save() #guardar listado
 				info = "Inscripción Satisfactoria!!!!!!"
 				formulario = InscripcionesForm()
 			else:
@@ -136,4 +165,23 @@ def add_inscripciones_view(request):
 	else:
 		return HttpResponseRedirect('/')
 
-	
+def listar_admitidos_view(request,pagina,carrera=None):
+	iterator = itertools.count(1)#me genera un contador para el indice de la tabla
+	if request.user.is_authenticated():
+	#Metodo  para listar inscripciones
+		#consulta por carrera, de mayor a menor puntaje y un cupo para 3
+		lista_admitidos = listado_admitidos.objects.filter(carrera=carrera).order_by('-puntaje')[:3]
+		paginator = Paginator(lista_admitidos,20)
+		try:
+			page = int(pagina)
+		except:
+			page = 1
+		try:
+			admitidos = paginator.page(page)
+		except:
+			admitidos = paginator.page(paginator.num_pages)
+			
+		ctx = {'admitidos':admitidos,'iterator':iterator,'carrera':carrera}
+		return render(request, 'listar_admitidos.html',ctx)
+	else:
+		return HttpResponseRedirect('/login')	

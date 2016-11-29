@@ -4,18 +4,25 @@
 {% block content %}
     <div>
         
-        <form action="." method="POST">
+        <form id="programas_academicos" action="." method="POST">
             <h2>RESULTADOS</h2>
-            {{mensaje}}
             <br>
-            {{ form.programas_academicos }}
+            "Seleccione la Carrera a la que se inscribió"
+            <br>
+            <br>
+            {% csrf_token %}
+            {{form.programas_academicos}}
+
             <div align=center>
+                <br>
                 <button class="btn  btn-defaultg" type="submit"> GENERAR LISTADO </button>
                 </div>
             <div align="left">
 			    <h5><a href="/" class="">Atrás</a></h5>
 		    </div>
         </form>
+        
+       
     </div>
 
 

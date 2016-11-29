@@ -20,6 +20,7 @@ class userProfile(models.Model):
 class programasAcademico(models.Model):
 	codigo		=models.BigIntegerField(null=False, unique=True, primary_key=True)
 	nombre		=models.CharField(max_length=100)
+	puntaje_min	=models.IntegerField()
 	status		=models.BooleanField(default=True)
 
 
@@ -38,3 +39,20 @@ class inscripciones(models.Model):
 	def __str__(self):
 		return '%s - %s' % (self.cedula, self.snp)
 	 
+class listado_admitidos(models.Model):
+	id			=models.AutoField(null=False, unique=True, primary_key=True)
+	cedula		=models.IntegerField()
+	nombre		=models.CharField(max_length=100)
+	apellido	=models.CharField(max_length=100)
+	puntaje		=models.IntegerField()
+	carrera		=models.CharField(max_length=100)
+	status		=models.BooleanField(default=True)
+	
+	def __str__(self):
+		return '%s - %s' % (self.id, self.cedula)
+	
+	
+	
+	
+	
+	
