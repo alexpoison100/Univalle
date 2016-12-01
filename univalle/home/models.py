@@ -20,7 +20,15 @@ class userProfile(models.Model):
 class programasAcademico(models.Model):
 	codigo		=models.BigIntegerField(null=False, unique=True, primary_key=True)
 	nombre		=models.CharField(max_length=100)
+	lectura_critica				=models.FloatField()
+	matematicas					=models.FloatField()
+	sociales					=models.FloatField()
+	naturales					=models.FloatField()
+	ingles						=models.FloatField()
+	razonamiento_cuantitativo	=models.FloatField()
+	competencias_ciudadanas		=models.FloatField()
 	puntaje_min	=models.IntegerField()
+	info		=models.CharField(max_length=300)
 	status		=models.BooleanField(default=True)
 
 
@@ -32,24 +40,31 @@ class inscripciones(models.Model):
 	nombre		=models.CharField(max_length=100)
 	apellido	=models.CharField(max_length=100)
 	snp			=models.CharField(max_length=50)
+	lectura_critica				=models.IntegerField()
+	matematicas					=models.IntegerField()
+	sociales					=models.IntegerField()
+	naturales					=models.IntegerField()
+	ingles						=models.IntegerField()
+	razonamiento_cuantitativo	=models.IntegerField()
+	competencias_ciudadanas		=models.IntegerField()
+	colegio		=models.CharField(max_length=100)
 	ref_pago	=models.IntegerField()
 	carrera		=models.CharField(max_length=100)
 	status		=models.BooleanField(default=True)
 
 	def __str__(self):
 		return '%s - %s' % (self.cedula, self.snp)
-	 
-class listado_admitidos(models.Model):
-	id			=models.AutoField(null=False, unique=True, primary_key=True)
-	cedula		=models.IntegerField()
+
+class lista_admitidos(models.Model):
+	cedula		=models.BigIntegerField(null=False, unique=True, primary_key=True)
 	nombre		=models.CharField(max_length=100)
 	apellido	=models.CharField(max_length=100)
-	puntaje		=models.IntegerField()
+	puntaje		=models.FloatField()
 	carrera		=models.CharField(max_length=100)
 	status		=models.BooleanField(default=True)
 	
 	def __str__(self):
-		return '%s - %s' % (self.id, self.cedula)
+		return str(self.cedula)
 	
 	
 	

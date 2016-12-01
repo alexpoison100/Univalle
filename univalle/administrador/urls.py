@@ -15,6 +15,6 @@ urlpatterns = patterns('',
     url(r'^editar_inscripciones/(?P<cedula>.*)/$', views.editar_inscripcion_view,name='vista_editar_inscripcion'),
     url(r'^listar_user/page/(?P<pagina>.*)/$', views.listar_usuario_view,name='vista_listar_user'),
     url(r'^listar_carreras/page/(?P<pagina>.*)/$', views.listar_carreras_view,name='vista_listar_carreras'),
-    url(r'^listar_inscripciones/page/(?P<pagina>.*)/$', views.listar_inscripciones_view,name='vista_listar_inscripciones'), 
-
+    url(r'^listar_inscripciones/page/(?P<pagina>.*)/$', views.listar_inscripciones_view,name='vista_listar_inscripciones'),
+    url(r'^reporte_admitidos/pagina/(?P<pagina>.*)/$', views.reporte_admitidos_view,name='vista_reporte_admitidos'),
 )

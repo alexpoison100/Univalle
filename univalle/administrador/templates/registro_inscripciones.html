@@ -10,7 +10,7 @@
     <div id="demo-custom-toolbar" class="table-toolbar-right" style="text-align: right">
         <a href="/listar_inscripciones/page/1/*" class="btn btn-success btn-sm fa fa-list-alt text-lg"><b> Listar Inscripciones</b></a>
     </div>
-    <form name="FormularioRegistroInscripcion" id="demo-bv-bsc-tabs" class="form-horizontal" action="" method="post">
+    <form name="FormularioRegistroInscripcion" id="demo-bv-bsc-tabs" class="form-horizontal" action="" method="POST">
             {% csrf_token %}
             <div class="panel-body">
             <fieldset>
@@ -46,6 +46,78 @@
                     <div class="col-lg-7">
                     {{ form.snp }}
                     </div>
+                </div>
+            </fieldset>
+            
+            <!--<fieldset>-->
+            <!--    <div class="form-group">-->
+            <!--    <label class="col-lg-3 control-label">Puntaje de Lectura crítica:</label>-->
+            <!--    <div class="col-lg-7">-->
+            <!--    {{ form.lectura_critica }}-->
+            <!--    </div>-->
+            <!--    </div>-->
+            <!--</fieldset>-->
+            
+            <!--<fieldset>-->
+            <!--    <div class="form-group">-->
+            <!--    <label class="col-lg-3 control-label">Puntaje de Matemáticas:</label>-->
+            <!--    <div class="col-lg-7">-->
+            <!--    {{ form.matematicas }}-->
+            <!--    </div>-->
+            <!--    </div>-->
+            <!--</fieldset>-->
+            
+            <!--<fieldset>-->
+            <!--    <div class="form-group">-->
+            <!--    <label class="col-lg-3 control-label">Puntaje de Sociales:</label>-->
+            <!--    <div class="col-lg-7">-->
+            <!--    {{ form.sociales }}-->
+            <!--    </div>-->
+            <!--    </div>-->
+            <!--</fieldset>-->
+            
+            <!--<fieldset>-->
+            <!--    <div class="form-group">-->
+            <!--    <label class="col-lg-3 control-label">Puntaje de Naturales:</label>-->
+            <!--    <div class="col-lg-7">-->
+            <!--    {{ form.naturales }}-->
+            <!--    </div>-->
+            <!--    </div>-->
+            <!--</fieldset>-->
+            
+            <!--<fieldset>-->
+            <!--    <div class="form-group">-->
+            <!--    <label class="col-lg-3 control-label">Puntaje de Inglés:</label>-->
+            <!--    <div class="col-lg-7">-->
+            <!--    {{ form.ingles }}-->
+            <!--    </div>-->
+            <!--    </div>-->
+            <!--</fieldset>-->
+            
+            <!--<fieldset>-->
+            <!--    <div class="form-group">-->
+            <!--    <label class="col-lg-3 control-label">Puntaje de Razonamiento cuantitativo:</label>-->
+            <!--    <div class="col-lg-7">-->
+            <!--    {{ form.razonamiento_cuantitativo }}-->
+            <!--    </div>-->
+            <!--    </div>-->
+            <!--</fieldset>-->
+            
+            <!--<fieldset>-->
+            <!--    <div class="form-group">-->
+            <!--    <label class="col-lg-3 control-label">Puntaje de Competencias ciudadanas:</label>-->
+            <!--    <div class="col-lg-7">-->
+            <!--    {{ form.competencias_ciudadanas }}-->
+            <!--    </div>-->
+            <!--    </div>-->
+            <!--</fieldset>-->
+            
+            <fieldset>
+                <div class="form-group">
+                <label class="col-lg-3 control-label">Colegio:</label>
+                <div class="col-lg-7">
+                {{ form.colegio }}
+                </div>
                 </div>
             </fieldset>
             

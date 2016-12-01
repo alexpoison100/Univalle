@@ -11,6 +11,8 @@ from django.contrib.auth.models import User
 from django.core.exceptions import MultipleObjectsReturned
 import simplejson
 from django.contrib.auth.hashers import check_password#libreria para chequear password actual
+import itertools#contador indice de la tabla
+import requests
 
 # creamos nuestras vistas
 
@@ -157,37 +159,94 @@ def register_inscripcion_view(request):
 	form = RegistroInscripcionesForm()
 	if request.user.is_authenticated():
 		if request.method == "POST":
-			form = RegistroInscripcionesForm(request.POST)
-			if form.is_valid():
-				cedula = form.cleaned_data['cedula']
-				nombre = form.cleaned_data['nombre']
-				apellido = form.cleaned_data['apellido']
-				snp = form.cleaned_data['snp']
+			formulario = RegistroInscripcionesForm(request.POST)
+			info = "Inicializando"
+			
+			if formulario.is_valid():
+				cedula = formulario.cleaned_data['cedula']
+				nombre = formulario.cleaned_data['nombre']
+				apellido = formulario.cleaned_data['apellido']
+				snp = formulario.cleaned_data['snp']
+				if snp:
+					icfes = requests.get('https://morning-brushlands-79611.herokuapp.com/v1/resultados/?codigo=%s&format=json' % snp)
+					icfes_json = icfes.json()
+					lectura_critica= (icfes_json[0]["lectura_critica"])
+					matematicas= (icfes_json[0]["matematicas"])
+					sociales= (icfes_json[0]["sociales"])
+					naturales= (icfes_json[0]["naturales"])
+					ingles= (icfes_json[0]["ingles"])
+					razonamiento_cuantitativo= (icfes_json[0]["razonamiento_cuantitativo"])
+					competencias_ciudadanas= (icfes_json[0]["competencias_ciudadanas"])
+				colegio = formulario.cleaned_data['colegio']
 				ref_pago = formulario.cleaned_data['ref_pago']
-				programa = str(form.cleaned_data['programas_academicos'])
+				if ref_pago:
+					respuesta = requests.get('http://ws-bank-julianrico.c9users.io/rest/consignacion/?cedula=%s&format=json' % ref_pago)
+					respuesta_json = respuesta.json()
+				programa = str(formulario.cleaned_data['programas_academicos'])
+				
 				try:
-					i = inscripciones.objects.get(cedula=cedula)
+					i = inscripciones.objects.get(cedula=cedula) #verificamos que no exista la cedula antes de registrar
 				except inscripciones.DoesNotExist:
-					i = inscripciones() #creo una instancia de la clase inscripcion
+					i = inscripciones()
 					
 					i.cedula = cedula
 					i.nombre = nombre
 					i.apellido = apellido
 					i.snp = snp
+					i.lectura_critica = lectura_critica
+					i.matematicas = matematicas
+					i.sociales = sociales
+					i.naturales = naturales
+					i.ingles = ingles
+					i.razonamiento_cuantitativo = razonamiento_cuantitativo
+					i.competencias_ciudadanas = competencias_ciudadanas
+					i.colegio = colegio
 					i.ref_pago = ref_pago
-					i.carrera = programa	
+					i.carrera = programa
 					
 					i.save() #guardar inscripcion
+					#Consulta de los ponderados de cada materia
+					try:
+						p = programasAcademico.objects.get(nombre=programa)
+					except programasAcademico.DoesNotExist:
+						info = "Programa No existe"
+					else:
+						pl = p.lectura_critica
+						pm = p.matematicas
+						ps = p.sociales
+						pn = p.naturales
+						pi = p.ingles
+						pr = p.razonamiento_cuantitativo
+						pc = p.competencias_ciudadanas
+					#Aqui se multiplica cada uno de los resultados de cada prueba por la ponderación que el programa académico 
+					puntaje = float((lectura_critica) * (pl)) + float((matematicas) * (pm)) + float((sociales) * (ps)) + float((naturales) * (pn)) + float((ingles) * (pi)) + float((razonamiento_cuantitativo) * (pr)) + float((competencias_ciudadanas) * (pc))
+					
+					#Guardo datos para generar la lista de admitidos
+					a = lista_admitidos() #creo una instancia de la clase lista
+					
+					a.cedula = cedula
+					a.nombre = nombre
+					a.apellido = apellido
+					a.puntaje = puntaje                         
+					a.carrera = programa
+					
+					a.save() #guardar listado
 					llamarMensaje= "Registro"
 					mensaje= "Registro Satisfactorio!!!!!!"
-					form = RegistroInscripcionesForm()
+					formulario = RegistroInscripcionesForm()
 				else:
-					llamarMensaje="NoRegistro"
-					mensaje="Ya existe un usuario con este número de Cédula"
+					llamarMensaje= "NoRegistro"
+					mensaje= "Número de Cédula ya existe!!!!!!"
 			else:
-				mensaje = "Datos erróneos"
-				
-		ctx = {'form':form, 'mensaje':mensaje, 'llamarMensaje':llamarMensaje}
+				llamarMensaje= "NoRegistro"
+				mensaje= "Num Icfes o Num Pago INCORRECTOS!!!!!!"
+			form = RegistroInscripcionesForm()
+			ctx = {'form':formulario, 'mensaje':mensaje, 'llamarMensaje':llamarMensaje}
+			return render(request,'registro_inscripciones.html',ctx)
+
+		else:
+			formulario = RegistroInscripcionesForm()
+		ctx = {'form':formulario, 'mensaje':mensaje, 'llamarMensaje':llamarMensaje}
 		return render(request,'registro_inscripciones.html',ctx)
 	else:
 		return HttpResponseRedirect('/login')
@@ -196,6 +255,7 @@ def editar_inscripcion_view(request,cedula=None):
 	mensaje = ""
 	llamarMensaje=""
 	i = inscripciones.objects.get(cedula=cedula)
+	a = lista_admitidos.objects.get(cedula=cedula)
 	if request.user.is_authenticated():
 		if request.method == "POST":
 			form = EditarInscripcionesForm(request.POST)
@@ -204,7 +264,30 @@ def editar_inscripcion_view(request,cedula=None):
 				nombre = form.cleaned_data['nombre']
 				apellido = form.cleaned_data['apellido']
 				snp = form.cleaned_data['snp']
+				if snp:
+					icfes = requests.get('https://morning-brushlands-79611.herokuapp.com/v1/resultados/?codigo=%s&format=json' % snp)
+					icfes_json = icfes.json()
+					if icfes_json:
+						lectura_critica= (icfes_json[0]["lectura_critica"])
+						matematicas= (icfes_json[0]["matematicas"])
+						sociales= (icfes_json[0]["sociales"])
+						naturales= (icfes_json[0]["naturales"])
+						ingles= (icfes_json[0]["ingles"])
+						razonamiento_cuantitativo= (icfes_json[0]["razonamiento_cuantitativo"])
+						competencias_ciudadanas= (icfes_json[0]["competencias_ciudadanas"])
+					else:
+						llamarMensaje= "NoRegistro"
+						mensaje= "Número de Registro No existe!!!!!!"
+				colegio = form.cleaned_data['colegio']
 				ref_pago = form.cleaned_data['ref_pago']
+				if ref_pago:
+					respuesta = requests.get('http://ws-bank-julianrico.c9users.io/rest/consignacion/?cedula=%s&format=json' % ref_pago)
+					respuesta_json = respuesta.json()
+					if respuesta_json:
+						print("Pago existente")
+					else:
+						llamarMensaje= "NoRegistro"
+						mensaje= "Número de Pago No existe!!!!!!"
 				programa = str(form.cleaned_data['programas_academicos'])#convierto el objeto a string
 				
 				i = inscripciones() #creo una instancia de la clase inscripcion
@@ -213,17 +296,42 @@ def editar_inscripcion_view(request,cedula=None):
 				i.nombre = nombre
 				i.apellido = apellido
 				i.snp = snp
+				i.lectura_critica = lectura_critica
+				i.matematicas = matematicas
+				i.sociales = sociales
+				i.naturales = naturales
+				i.ingles = ingles
+				i.razonamiento_cuantitativo = razonamiento_cuantitativo
+				i.competencias_ciudadanas = competencias_ciudadanas
+				i.colegio = colegio
 				i.ref_pago = ref_pago
 				i.carrera = programa
-				
+
 				i.save() #guardar inscripcion
 				
-				a = listado_admitidos() #creo una instancia de la clase lista
+				#Consulta de los ponderados de cada materia
+				try:
+					p = programasAcademico.objects.get(nombre=programa)
+				except programasAcademico.DoesNotExist:
+					info = "Programa No existe"
+				else:
+					pl = p.lectura_critica
+					pm = p.matematicas
+					ps = p.sociales
+					pn = p.naturales
+					pi = p.ingles
+					pr = p.razonamiento_cuantitativo
+					pc = p.competencias_ciudadanas
+				#Aqui se multiplica cada uno de los resultados de cada prueba por la ponderación que el programa académico 
+				puntaje = float((lectura_critica) * (pl)) + float((matematicas) * (pm)) + float((sociales) * (ps)) + float((naturales) * (pn)) + float((ingles) * (pi)) + float((razonamiento_cuantitativo) * (pr)) + float((competencias_ciudadanas) * (pc))
+				
+				#Guardo datos para generar la lista de admitidos
+				a = lista_admitidos() #creo una instancia de la clase lista
 				
 				a.cedula = cedula
 				a.nombre = nombre
 				a.apellido = apellido
-				a.puntaje = 320                          #ojoooooooooooooooooooo falta consultar al web service este  puntaje
+				a.puntaje = puntaje                          
 				a.carrera = programa
 				
 				a.save() #guardar listado
@@ -231,7 +339,8 @@ def editar_inscripcion_view(request,cedula=None):
 				llamarMensaje= "Registro"
 				mensaje= "Actualización Satisfactoria!!!!!!"
 			else:
-				mensaje = "Datos erróneos"
+				llamarMensaje= "NoRegistro"
+				mensaje= "Registro Icfes No Existe!!!!!!"
 
 		if request.method == "GET":
 			form = EditarInscripcionesForm(initial={
@@ -239,7 +348,16 @@ def editar_inscripcion_view(request,cedula=None):
 				'nombre': i.nombre,
 				'apellido': i.apellido,
 				'snp': i.snp,
-				'programas_academicos': i.carrera,
+				'lectura_critica': i.lectura_critica,
+				'matematicas': i.matematicas,
+				'sociales': i.sociales,
+				'naturales': i.naturales,
+				'ingles': i.ingles,
+				'razonamiento_cuantitativo': i.razonamiento_cuantitativo,
+				'competencias_ciudadanas': i.competencias_ciudadanas,
+				'colegio': i.colegio,
+				'ref_pago':i.ref_pago,
+				'programas_academicos': [o for o in i.carrera],
 			})
 		ctx = {'form':form, 'mensaje':mensaje, 'llamarMensaje':llamarMensaje}
 		return render(request,'editar_inscripciones.html',ctx)
@@ -263,7 +381,7 @@ def listar_inscripciones_view(request,pagina):
 					
 	#Metodo  para listar inscripciones				
 		lista_inscrip = inscripciones.objects.filter(status=True)
-		paginator = Paginator(lista_inscrip,7)
+		paginator = Paginator(lista_inscrip,10)
 		try:
 			page = int(pagina)
 		except:
@@ -288,12 +406,30 @@ def register_carrera_view(request):
 			if form.is_valid():
 				codigo = form.cleaned_data['codigo']
 				nombre = form.cleaned_data['nombre']
+				lectura_critica = form.cleaned_data['lectura_critica']
+				matematicas = form.cleaned_data['matematicas']
+				sociales = form.cleaned_data['sociales']
+				naturales = form.cleaned_data['naturales']
+				ingles = form.cleaned_data['ingles']
+				razonamiento_cuantitativo = form.cleaned_data['razonamiento_cuantitativo']
+				competencias_ciudadanas = form.cleaned_data['competencias_ciudadanas']
+				puntaje_min = form.cleaned_data['puntaje_min']
+				info = form.cleaned_data['info']
 				try:
 					p = programasAcademico.objects.get(codigo=codigo)
 				except programasAcademico.DoesNotExist:
 					p = programasAcademico() #creo una instancia de la clase programaAcademico
 					p.codigo = codigo
 					p.nombre = nombre
+					p.lectura_critica = lectura_critica
+					p.matematicas = matematicas
+					p.sociales = sociales
+					p.naturales = naturales
+					p.ingles = ingles
+					p.razonamiento_cuantitativo = razonamiento_cuantitativo
+					p.competencias_ciudadanas = competencias_ciudadanas
+					p.puntaje_min = puntaje_min
+					p.info = info
 					p.save() #guardar programa
 					llamarMensaje= "Registro"
 					mensaje= "Registro Satisfactorio!!!!!!"
@@ -319,10 +455,28 @@ def editar_carrera_view(request,codigo=None):
 			if form.is_valid():
 				codigo = form.cleaned_data['codigo']
 				nombre = form.cleaned_data['nombre']
-				p = programasAcademico() #creo una instancia de la clase inscripcion
+				lectura_critica = form.cleaned_data['lectura_critica']
+				matematicas = form.cleaned_data['matematicas']
+				sociales = form.cleaned_data['sociales']
+				naturales = form.cleaned_data['naturales']
+				ingles = form.cleaned_data['ingles']
+				razonamiento_cuantitativo = form.cleaned_data['razonamiento_cuantitativo']
+				competencias_ciudadanas = form.cleaned_data['competencias_ciudadanas']
+				puntaje_min = form.cleaned_data['puntaje_min']
+				info = form.cleaned_data['info']
+				p = programasAcademico() #creo una instancia de la clase carrera
 				p.codigo = codigo
 				p.nombre = nombre
-				p.save() #guardar inscripcion
+				p.lectura_critica = lectura_critica
+				p.matematicas = matematicas
+				p.sociales = sociales
+				p.naturales = naturales
+				p.ingles = ingles
+				p.razonamiento_cuantitativo = razonamiento_cuantitativo
+				p.competencias_ciudadanas = competencias_ciudadanas
+				p.puntaje_min = puntaje_min
+				p.info = info
+				p.save() #guardar y actualizo carrera
 				llamarMensaje= "Registro"
 				mensaje= "Actualización Satisfactoria!!!!!!"
 			else:
@@ -332,6 +486,15 @@ def editar_carrera_view(request,codigo=None):
 			form = EditarCarreraForm(initial={
 				'codigo': p.codigo,
 				'nombre': p.nombre,
+				'lectura_critica': p.lectura_critica,
+				'matematicas': p.matematicas,
+				'sociales': p.sociales,
+				'naturales': p.naturales,
+				'ingles': p.ingles,
+				'razonamiento_cuantitativo': p.razonamiento_cuantitativo,
+				'competencias_ciudadanas': p.competencias_ciudadanas,
+				'puntaje_min': p.puntaje_min,
+				'info': p.info,
 			})
 		ctx = {'form':form, 'mensaje':mensaje, 'llamarMensaje':llamarMensaje}
 		return render(request,'editar_carreras.html',ctx)
@@ -354,8 +517,8 @@ def listar_carreras_view(request,pagina):
 					return HttpResponse(simplejson.dumps(mensaje),content_type ='application/json')
 					
 	#Metodo  para listar programas academicos				
-		lista_carr = programasAcademico.objects.filter(status=True)
-		paginator = Paginator(lista_carr,7)
+		lista_carr = programasAcademico.objects.filter(status=True).order_by('codigo')
+		paginator = Paginator(lista_carr,10)
 		try:
 			page = int(pagina)
 		except:
@@ -404,4 +567,25 @@ def editar_password_view(request,username=None):
 		return render(request,'editar_password.html',ctx)
 	else:
 		return HttpResponseRedirect('/login')
+		
+def reporte_admitidos_view(request,pagina,carrera=None):
+	iterator = itertools.count(1)#me genera un contador para el indice de la tabla
+	if request.user.is_authenticated():
+	#Metodo  para listar inscripciones
+		#consulta por carrera, de mayor a menor puntaje y un cupo para 3
+		list_admitidos = lista_admitidos.objects.all().order_by('carrera')
+		paginator = Paginator(list_admitidos,20)
+		try:
+			page = int(pagina)
+		except:
+			page = 1
+		try:
+			admitidos = paginator.page(page)
+		except:
+			admitidos = paginator.page(paginator.num_pages)
+			
+		ctx = {'admitidos':admitidos,'iterator':iterator,'carrera':carrera}
+		return render(request, 'reporte_admitidos.html',ctx)
+	else:
+		return HttpResponseRedirect('/login')	
 		

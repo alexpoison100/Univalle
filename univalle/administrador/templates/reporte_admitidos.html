@@ -1,0 +1,82 @@
+{% extends "base_admin.html" %}
+{% block title %}Listado de todos los admitidos a la universidad{% endblock title %}
+{% block content %}
+
+
+
+
+    <h1 class="page-header text-overflow">Listado de Estudiantes Nuevos</h1>
+<div class="panel">
+    <div class="panel-heading panel-colorful panel-primary">
+        <h3 class="panel-title">Estudiantes Admitidos</h3>
+    </div>
+    <div id="demo-custom-toolbar" class="table-toolbar-left" style="text-align: right">
+        <a href="{% url 'vista_administrador' %}" class="btn btn-success btn-sm fa fa-home"><b> Inicio </b></a>
+    </div>
+    <div class="panel-body">
+    <form name="formDelete" method="post">
+{% if admitidos %}
+        <table id="demo-dt-delete" class="table table-striped table-bordered" cellspacing="0" width="100%">
+            <thead>
+                <tr>
+                    <th class="min-desktop">N°</th>
+                    <th class="min-tablet">Cédula</th>
+                    <th class="min-tablet">Nombre</th>
+                    <th class="min-tablet">Apellido</th>
+                    <th class="min-tablet">Puntaje</th>
+                    <th class="min-tablet">Carrera</th>
+                </tr>
+            </thead>
+        {% for a in admitidos  %}
+            <tbody>
+                  <tr id="tr{{a.cedula}}">
+                      <td>{{ iterator.next }}</td>
+                      <td>{{ a.cedula }} </td>
+                      <td>{{ a.nombre }} </td>
+                      <td>{{ a.apellido }} </td>
+                      <td>{{ a.puntaje }} </td>
+                      <td>{{ a.carrera }} </td>
+                  </tr>
+            </tbody>
+        {% endfor %}
+        </table>
+{% else %}
+        <h2>No existen Estudiantes Admitidos</h2>
+{% endif %}
+
+{% if admitidos %}
+        <div class="col-sm-7 col-sm-offset-4">
+        <table id="demo-dt-delete" width="15%">
+            <thead>
+                <tr>
+                    <th class="min-tablet"><a class="btn btn-info" href="/reporte_admitidos/pagina/1/"> Inicio </a></th>
+                     {% if admitidos.has_previous %}
+                    <th class="min-tablet"><a class="btn btn-info" href="/reporte_admitidos/pagina/{{admitidos.previous_page_number}}"><i class="fa fa-backward" ></i></a></th>
+                    {% else %}
+                    <th class="min-tablet"><a class="btn btn-info" href="#"><i class="fa fa-backward" ></i></a></th>
+                    {% endif %}
+                    {% if admitidos.has_next %}
+                    <th class="min-tablet"><a class="btn btn-info" href="/reporte_admitidos/pagina/{{admitidos.next_page_number}}"><i class="fa fa-forward"></i></a></th>
+                    {% else %}
+                    <th class="min-tablet"><a class="btn btn-info" href="#"><i class="fa fa-forward"></i></a></th>
+                    {% endif %}
+                    <th class="min-tablet"><a class="btn btn-info" href="/reporte_admitidos/pagina/{{admitidos.paginator.num_pages}}"> Final </a></th>
+                    
+                </tr>
+            </thead>
+        </table>
+        </div>
+        <div>
+         <table id="demo-dt-delete" width="100%">
+            <thead>
+                 <tr>
+                    <th class="min-desktop"><h4><b>Página {{ admitidos.number }} de {{ admitidos.paginator.num_pages}}</b></h4></th>
+                </tr>
+            </thead>   
+        </table>
+        </div>
+    </form>
+    </div>
+</div>
+{% endif %}   
+{% endblock %}

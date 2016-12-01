@@ -2,6 +2,8 @@
 from django import forms
 from django.contrib.auth.models import User
 from univalle.home.models import *
+import requests
+
 #from univalle.home.passw import *
 
 class ContactForm(forms.Form):
@@ -72,14 +74,15 @@ class RegisterForm(forms.Form):
 			pass
 		else:
 			raise forms.ValidationError('Contraseña no coinciden')
-			
+	
 class InscripcionesForm(forms.Form):
 	cedula = forms.IntegerField(label='Cédula',widget=forms.TextInput(attrs={'required': True,'type':"number",'class':"form-control",'placeholder':'Ingrese su Número de Cédula'}))
 	nombre = forms.CharField(label='Nombre',widget=forms.TextInput(attrs={'required': True,'type':"text", 'class':"form-control",'placeholder':'Ingrese su Nombre Completo'}))
 	apellido = forms.CharField(label='Apellido',widget=forms.TextInput(attrs={'required': True,'type':"text", 'class':"form-control",'placeholder':'Ingrese sus Apellidos'}))
 	snp = forms.CharField(label='Número de Registro ICFES',widget=forms.TextInput(attrs={'required': True,'type':"text", 'class':"form-control",'placeholder':'Ingrese su número de Registro ICFES'}))
+	colegio = forms.CharField(label='Colegio',widget=forms.TextInput(attrs={'required': True,'type':"text", 'class':"form-control",'placeholder':'Ingrese Nombre del Colegio'}))
 	ref_pago = forms.IntegerField(label='Referencia de Pago',widget=forms.TextInput(attrs={'required': True,'type':"number", 'class':"form-control",'placeholder':'Ingrese referencia de pago'}))
-	programas_academicos= forms.ModelChoiceField(label='Seleccione la Carrera',widget=forms.Select(attrs={'required': True,'class':"form-control"}), queryset=programasAcademico.objects.all())
+	programas_academicos= forms.ModelChoiceField(label='Seleccione la Carrera',widget=forms.Select(attrs={'required': True,'class':"form-control"}), queryset=programasAcademico.objects.all().order_by('nombre'))
 
 		#validar si el número de cédula ya existe
 	def clean_cedula(self):
@@ -90,23 +93,28 @@ class InscripcionesForm(forms.Form):
 			return cedula #para que valide el formulario como si fuera correcto
 		raise forms.ValidationError('Cédula ya existe')
 		
-		#validar si el número de cédula ya existe
+		#validar si el número de registro icfes existe en el webservice
 	def clean_snp(self):
 		snp = self.cleaned_data['snp']
-		try:
-			i = inscripciones.objects.get(snp=snp)
-		except inscripciones.DoesNotExist:
-			return snp #para que valide el formulario como si fuera correcto
-		raise forms.ValidationError('Código SNP ya existe')
-		
-class EditarInscripcionesForm(forms.Form):
-	cedula = forms.IntegerField(label='Cédula',widget=forms.TextInput(attrs={'required': True,'type':"number",'class':"form-control",'placeholder':'Ingrese Número de Cédula'}))
-	nombre = forms.CharField(label='Nombre',widget=forms.TextInput(attrs={'required': True,'type':"text", 'class':"form-control",'placeholder':'Ingrese Nombres'}))
-	apellido = forms.CharField(label='Apellido',widget=forms.TextInput(attrs={'required': True,'type':"text", 'class':"form-control",'placeholder':'Ingrese Apellidos'}))
-	snp = forms.CharField(label='Número de Registro ICFES',widget=forms.TextInput(attrs={'required': True,'type':"text", 'class':"form-control",'placeholder':'Ingrese su número de Registro ICFES'}))
-	ref_pago = forms.IntegerField(label='Referencia de Pago',widget=forms.TextInput(attrs={'required': True,'type':"number", 'class':"form-control",'placeholder':'Ingrese referencia de pago'}))
-	programas_academicos= forms.ModelChoiceField(label='Seleccione la Carrera',widget=forms.Select(attrs={'required': True,'class':"form-control"}), queryset=programasAcademico.objects.all())
+		if snp:
+			icfes = requests.get('https://morning-brushlands-79611.herokuapp.com/v1/resultados/?codigo=%s&format=json' % snp)
+			icfes_json = icfes.json()
+			if icfes_json:
+				return snp
+			else:
+				raise forms.ValidationError('Número de Registro No existe')
+				
+	#validar si el numero de pago es valido en el microservicio			
+	def clean_ref_pago(self):
+		ref_pago = self.cleaned_data['ref_pago']
+		if ref_pago:
+			respuesta = requests.get('http://ws-bank-julianrico.c9users.io/rest/consignacion/?cedula=%s&format=json' % ref_pago)
+			respuesta_json = respuesta.json()
+			if respuesta_json:
+				return ref_pago
+			else:
+				raise forms.ValidationError('Número de Pago No existe')
 
 class ResultadoForm(forms.Form):
-		programas_academicos= forms.ModelChoiceField(widget=forms.Select(attrs={'required': True,'class': "form-control"}), queryset=programasAcademico.objects.all())
+		programas_academicos= forms.ModelChoiceField(widget=forms.Select(attrs={'required': True,'class': "form-control"}), queryset=programasAcademico.objects.all().order_by('nombre'))
 

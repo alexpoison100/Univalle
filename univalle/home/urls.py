@@ -13,5 +13,5 @@ urlpatterns = patterns('',
     url(r'^resultados/$', views.resultados_view,name='vista_resultados'),
     url(r'^inscripciones/$', views.add_inscripciones_view,name='vista_inscripciones'),
     url(r'^listar_admitidos/pagina/(?P<pagina>.*)/programa/(?P<carrera>.*)$', views.listar_admitidos_view,name='vista_listar_admitidos'),
-
+    
 )

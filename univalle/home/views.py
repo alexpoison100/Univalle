@@ -9,7 +9,7 @@ from django.http import HttpResponseRedirect
 from django.core.paginator import Paginator, EmptyPage, InvalidPage#paginacion de Django
 from django.contrib.auth.models import User
 import itertools#contador indice de la tabla
-
+import requests
 # creamos nuestras vistas
 
 def index_view(request):
@@ -113,9 +113,8 @@ def resultados_view(request):
 		ctx = {'form':form, 'mensaje':mensaje}
 		return render(request,'resultados.html',ctx)
 	else:
-		return HttpResponseRedirect('/login')	
+		return HttpResponseRedirect('/login')
 		
-	
 def add_inscripciones_view(request):
 	if request.user.is_authenticated():
 		if request.method == "POST":
@@ -127,7 +126,21 @@ def add_inscripciones_view(request):
 				nombre = formulario.cleaned_data['nombre']
 				apellido = formulario.cleaned_data['apellido']
 				snp = formulario.cleaned_data['snp']
-				ref_pago = formulario.cleaned_data['ref_pago']					#ojoooooooooooooooooooo falta consultar al web service este  pago 
+				if snp:
+					icfes = requests.get('https://morning-brushlands-79611.herokuapp.com/v1/resultados/?codigo=%s&format=json' % snp)
+					icfes_json = icfes.json()
+					lectura_critica= (icfes_json[0]["lectura_critica"])
+					matematicas= (icfes_json[0]["matematicas"])
+					sociales= (icfes_json[0]["sociales"])
+					naturales= (icfes_json[0]["naturales"])
+					ingles= (icfes_json[0]["ingles"])
+					razonamiento_cuantitativo= (icfes_json[0]["razonamiento_cuantitativo"])
+					competencias_ciudadanas= (icfes_json[0]["competencias_ciudadanas"])
+				colegio = formulario.cleaned_data['colegio']
+				ref_pago = formulario.cleaned_data['ref_pago']
+				if ref_pago:
+					respuesta = requests.get('http://ws-bank-julianrico.c9users.io/rest/consignacion/?cedula=%s&format=json' % ref_pago)
+					respuesta_json = respuesta.json()
 				programa = str(formulario.cleaned_data['programas_academicos'])
 			
 				i = inscripciones() #creo una instancia de la clase inscripcion
@@ -136,17 +149,42 @@ def add_inscripciones_view(request):
 				i.nombre = nombre
 				i.apellido = apellido
 				i.snp = snp
+				i.lectura_critica = lectura_critica
+				i.matematicas = matematicas
+				i.sociales = sociales
+				i.naturales = naturales
+				i.ingles = ingles
+				i.razonamiento_cuantitativo = razonamiento_cuantitativo
+				i.competencias_ciudadanas = competencias_ciudadanas
+				i.colegio = colegio
 				i.ref_pago = ref_pago
 				i.carrera = programa
 				
 				i.save() #guardar inscripcion
 				
-				a = listado_admitidos() #creo una instancia de la clase lista
+				#Consulta de los ponderados de cada materia
+				try:
+					p = programasAcademico.objects.get(nombre=programa)
+				except programasAcademico.DoesNotExist:
+					info = "Programa No existe"
+				else:
+					pl = p.lectura_critica
+					pm = p.matematicas
+					ps = p.sociales
+					pn = p.naturales
+					pi = p.ingles
+					pr = p.razonamiento_cuantitativo
+					pc = p.competencias_ciudadanas
+				#Aqui se multiplica cada uno de los resultados de cada prueba por la ponderación que el programa académico 
+				puntaje = float((lectura_critica) * (pl)) + float((matematicas) * (pm)) + float((sociales) * (ps)) + float((naturales) * (pn)) + float((ingles) * (pi)) + float((razonamiento_cuantitativo) * (pr)) + float((competencias_ciudadanas) * (pc))
+				
+				#Guardo datos para generar la lista de admitidos
+				a = lista_admitidos() #creo una instancia de la clase lista
 				
 				a.cedula = cedula
 				a.nombre = nombre
 				a.apellido = apellido
-				a.puntaje = 320                          #ojoooooooooooooooooooo falta consultar al web service este  puntaje
+				a.puntaje = puntaje                         
 				a.carrera = programa
 				
 				a.save() #guardar listado
@@ -170,8 +208,8 @@ def listar_admitidos_view(request,pagina,carrera=None):
 	if request.user.is_authenticated():
 	#Metodo  para listar inscripciones
 		#consulta por carrera, de mayor a menor puntaje y un cupo para 3
-		lista_admitidos = listado_admitidos.objects.filter(carrera=carrera).order_by('-puntaje')[:3]
-		paginator = Paginator(lista_admitidos,20)
+		list_admitidos = lista_admitidos.objects.filter(carrera=carrera).order_by('-puntaje')[:5]
+		paginator = Paginator(list_admitidos,20)
 		try:
 			page = int(pagina)
 		except:
