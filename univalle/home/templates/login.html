@@ -2,20 +2,49 @@
 {% block title %} Login {% endblock %}
 
 {% block content %}
-
-	<form action="." method="POST">
-		<h2>Login</h2>
-		{% csrf_token %}
-		<ul class="errorlist">
-			<li>{{mensaje}}</li>
-		</ul>
-		{{form.as_p}}
-		<button class="btn  btn-defaultg" type="submit"> INGRESAR </button>
-		<div align="right">
-			<p><h6>No estás Registrado? <a href="/registro/" class="">Registrate Aquí!</a></h6></p>
-			<p><h6>¿Olvidaste el nombre de <a href="/reset/password_reset_form/" class="">Usuario</a> o la <a href="/reset/password_reset_form/" class="">Contraseña?</a></h6></p>
+	<!-- HEADER -->
+		<!--===================================================-->
+		<div align="left" class="cls-header cls-header-lg">
+			<div class="cls-brand">
+				<a class="box-inline" href="./">
+					<div class="col-md-6">
+            			<a href="/"><img src="/media/home/img/logo.png" width="600" height="350" class="img-responsive"></a>
+         			</div>
+				</a>
+			</div>
 		</div>
-	</form>
+		<!--===================================================-->
+		
+		
+		<!-- LOGIN FORM -->
+		<!--===================================================-->
+		<div class="cls-content">
+		   <div class="overlay">
+    		<div class="containerFormularios">
+        		<form action="." method="POST">
+        		<h3>LOGIN</h3>
+        		{% csrf_token %}
+        		<ul class="errorlist">
+					<li>{{mensaje}}</li>
+				</ul>
+        		<br>
+        		{{form.as_p}}
+        		<div align=center>
+        			<li><button class="btn  btn-defaultg" type="submit"> Ingresar </button>
+        			<button class="btn btn-defaultg" type="reset"> Limpiar </button></li>
+        		</div>
+	        	<div align="right">
+					<p><h6>No estás Registrado? <a href="/registro/" class="">Registrate Aquí!</a></h6></p>
+					<p><h6>¿Olvidaste el nombre de <a href="/reset/password_reset_form/" class="">Usuario</a> o la <a href="/reset/password_reset_form/" class="">Contraseña?</a></h6></p>
+				</div>
+        	
+        		<br>
+        		{{mensaje}}
+        	    </form>
+        	 </div>
+        	</div>
+        	</div>
+
 
 
 {% endblock %}

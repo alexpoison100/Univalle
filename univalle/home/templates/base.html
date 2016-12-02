@@ -1,156 +1,124 @@
+{% load static %}
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
+
 <head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>{% block title %}  {% endblock %}</title>
-<head>
-	<!-- Basic Page Needs
-    ================================================== -->
-    <meta charset="utf-8">
-    <!--[if IE]><meta http-equiv="x-ua-compatible" content="IE=9" /><![endif]-->
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Spirit8 is a Digital agency one page template built based on bootstrap framework. This template is design by Robert Berki and coded by Jenn Pereira. It is simple, mobile responsive, perfect for portfolio and agency websites. Get this for free exclusively at ThemeForces.com">
-    <meta name="keywords" content="bootstrap theme, portfolio template, digital agency, onepage, mobile responsive, spirit8, free website, free theme, themeforces themes, themeforces wordpress themes, themeforces bootstrap theme">
-    <meta name="author" content="ThemeForces.com">
-    
-    <!-- Favicons
-    ================================================== -->
-    <link rel="shortcut icon" href="/media/home/img/favicon.ico" type="image/x-icon">
-    <link rel="apple-touch-icon" href="/media/home/img/apple-touch-icon.png">
-    <link rel="apple-touch-icon" sizes="72x72" href="/media/home/img/apple-touch-icon-72x72.png">
-    <link rel="apple-touch-icon" sizes="114x114" href="/media/home/img/apple-touch-icon-114x114.png">
 
 
-    <!-- Bootstrap -->
-    <!-- <link rel="stylesheet" type="text/css"  href="css/bootstrap.css">-->
-    <link rel="stylesheet" type="text/css" href="/media/home/css/bootstrap.css">
-    <!-- <link rel="stylesheet" type="text/css" href="fonts/font-awesome/css/font-awesome.css">-->
-    <link rel="stylesheet" type="text/css" href="/media/home/fonts/font-awesome/css/font-awesome.css">
-    <link rel="stylesheet" type="text/css" href="/media/home/css/prueba_login.css">
-    
+	<!--STYLESHEET-->
+	<!--=================================================-->
 
-    <!-- Slider
-    ================================================== -->
-    <link href="/media/css/owl.carousel.css" rel="stylesheet" media="screen">
-    <link href="/media/css/owl.theme.css" rel="stylesheet" media="screen">
-    
+	<!--Open Sans Font [ OPTIONAL ] -->
+ 	<link href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700&amp;subset=latin" rel="stylesheet">
 
-    <!-- Stylesheet
-    ================================================== -->
-    <link rel="stylesheet" type="text/css"  href="/media/home/css/style.css">
-    <link rel="stylesheet" type="text/css" href="/media/home/css/responsive.css">
+    <link href="/media/home/formularios/style.css" rel="stylesheet">
+	<!--Bootstrap Stylesheet [ REQUIRED ]-->
+	<link href="/media/home/formularios/bootstrap.min.css" rel="stylesheet">
 
-    <link href='http://fonts.googleapis.com/css?family=Lato:100,300,400,700,900,100italic,300italic,400italic,700italic,900italic' rel='stylesheet' type='text/css'>
-    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,700,300,600,800,400' rel='stylesheet' type='text/css'>
 
-    <script type="text/javascript" src="/media/home/js/modernizr.custom.js"></script>
-    <script type="text/javascript" src="/media/home/js/boostrap.js"></script>
-    
-    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
-  </head>
-  <body>
-    
-	 <!-- Navigation
-    ==========================================-->
-    <nav id="tf-menu" class="navbar navbar-default navbar-fixed-top">
-            
-      <div class="container">
-        <!-- Brand and toggle get grouped for better mobile display -->
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
+	<!--Nifty Stylesheet [ REQUIRED ]-->
+	<link href="/media/home/formularios/nifty.min.css" rel="stylesheet">
 
-              <div class="col-md-6">
-                        <a href="/"><img src="/media/home/img/logo.png" class="imagen"></a>
-             </div>
-        </div>
-        <!-- ingresar usuario -->
-        
-        <div class="container">
-            <ul class="profile-wrapper">
-                <li>
-                    <!-- user profile -->
-                    <div align="center" class="profile">
-                        {% if user.is_authenticated %}
-                        <a href="#"><i class="fa fa-circle text-success"></i></a>
-                        <img src="/media/home/img/user.png"/>
-                        <a href="" class="name">{{user.username}}</a>
-                        {% else %}
-                        <img src="/media/home/img/nouser.png"/>
-                        <a href="" class="name">Mi Cuenta</a>
-                        {% endif %} 
-                        <!-- more menu -->
-                        <ul class="menu">
-                            {%if user.is_authenticated %}
-                            <li><a href="{% url 'vista_logout' %}">Cerrar Sesión</a></li>
-                            {% else %}
-                            <li><a href="{% url 'vista_login' %}">Ingresar</a></li>
-                            {% endif %} 
-                        </ul>
-                    </div>
-                </li>
-            </ul>
-        </div>
-                
-                <!-- Collect the nav links, forms, and other content for toggling -->
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-          <ul class="nav navbar-nav navbar-right">
-            <li><a href="/" class="page-scroll"><strong>Inicio</strong></a></li>
-            <li><a href="/#tf-about" class="page-scroll"><strong>Acerca de Univalle</strong></a></li>
-            <li><a href="/#tf-admisiones" class="page-scroll"><strong>Admisiones</strong></a></li>
-            <li><a href="/#tf-team" class="page-scroll"><strong>Portales</strong></a></li>
-            <li><a href="/#tf-noticias" class="page-scroll"><strong>Noticias</strong></a></li>
-            <li><a href="/#tf-testimonials" class="page-scroll"><strong>Contáctanos</strong></a></li>
-            {%if user.is_authenticated %}
-            <li><a href="{% url 'vista_inscripciones' %}" class="page-scroll"><strong>Inscripciones</strong></a></li>
-            <li><a href="{% url 'vista_resultados' %}" class="page-scroll"><strong>Resultados</strong></a></li>
-            {% endif %} 
-            {%if user.is_authenticated and user.is_staff%} <!-- si el usuario es admin o root puede entrar al panel administrador -->
-            <li><a href="{% url 'vista_administrador' %}" class="page-scroll"><strong>Administrador</strong></a></li>
-            {% endif %}  
-          </ul>
-        </div><!-- /.navbar-collapse -->
-      </div><!-- /.container-fluid -->
-    </nav>
- 
 
-    <!-- Inicio Page
-    ==========================================-->
-    <div id="tf-inicio" class="text-center">
-        <div class="overlay">
-            <div class="containerFormularios">
-                    {% block content %}
+	<!--Font Awesome [ OPTIONAL ]-->
+	<link href="/media/home/formularios/font-awesome.min.css" rel="stylesheet">
+
+
+	<!-- Create your own class to load custum image [ SAMPLE ]-->
+	<style>
+		.demo-my-bg{
+			background-image : url("/media/home/img/fondo_univalle.jpg");
+		}
+	</style>
+
+
+	
+
+	<!--SCRIPT-->
+	<!--=================================================-->
+
+	<!--Page Load Progress Bar [ OPTIONAL ]-->
+	<link href="/media/home/formularios/pace.min.css" rel="stylesheet">
+	<script src="/media/home/formularios/pace.min.js"></script>
+
+
+	
+	<!--
+
+	REQUIRED
+	You must include this in your project.
+
+	RECOMMENDED
+	This category must be included but you may modify which plugins or components which should be included in your project.
+
+	OPTIONAL
+	Optional plugins. You may choose whether to include it in your project or not.
+
+
+	Detailed information and more samples can be found in the document.
+
+	-->
+		
+
+</head>
+
+<!--TIPS-->
+<!--You may remove all ID or Class names which contain "demo-", they are only used for demonstration. -->
+
+<body>
+	<div id="container" class="cls-container">
+		
+		<!-- BACKGROUND IMAGE -->
+		<!--===================================================-->
+		<div id="bg-overlay" class="bg-img demo-my-bg"></div>
+		{% block content %}
                     
-                    {% endblock %}
-            </div>
-        </div>
-    </div>
+        {% endblock %}
+		
+	</div>
+	<!--===================================================-->
+	<!-- END OF CONTAINER -->
 
-   
-    
-<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-    <script type="text/javascript" src="/media/home/js/jquery.1.11.1.js"></script>
-    <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script type="text/javascript" src="/media/home/js/bootstrap.js"></script>
-    <script type="text/javascript" src="/media/home/js/SmoothScroll.js"></script>
-    <script type="text/javascript" src="/media/home/js/jquery.isotope.js"></script>
 
-    <script src="/media/home/js/owl.carousel.js"></script>
+		
+	<!--JAVASCRIPT-->
+	<!--=================================================-->
 
-    <!-- Javascripts
-    ================================================== -->
-    <script type="text/javascript" src="/media/home/js/main.js"></script>
+	<!--jQuery [ REQUIRED ]-->
+	<script  src="/media/home/formularios/js/jquery-2.1.1.min.js" ></script>
+
+
+	<!--BootstrapJS [ RECOMMENDED ]-->
+	<script  src="/media/home/formularios/js/bootstrap.min.js" ></script>
+
+
+	<!--Fast Click [ OPTIONAL ]-->
+	<script  src="/media/home/formularios/js/fastclick.min.js" ></script>
+
+	
+	<!--Nifty Admin [ RECOMMENDED ]-->
+	<script  src="/media/home/formularios/js/nifty.min.js" ></script>
+
+	
+	<!--
+
+	REQUIRED
+	You must include this in your project.
+
+	RECOMMENDED
+	This category must be included but you may modify which plugins or components which should be included in your project.
+
+	OPTIONAL
+	Optional plugins. You may choose whether to include it in your project or not.
+
+
+	Detailed information and more samples can be found in the document.
+
+	-->
+		
 
 </body>
-
-
 </html>

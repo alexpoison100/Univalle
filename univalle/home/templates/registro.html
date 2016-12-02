@@ -2,17 +2,43 @@
 {% block title %} Registro {% endblock %}
 
 {% block content %}
-	<form action="." method="POST">
-		<h2>Registro</h2>
-		<br>
-		{% csrf_token %}
-		{{form.as_p}}
-		<div align="center">
-			<button class="btn  btn-defaultg" type="submit"> CREAR CUENTA </button>
+
+		<!-- HEADER -->
+		<!--===================================================-->
+			<div align="left" class="cls-header cls-header-lg">
+			<div class="cls-brand">
+				<a class="box-inline" href="./">
+					<div class="col-md-6">
+            			<a href="/"><img src="/media/home/img/logo.png" width="600" height="350" class="img-responsive"></a>
+         			</div>
+				</a>
+			</div>
 		</div>
-		<div align="left">
-			<h6> <a href="/login/" class="">Atrás</a></h6>
-		</div>
-	</form>
+		<!--===================================================-->
+		
+		
+		<!-- LOGIN FORM -->
+		<!--===================================================-->
+		<div class="cls-content">
+		   <div class="overlay">
+    		<div class="containerFormularios">
+        		<form action="." method="POST">
+        		<h3>FORMULARIO DE REGISTRO</h3>
+        		{% csrf_token %}
+        		<br>
+        		{{form.as_p}}
+        		<div align=center>
+        			<li><button class="btn  btn-defaultg" type="submit"> Crear Cuenta </button></li>
+        		</div>
+        		<div align="left">
+        			<h6><a href="/login" class="">Atrás</a></h6>
+        		</div>
+        		<br>
+        		{{info}}
+        	    </form>
+        	 </div>
+        	</div>
+        	</div>
+	
 
 {% endblock %}

@@ -49,68 +49,68 @@
                 </div>
             </fieldset>
             
-            <!--<fieldset>-->
-            <!--    <div class="form-group">-->
-            <!--    <label class="col-lg-3 control-label">Puntaje de Lectura crítica:</label>-->
-            <!--    <div class="col-lg-7">-->
-            <!--    {{ form.lectura_critica }}-->
-            <!--    </div>-->
-            <!--    </div>-->
-            <!--</fieldset>-->
+            <fieldset>
+                <div class="form-group">
+                <label class="col-lg-3 control-label">Puntaje de Lectura crítica:</label>
+                <div class="col-lg-7">
+                {{ form.lectura_critica }}
+                </div>
+                </div>
+            </fieldset>
             
-            <!--<fieldset>-->
-            <!--    <div class="form-group">-->
-            <!--    <label class="col-lg-3 control-label">Puntaje de Matemáticas:</label>-->
-            <!--    <div class="col-lg-7">-->
-            <!--    {{ form.matematicas }}-->
-            <!--    </div>-->
-            <!--    </div>-->
-            <!--</fieldset>-->
+            <fieldset>
+                <div class="form-group">
+                <label class="col-lg-3 control-label">Puntaje de Matemáticas:</label>
+                <div class="col-lg-7">
+                {{ form.matematicas }}
+                </div>
+                </div>
+            </fieldset>
             
-            <!--<fieldset>-->
-            <!--    <div class="form-group">-->
-            <!--    <label class="col-lg-3 control-label">Puntaje de Sociales:</label>-->
-            <!--    <div class="col-lg-7">-->
-            <!--    {{ form.sociales }}-->
-            <!--    </div>-->
-            <!--    </div>-->
-            <!--</fieldset>-->
+            <fieldset>
+                <div class="form-group">
+                <label class="col-lg-3 control-label">Puntaje de Sociales:</label>
+                <div class="col-lg-7">
+                {{ form.sociales }}
+                </div>
+                </div>
+            </fieldset>
             
-            <!--<fieldset>-->
-            <!--    <div class="form-group">-->
-            <!--    <label class="col-lg-3 control-label">Puntaje de Naturales:</label>-->
-            <!--    <div class="col-lg-7">-->
-            <!--    {{ form.naturales }}-->
-            <!--    </div>-->
-            <!--    </div>-->
-            <!--</fieldset>-->
+            <fieldset>
+                <div class="form-group">
+                <label class="col-lg-3 control-label">Puntaje de Naturales:</label>
+                <div class="col-lg-7">
+                {{ form.naturales }}
+                </div>
+                </div>
+            </fieldset>
             
-            <!--<fieldset>-->
-            <!--    <div class="form-group">-->
-            <!--    <label class="col-lg-3 control-label">Puntaje de Inglés:</label>-->
-            <!--    <div class="col-lg-7">-->
-            <!--    {{ form.ingles }}-->
-            <!--    </div>-->
-            <!--    </div>-->
-            <!--</fieldset>-->
+            <fieldset>
+                <div class="form-group">
+                <label class="col-lg-3 control-label">Puntaje de Inglés:</label>
+                <div class="col-lg-7">
+                {{ form.ingles }}
+                </div>
+                </div>
+            </fieldset>
             
-            <!--<fieldset>-->
-            <!--    <div class="form-group">-->
-            <!--    <label class="col-lg-3 control-label">Puntaje de Razonamiento cuantitativo:</label>-->
-            <!--    <div class="col-lg-7">-->
-            <!--    {{ form.razonamiento_cuantitativo }}-->
-            <!--    </div>-->
-            <!--    </div>-->
-            <!--</fieldset>-->
+            <fieldset>
+                <div class="form-group">
+                <label class="col-lg-3 control-label">Puntaje de Razonamiento cuantitativo:</label>
+                <div class="col-lg-7">
+                {{ form.razonamiento_cuantitativo }}
+                </div>
+                </div>
+            </fieldset>
             
-            <!--<fieldset>-->
-            <!--    <div class="form-group">-->
-            <!--    <label class="col-lg-3 control-label">Puntaje de Competencias ciudadanas:</label>-->
-            <!--    <div class="col-lg-7">-->
-            <!--    {{ form.competencias_ciudadanas }}-->
-            <!--    </div>-->
-            <!--    </div>-->
-            <!--</fieldset>-->
+            <fieldset>
+                <div class="form-group">
+                <label class="col-lg-3 control-label">Puntaje de Competencias ciudadanas:</label>
+                <div class="col-lg-7">
+                {{ form.competencias_ciudadanas }}
+                </div>
+                </div>
+            </fieldset>
             
             <fieldset>
                 <div class="form-group">
@@ -150,6 +150,35 @@
             </div>
         </form>
 </div>
+<script>
+    function icfes(){
+        var snp = document.getElementById("snp").value;
+        var url = "/icfes/";
+        $.ajax({
+           url: url,
+           data: {'snp':snp,
+                csrfmiddlewaretoken: '{{csrf_token}}',
+           },
+            type: 'POST',
+            success: function(response_data){
+                
+                var recept = JSON.parse(response_data);
+                $("#lectura_critica").val(recept[0]["lectura_critica"]);
+                $("#matematicas").val(recept[0]["matematicas"]);
+                $("#sociales").val(recept[0]["sociales"]);
+                $("#naturales").val(recept[0]["naturales"]);
+                $("#ingles").val(recept[0]["ingles"]);
+                $("#razonamiento_cuantitativo").val(recept[0]["razonamiento_cuantitativo"]);
+                $("#competencias_ciudadanas").val(recept[0]["competencias_ciudadanas"]);
+            },
+            error: function(xhr,errmsg,err){
+                
+                alert(xhr.status + " " + xhr.responseText);
+                
+            }
+        });
+    }
+</script>
 <script>
     window.onload= function() {
         llamarMensajes('{{ llamarMensaje }}' , '{{ mensaje }}');

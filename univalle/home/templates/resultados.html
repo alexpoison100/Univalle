@@ -2,28 +2,44 @@
 {% block title %} ResultadoForm {% endblock %}
 
 {% block content %}
-    <div>
+	<!-- HEADER -->
+		<!--===================================================-->
+			<div align="left" class="cls-header cls-header-lg">
+			<div class="cls-brand">
+				<a class="box-inline" href="./">
+					<div class="col-md-6">
+            			<a href="/"><img src="/media/home/img/logo.png" width="600" height="350" class="img-responsive"></a>
+         			</div>
+				</a>
+			</div>
+		</div>
+		<!--===================================================-->
+		
+		
+		<!-- LOGIN FORM -->
+		<!--===================================================-->
+		<div class="cls-content">
+		   <div class="overlay">
+    		<div class="containerFormularios">
+                <form id="programas_academicos" action="." method="POST">
+                    <h3>RESULTADOS</h3>
+                    <br>
+                    "Seleccione el programa académico al que se inscribió"
+                    <br>
+                    <br>
+                    {% csrf_token %}
+                    {{form.programas_academicos}}
         
-        <form id="programas_academicos" action="." method="POST">
-            <h2>RESULTADOS</h2>
-            <br>
-            "Seleccione la Carrera a la que se inscribió"
-            <br>
-            <br>
-            {% csrf_token %}
-            {{form.programas_academicos}}
-
-            <div align=center>
-                <br>
-                <button class="btn  btn-defaultg" type="submit"> GENERAR LISTADO </button>
-                </div>
-            <div align="left">
-			    <h5><a href="/" class="">Atrás</a></h5>
-		    </div>
-        </form>
-        
-       
-    </div>
-
+                    <div align=center>
+                        <br>
+                        <button class="btn  btn-defaultg" type="submit"> Generar Listado </button>
+                        </div>
+                    <div align="left">
+        			    <h6><a href="/" class="">Atrás</a></h6>
+        		    </div>
+                </form>
+        	 </div>
+        	</div>
+        	</div>
 
 {% endblock %}

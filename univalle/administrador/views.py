@@ -15,6 +15,12 @@ import itertools#contador indice de la tabla
 import requests
 
 # creamos nuestras vistas
+def icfes (request):
+    if request.method == "POST":
+        snp = request.POST['snp']
+        url = "https://morning-brushlands-79611.herokuapp.com/v1/resultados/?codigo=" + snp + "&format=json"
+        webservice = requests.get(url, verify=True)
+        return HttpResponse(webservice)
 
 def administrador_view(request):
 	#muestra el index pero con el formulario de contacto
@@ -167,16 +173,13 @@ def register_inscripcion_view(request):
 				nombre = formulario.cleaned_data['nombre']
 				apellido = formulario.cleaned_data['apellido']
 				snp = formulario.cleaned_data['snp']
-				if snp:
-					icfes = requests.get('https://morning-brushlands-79611.herokuapp.com/v1/resultados/?codigo=%s&format=json' % snp)
-					icfes_json = icfes.json()
-					lectura_critica= (icfes_json[0]["lectura_critica"])
-					matematicas= (icfes_json[0]["matematicas"])
-					sociales= (icfes_json[0]["sociales"])
-					naturales= (icfes_json[0]["naturales"])
-					ingles= (icfes_json[0]["ingles"])
-					razonamiento_cuantitativo= (icfes_json[0]["razonamiento_cuantitativo"])
-					competencias_ciudadanas= (icfes_json[0]["competencias_ciudadanas"])
+				lectura_critica= formulario.cleaned_data['lectura_critica']
+				matematicas= formulario.cleaned_data['matematicas']
+				sociales= formulario.cleaned_data['sociales']
+				naturales= formulario.cleaned_data['naturales']
+				ingles= formulario.cleaned_data['ingles']
+				razonamiento_cuantitativo= formulario.cleaned_data['razonamiento_cuantitativo']
+				competencias_ciudadanas= formulario.cleaned_data['competencias_ciudadanas']
 				colegio = formulario.cleaned_data['colegio']
 				ref_pago = formulario.cleaned_data['ref_pago']
 				if ref_pago:

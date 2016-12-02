@@ -223,3 +223,4 @@ def listar_admitidos_view(request,pagina,carrera=None):
 		return render(request, 'listar_admitidos.html',ctx)
 	else:
 		return HttpResponseRedirect('/login')	
+		
