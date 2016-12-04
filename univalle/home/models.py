@@ -28,6 +28,7 @@ class programasAcademico(models.Model):
 	razonamiento_cuantitativo	=models.FloatField()
 	competencias_ciudadanas		=models.FloatField()
 	puntaje_min	=models.IntegerField()
+	cupos		=models.IntegerField()
 	info		=models.CharField(max_length=300)
 	status		=models.BooleanField(default=True)
 

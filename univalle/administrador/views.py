@@ -417,6 +417,7 @@ def register_carrera_view(request):
 				razonamiento_cuantitativo = form.cleaned_data['razonamiento_cuantitativo']
 				competencias_ciudadanas = form.cleaned_data['competencias_ciudadanas']
 				puntaje_min = form.cleaned_data['puntaje_min']
+				cupos = form.cleaned_data['cupos']
 				info = form.cleaned_data['info']
 				try:
 					p = programasAcademico.objects.get(codigo=codigo)
@@ -432,6 +433,7 @@ def register_carrera_view(request):
 					p.razonamiento_cuantitativo = razonamiento_cuantitativo
 					p.competencias_ciudadanas = competencias_ciudadanas
 					p.puntaje_min = puntaje_min
+					p.cupos = cupos
 					p.info = info
 					p.save() #guardar programa
 					llamarMensaje= "Registro"
@@ -466,7 +468,9 @@ def editar_carrera_view(request,codigo=None):
 				razonamiento_cuantitativo = form.cleaned_data['razonamiento_cuantitativo']
 				competencias_ciudadanas = form.cleaned_data['competencias_ciudadanas']
 				puntaje_min = form.cleaned_data['puntaje_min']
+				cupos = form.cleaned_data['cupos']
 				info = form.cleaned_data['info']
+				
 				p = programasAcademico() #creo una instancia de la clase carrera
 				p.codigo = codigo
 				p.nombre = nombre
@@ -478,6 +482,7 @@ def editar_carrera_view(request,codigo=None):
 				p.razonamiento_cuantitativo = razonamiento_cuantitativo
 				p.competencias_ciudadanas = competencias_ciudadanas
 				p.puntaje_min = puntaje_min
+				p.cupos = cupos
 				p.info = info
 				p.save() #guardar y actualizo carrera
 				llamarMensaje= "Registro"
@@ -497,6 +502,7 @@ def editar_carrera_view(request,codigo=None):
 				'razonamiento_cuantitativo': p.razonamiento_cuantitativo,
 				'competencias_ciudadanas': p.competencias_ciudadanas,
 				'puntaje_min': p.puntaje_min,
+				'cupos': p.cupos,
 				'info': p.info,
 			})
 		ctx = {'form':form, 'mensaje':mensaje, 'llamarMensaje':llamarMensaje}

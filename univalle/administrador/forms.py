@@ -40,6 +40,7 @@ class CarreraForm(forms.Form):
     razonamiento_cuantitativo = forms.FloatField(label="Razonamiento cuantitativo",widget=forms.TextInput(attrs={'required': True,'min_value':0.01,'max_value':1.00,'step': "0.01",'type':"number",'class':"form-control",'placeholder':'Ingrese Ponderación'}))
     competencias_ciudadanas = forms.FloatField(label="Competencias ciudadanas",widget=forms.TextInput(attrs={'required': True,'min_value':0.01,'max_value':1.00,'step': "0.01",'type':"number",'class':"form-control",'placeholder':'Ingrese Ponderación'}))
     puntaje_min = forms.IntegerField(label="Puntaje mínimo",widget=forms.TextInput(attrs={'required': True,'type':"number",'class':"form-control",'placeholder':'Ingrese Puntaje mínimo de la carrera'}))
+    cupos = forms.IntegerField(label="Cantidad de Cupos",widget=forms.TextInput(attrs={'required': True,'type':"number",'class':"form-control",'placeholder':'Ingrese la cantidad de Cupos'}))
     info	= forms.CharField(label="Información",widget=forms.Textarea(attrs={'required': True,'class':"form-control",'rows':5,'placeholder':'Ingrese Información de la carrera'}))
 	
 class EditarCarreraForm(forms.Form):
@@ -53,7 +54,8 @@ class EditarCarreraForm(forms.Form):
     razonamiento_cuantitativo = forms.FloatField(label="Razonamiento cuantitativo",widget=forms.TextInput(attrs={'required': True,'step': "0.01",'type':"number",'class':"form-control",'placeholder':'Ingrese Ponderación'}))
     competencias_ciudadanas = forms.FloatField(label="Competencias ciudadanas",widget=forms.TextInput(attrs={'required': True,'step': "0.01",'type':"number",'class':"form-control",'placeholder':'Ingrese Ponderación'}))
     puntaje_min = forms.IntegerField(label="Puntaje mínimo",widget=forms.TextInput(attrs={'required': True,'type':"number",'class':"form-control",'placeholder':'Ingrese Puntaje mínimo de la carrera'}))
-    info	= forms.CharField(label="Información",widget=forms.Textarea(attrs={'required': True,'class':"form-control",'rows':5,'placeholder':'Ingrese Información de la carrera'}))
+    cupos = forms.IntegerField(label="Cantidad de Cupos",widget=forms.TextInput(attrs={'required': True,'type':"number",'class':"form-control",'placeholder':'Ingrese la cantidad de Cupos'}))
+    info = forms.CharField(label="Información",widget=forms.Textarea(attrs={'required': True,'class':"form-control",'rows':5,'placeholder':'Ingrese Información de la carrera'}))
 
 class RegistroInscripcionesForm(forms.Form):
 	cedula = forms.IntegerField(label='Cédula',widget=forms.TextInput(attrs={'required': True,'type':"number",'class':"form-control",'placeholder':'Ingrese Número de Cédula'}))

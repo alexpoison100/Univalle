@@ -206,9 +206,16 @@ def add_inscripciones_view(request):
 def listar_admitidos_view(request,pagina,carrera=None):
 	iterator = itertools.count(1)#me genera un contador para el indice de la tabla
 	if request.user.is_authenticated():
+	#Consulta de cantidad de cupos segun el programa academico 
+		try:
+			p = programasAcademico.objects.get(nombre=carrera)
+		except programasAcademico.DoesNotExist:
+			info = "Programa No existe"
+		else:
+			cupos = p.cupos
 	#Metodo  para listar inscripciones
-		#consulta por carrera, de mayor a menor puntaje y un cupo para 3
-		list_admitidos = lista_admitidos.objects.filter(carrera=carrera).order_by('-puntaje')[:5]
+		#consulta por carrera, de mayor a menor puntaje y seleccionado una cantidad de cupo
+		list_admitidos = lista_admitidos.objects.filter(carrera=carrera).order_by('-puntaje')[:cupos]
 		paginator = Paginator(list_admitidos,20)
 		try:
 			page = int(pagina)
