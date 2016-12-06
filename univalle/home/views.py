@@ -86,7 +86,7 @@ def register_view(request):
 			return render(request,'thanks_register.html')
 		else:
 			info = "Datos incorrectos"
-			ctx = {'form':form}
+			ctx = {'form':form,'info':info}
 			return render(request,'registro.html',ctx)
 
 	ctx	= {'form':form}

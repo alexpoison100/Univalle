@@ -41,7 +41,7 @@ class RegisterForm(forms.Form):
 		raise forms.ValidationError('Correo ya registrado')
 
 	#validar que el password coincida y tenga mínimo 8 caracteres, minisculas y mayusculas
-	def clean_password_old(self):
+	def clean_password_two(self):
 		password_one = self.cleaned_data['password_one']
 		password_two = self.cleaned_data['password_two']
 		espacio=False
@@ -52,8 +52,8 @@ class RegisterForm(forms.Form):
 		for carac in password_one :
 			if carac.isspace()==True: #Saber si el caracter es un espacio
 				espacio=True #si encuentra un espacio se cambia el valor user
-			if carac.isupper()== True: #saber si hay mayuscula
-				mayuscula=True #acumulador o contador de mayusculas
+			#if carac.isupper()== True: #saber si hay mayuscula
+			#	mayuscula=True #acumulador o contador de mayusculas
 			if carac.islower()== True: #saber si hay minúsculas
 				minuscula=True #acumulador o contador de minúsculas
 			if carac.isdigit()== True: #saber si hay números
@@ -65,10 +65,10 @@ class RegisterForm(forms.Form):
 		if len(password_one) < 5 :
 			raise forms.ValidationError('La contraseña debe tener mínimo 5 caracteres')
 
-		if mayuscula == True and minuscula ==True and numeros == True :
+		if minuscula ==True and numeros == True :
 			pass
 		else:
-			raise forms.ValidationError('La contraseña elegida no es segura: debe contener letras minúsculas, mayúsculas y números')
+			raise forms.ValidationError('La contraseña elegida no es segura: debe contener letras y números')
 			
 		if password_one == password_two:
 			pass

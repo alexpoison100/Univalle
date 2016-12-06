@@ -64,6 +64,7 @@ def administrador_view(request):
 def register_user_view(request):
 	mensaje=""
 	llamarMensaje=""
+	info=""
 	form = RegistroUsuarioForm()
 	if request.user.is_authenticated():
 		if request.method == "POST":
@@ -73,25 +74,17 @@ def register_user_view(request):
 				email = form.cleaned_data['email']
 				password_one = form.cleaned_data['password_one']
 				password_two = form.cleaned_data['password_two']
-				try:
-					u = User.objects.get(username=username)
-				except User.DoesNotExist:
-					if password_one == password_two:
-						u = User.objects.create_user(username=username, email=email, password=password_one)
-						u.save()#guarda el usuario
-						llamarMensaje= "Registro"
-						mensaje= "Registro Satisfactorio!!!!!!"
-						form = RegistroUsuarioForm()
-					else:
-						llamarMensaje="NoRegistro"
-						mensaje="Contraseña no coinciden"
-				else:
-					llamarMensaje="NoRegistro"
-					mensaje="Datos incorrectos"
+			
+				u = User.objects.create_user(username=username, email=email, password=password_one)
+				u.save()#guarda el usuario
+				llamarMensaje= "Registro"
+				mensaje= "Registro Satisfactorio!!!!!!"
+				form = RegistroUsuarioForm()
+
 			else:
 				llamarMensaje="NoRegistro"
-				mensaje = "Correo ya registrado"
-		ctx = {'form':form, 'mensaje':mensaje, 'llamarMensaje':llamarMensaje}
+				mensaje = "DATOS INCORRECTOS!!!!!!"
+		ctx = {'form':form,'info':info, 'mensaje':mensaje, 'llamarMensaje':llamarMensaje}
 		return render(request,'registro_usuarios.html',ctx)
 	else:
 		return HttpResponseRedirect('/login')
@@ -99,6 +92,7 @@ def register_user_view(request):
 def editar_usuario_view(request,pk=None):
 	mensaje = ""
 	llamarMensaje=""
+	info=""
 	u = User.objects.get(pk=pk)
 	if request.user.is_authenticated():
 		if request.method == "POST":
@@ -115,14 +109,15 @@ def editar_usuario_view(request,pk=None):
 				llamarMensaje= "Registro"
 				mensaje= "Actualización Satisfactoria!!!!!!"
 			else:
-				mensaje = "Datos erróneos"
+				llamarMensaje="NoRegistro"
+				mensaje = "DATOS INCORRECTOS!!!!!!"
 		#se carga el formulario con los datos del usuario a editar		
 		if request.method == "GET":
 			form = EditarUsuarioForm(initial={
 				'username': u.username,
 				'email': u.email,
 			})
-		ctx = {'form':form, 'mensaje':mensaje, 'llamarMensaje':llamarMensaje}
+		ctx = {'form':form, 'mensaje':mensaje, 'llamarMensaje':llamarMensaje,'info':info}
 		return render(request,'editar_usuarios.html',ctx)
 	else:
 		return HttpResponseRedirect('/login')
@@ -162,6 +157,7 @@ def listar_usuario_view(request,pagina):
 def register_inscripcion_view(request):
 	mensaje=""
 	llamarMensaje=""
+	info=""
 	form = RegistroInscripcionesForm()
 	if request.user.is_authenticated():
 		if request.method == "POST":
@@ -182,69 +178,60 @@ def register_inscripcion_view(request):
 				competencias_ciudadanas= formulario.cleaned_data['competencias_ciudadanas']
 				colegio = formulario.cleaned_data['colegio']
 				ref_pago = formulario.cleaned_data['ref_pago']
-				if ref_pago:
-					respuesta = requests.get('http://ws-bank-julianrico.c9users.io/rest/consignacion/?cedula=%s&format=json' % ref_pago)
-					respuesta_json = respuesta.json()
 				programa = str(formulario.cleaned_data['programas_academicos'])
+
+				i = inscripciones()
 				
+				i.cedula = cedula
+				i.nombre = nombre
+				i.apellido = apellido
+				i.snp = snp
+				i.lectura_critica = lectura_critica
+				i.matematicas = matematicas
+				i.sociales = sociales
+				i.naturales = naturales
+				i.ingles = ingles
+				i.razonamiento_cuantitativo = razonamiento_cuantitativo
+				i.competencias_ciudadanas = competencias_ciudadanas
+				i.colegio = colegio
+				i.ref_pago = ref_pago
+				i.carrera = programa
+				
+				i.save() #guardar inscripcion
+				#Consulta de los ponderados de cada materia
 				try:
-					i = inscripciones.objects.get(cedula=cedula) #verificamos que no exista la cedula antes de registrar
-				except inscripciones.DoesNotExist:
-					i = inscripciones()
-					
-					i.cedula = cedula
-					i.nombre = nombre
-					i.apellido = apellido
-					i.snp = snp
-					i.lectura_critica = lectura_critica
-					i.matematicas = matematicas
-					i.sociales = sociales
-					i.naturales = naturales
-					i.ingles = ingles
-					i.razonamiento_cuantitativo = razonamiento_cuantitativo
-					i.competencias_ciudadanas = competencias_ciudadanas
-					i.colegio = colegio
-					i.ref_pago = ref_pago
-					i.carrera = programa
-					
-					i.save() #guardar inscripcion
-					#Consulta de los ponderados de cada materia
-					try:
-						p = programasAcademico.objects.get(nombre=programa)
-					except programasAcademico.DoesNotExist:
-						info = "Programa No existe"
-					else:
-						pl = p.lectura_critica
-						pm = p.matematicas
-						ps = p.sociales
-						pn = p.naturales
-						pi = p.ingles
-						pr = p.razonamiento_cuantitativo
-						pc = p.competencias_ciudadanas
-					#Aqui se multiplica cada uno de los resultados de cada prueba por la ponderación que el programa académico 
-					puntaje = float((lectura_critica) * (pl)) + float((matematicas) * (pm)) + float((sociales) * (ps)) + float((naturales) * (pn)) + float((ingles) * (pi)) + float((razonamiento_cuantitativo) * (pr)) + float((competencias_ciudadanas) * (pc))
-					
-					#Guardo datos para generar la lista de admitidos
-					a = lista_admitidos() #creo una instancia de la clase lista
-					
-					a.cedula = cedula
-					a.nombre = nombre
-					a.apellido = apellido
-					a.puntaje = puntaje                         
-					a.carrera = programa
-					
-					a.save() #guardar listado
-					llamarMensaje= "Registro"
-					mensaje= "Registro Satisfactorio!!!!!!"
-					formulario = RegistroInscripcionesForm()
+					p = programasAcademico.objects.get(nombre=programa)
+				except programasAcademico.DoesNotExist:
+					info = "Programa No existe"
 				else:
-					llamarMensaje= "NoRegistro"
-					mensaje= "Número de Cédula ya existe!!!!!!"
+					pl = p.lectura_critica
+					pm = p.matematicas
+					ps = p.sociales
+					pn = p.naturales
+					pi = p.ingles
+					pr = p.razonamiento_cuantitativo
+					pc = p.competencias_ciudadanas
+				#Aqui se multiplica cada uno de los resultados de cada prueba por la ponderación que el programa académico 
+				puntaje = float((lectura_critica) * (pl)) + float((matematicas) * (pm)) + float((sociales) * (ps)) + float((naturales) * (pn)) + float((ingles) * (pi)) + float((razonamiento_cuantitativo) * (pr)) + float((competencias_ciudadanas) * (pc))
+				
+				#Guardo datos para generar la lista de admitidos
+				a = lista_admitidos() #creo una instancia de la clase lista
+				
+				a.cedula = cedula
+				a.nombre = nombre
+				a.apellido = apellido
+				a.puntaje = puntaje                         
+				a.carrera = programa
+				
+				a.save() #guardar listado
+				llamarMensaje= "Registro"
+				mensaje= "Registro Satisfactorio!!!!!!"
+				formulario = RegistroInscripcionesForm()
 			else:
 				llamarMensaje= "NoRegistro"
-				mensaje= "Num Icfes o Num Pago INCORRECTOS!!!!!!"
+				mensaje= "DATOS INCORRECTOS!!!!!!"
 			form = RegistroInscripcionesForm()
-			ctx = {'form':formulario, 'mensaje':mensaje, 'llamarMensaje':llamarMensaje}
+			ctx = {'form':formulario, 'mensaje':mensaje, 'llamarMensaje':llamarMensaje,'info':info}
 			return render(request,'registro_inscripciones.html',ctx)
 
 		else:
@@ -257,41 +244,27 @@ def register_inscripcion_view(request):
 def editar_inscripcion_view(request,cedula=None):
 	mensaje = ""
 	llamarMensaje=""
+	info=""
 	i = inscripciones.objects.get(cedula=cedula)
 	a = lista_admitidos.objects.get(cedula=cedula)
 	if request.user.is_authenticated():
 		if request.method == "POST":
 			form = EditarInscripcionesForm(request.POST)
 			if form.is_valid():
-				cedula = form.cleaned_data['cedula']
-				nombre = form.cleaned_data['nombre']
-				apellido = form.cleaned_data['apellido']
-				snp = form.cleaned_data['snp']
-				if snp:
-					icfes = requests.get('https://morning-brushlands-79611.herokuapp.com/v1/resultados/?codigo=%s&format=json' % snp)
-					icfes_json = icfes.json()
-					if icfes_json:
-						lectura_critica= (icfes_json[0]["lectura_critica"])
-						matematicas= (icfes_json[0]["matematicas"])
-						sociales= (icfes_json[0]["sociales"])
-						naturales= (icfes_json[0]["naturales"])
-						ingles= (icfes_json[0]["ingles"])
-						razonamiento_cuantitativo= (icfes_json[0]["razonamiento_cuantitativo"])
-						competencias_ciudadanas= (icfes_json[0]["competencias_ciudadanas"])
-					else:
-						llamarMensaje= "NoRegistro"
-						mensaje= "Número de Registro No existe!!!!!!"
-				colegio = form.cleaned_data['colegio']
-				ref_pago = form.cleaned_data['ref_pago']
-				if ref_pago:
-					respuesta = requests.get('http://ws-bank-julianrico.c9users.io/rest/consignacion/?cedula=%s&format=json' % ref_pago)
-					respuesta_json = respuesta.json()
-					if respuesta_json:
-						print("Pago existente")
-					else:
-						llamarMensaje= "NoRegistro"
-						mensaje= "Número de Pago No existe!!!!!!"
-				programa = str(form.cleaned_data['programas_academicos'])#convierto el objeto a string
+				cedula = formulario.cleaned_data['cedula']
+				nombre = formulario.cleaned_data['nombre']
+				apellido = formulario.cleaned_data['apellido']
+				snp = formulario.cleaned_data['snp']
+				lectura_critica= formulario.cleaned_data['lectura_critica']
+				matematicas= formulario.cleaned_data['matematicas']
+				sociales= formulario.cleaned_data['sociales']
+				naturales= formulario.cleaned_data['naturales']
+				ingles= formulario.cleaned_data['ingles']
+				razonamiento_cuantitativo= formulario.cleaned_data['razonamiento_cuantitativo']
+				competencias_ciudadanas= formulario.cleaned_data['competencias_ciudadanas']
+				colegio = formulario.cleaned_data['colegio']
+				ref_pago = formulario.cleaned_data['ref_pago']
+				programa = str(formulario.cleaned_data['programas_academicos'])
 				
 				i = inscripciones() #creo una instancia de la clase inscripcion
 				
@@ -343,7 +316,7 @@ def editar_inscripcion_view(request,cedula=None):
 				mensaje= "Actualización Satisfactoria!!!!!!"
 			else:
 				llamarMensaje= "NoRegistro"
-				mensaje= "Registro Icfes No Existe!!!!!!"
+				mensaje= "DATOS INCORRECTOS!!!!!!"
 
 		if request.method == "GET":
 			form = EditarInscripcionesForm(initial={
@@ -362,7 +335,7 @@ def editar_inscripcion_view(request,cedula=None):
 				'ref_pago':i.ref_pago,
 				'programas_academicos': [o for o in i.carrera],
 			})
-		ctx = {'form':form, 'mensaje':mensaje, 'llamarMensaje':llamarMensaje}
+		ctx = {'form':form, 'mensaje':mensaje, 'llamarMensaje':llamarMensaje,'info':info}
 		return render(request,'editar_inscripciones.html',ctx)
 	else:
 		return HttpResponseRedirect('/login')
@@ -419,31 +392,28 @@ def register_carrera_view(request):
 				puntaje_min = form.cleaned_data['puntaje_min']
 				cupos = form.cleaned_data['cupos']
 				info = form.cleaned_data['info']
-				try:
-					p = programasAcademico.objects.get(codigo=codigo)
-				except programasAcademico.DoesNotExist:
-					p = programasAcademico() #creo una instancia de la clase programaAcademico
-					p.codigo = codigo
-					p.nombre = nombre
-					p.lectura_critica = lectura_critica
-					p.matematicas = matematicas
-					p.sociales = sociales
-					p.naturales = naturales
-					p.ingles = ingles
-					p.razonamiento_cuantitativo = razonamiento_cuantitativo
-					p.competencias_ciudadanas = competencias_ciudadanas
-					p.puntaje_min = puntaje_min
-					p.cupos = cupos
-					p.info = info
-					p.save() #guardar programa
-					llamarMensaje= "Registro"
-					mensaje= "Registro Satisfactorio!!!!!!"
-					form = CarreraForm()
-				else:
-					llamarMensaje="NoRegistro"
-					mensaje="Código de carrera ya existe"
+				
+				p = programasAcademico() #creo una instancia de la clase programaAcademico
+				p.codigo = codigo
+				p.nombre = nombre
+				p.lectura_critica = lectura_critica
+				p.matematicas = matematicas
+				p.sociales = sociales
+				p.naturales = naturales
+				p.ingles = ingles
+				p.razonamiento_cuantitativo = razonamiento_cuantitativo
+				p.competencias_ciudadanas = competencias_ciudadanas
+				p.puntaje_min = puntaje_min
+				p.cupos = cupos
+				p.info = info
+				p.save() #guardar programa
+				llamarMensaje= "Registro"
+				mensaje= "Registro Satisfactorio!!!!!!"
+				form = CarreraForm()
+			
 			else:
-				mensaje = "Datos erróneos"
+				llamarMensaje= "NoRegistro"
+				mensaje = "DATOS INCORRECTOS!!!!!!"
 
 		ctx = {'form':form, 'mensaje':mensaje, 'llamarMensaje':llamarMensaje}
 		return render(request,'registro_carreras.html',ctx)
@@ -545,6 +515,7 @@ def listar_carreras_view(request,pagina):
 def editar_password_view(request,username=None):
 	mensaje = ""
 	llamarMensaje = ""
+	info=""
 	form = EditarPasswordForm()
 	if request.user.is_authenticated():
 		if request.method == "POST":
@@ -555,24 +526,19 @@ def editar_password_view(request,username=None):
 				password_two = form.cleaned_data['password_two']
 				u = User.objects.get(username=username)
 				if check_password(password_actual, u.password):
-					print 'Contrasena de usuario coincide'
-					if password_one == password_two:
-						u.set_password(password_one)
-						#u.save()
-						llamarMensaje= "Registro"
-						mensaje= "Su contraseña se cambió correctamente!!!!!!"
-						form = EditarPasswordForm()
-					else:
-						llamarMensaje="NoRegistro"
-						mensaje="Contraseña nueva NO coinciden"
+					u.set_password(password_one)
+					#u.save()
+					llamarMensaje= "Registro"
+					mensaje= "Su contraseña se cambió correctamente!!!!!!"
+					form = EditarPasswordForm()
 				else:
 					llamarMensaje="NoRegistro"
 					mensaje="Contrasena Actual NO coincide"
 			else:
 				llamarMensaje="NoRegistro"
-				mensaje="Error de datos"
+				mensaje="DATOS INCORRECTOS!!!!!!"
 			
-		ctx = {'form':form, 'mensaje':mensaje, 'llamarMensaje':llamarMensaje}
+		ctx = {'form':form, 'mensaje':mensaje, 'llamarMensaje':llamarMensaje,'info':info}
 		return render(request,'editar_password.html',ctx)
 	else:
 		return HttpResponseRedirect('/login')

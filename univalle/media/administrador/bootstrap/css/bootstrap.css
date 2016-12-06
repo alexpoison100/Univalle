@@ -1437,6 +1437,7 @@ ol ol {
   display: inline-block;
   padding-right: 5px;
   padding-left: 5px;
+  color:#EE2024;
 }
 dl {
   margin-top: 0;
@@ -6759,6 +6760,8 @@ button.close {
 }
 /*# sourceMappingURL=bootstrap.css.map */
 
-
+ul.errorlist li{
+	color:#EE2024;
+}
 
 

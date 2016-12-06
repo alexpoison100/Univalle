@@ -15,62 +15,17 @@
             <div class="panel-body">
             <fieldset>
                 <div class="form-group">
-                <label class="col-lg-3 control-label">Usuario:</label>
                     <div class="col-lg-7">
-                    {{ form.username }}
+                        {{form.as_p}}
                     </div>
                 </div>
             </fieldset>
 
-            <fieldset>
-                <div class="form-group">
-                <label class="col-lg-3 control-label">Correo electrónico:</label>
-                <div class="col-lg-7">
-                {{ form.email }}
-                </div>
-                </div>
-            </fieldset>
-            
-            <fieldset>
-                <div class="form-group">
-                <label class="col-lg-3 control-label">Contraseña:</label>
-                <div class="col-lg-7">
-                {{ form.password_one }}
-                </div>
-                </div>
-            </fieldset>
-            
-            <fieldset>
-                <div class="form-group">
-                <label class="col-lg-3 control-label">Confirmar Contraseña:</label>
-                <div class="col-lg-7">
-                {{ form.password_two }}
-                </div>
-                </div>
-            </fieldset>
-            
-            <fieldset>
-                               <!-- Rol y opciones-->
-                <div class="form-group">
-                    <label class="col-lg-3 control-label">Rol</label>
-                        <div class="col-lg-7">
-                            <div class="radio">
-                                <!--{% for radio in form.rol %}-->
-                                <!--    <label class="form-radio form-icon active" id="alert-fields-votante">-->
-                                <!--        {{ radio.tag }}-->
-                                <!--    </label>-->
-                                <!--    {{ radio.choice_label}}-->
-                                <!--{% endfor %}-->
-                            </div>
-                        </div>
-                </div>
-                    
-
-            </fieldset>
+           
+            <!--</fieldset>-->
         <!--===================================================-->
 
         <!--===================================================-->
-        {{ form.info }}
         </div>
             <div class="panel-footer">
                 <div class="row">

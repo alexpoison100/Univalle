@@ -13,113 +13,13 @@
     <form name="FormularioRegistroUsuario" id="demo-bv-bsc-tabs" class="form-horizontal" action="" method="post">
             {% csrf_token %}
             <div class="panel-body">
-            <fieldset>
+           <fieldset>
                 <div class="form-group">
-                <label class="col-lg-3 control-label">Código:</label>
                     <div class="col-lg-7">
-                    {{ form.codigo }}
+                        {{form.as_p}}
                     </div>
                 </div>
-            </fieldset>
-
-            <fieldset>
-                <div class="form-group">
-                <label class="col-lg-3 control-label">Nombre de la Carrera:</label>
-                <div class="col-lg-7">
-                {{ form.nombre }}
-                </div>
-                </div>
-            </fieldset>
-            
-            <fieldset>
-                <div class="form-group">
-                <label class="col-lg-3 control-label">Ponderación de Lectura crítica:</label>
-                <div class="col-lg-7">
-                {{ form.lectura_critica }}
-                </div>
-                </div>
-            </fieldset>
-            
-            <fieldset>
-                <div class="form-group">
-                <label class="col-lg-3 control-label">Ponderación de Matemáticas:</label>
-                <div class="col-lg-7">
-                {{ form.matematicas }}
-                </div>
-                </div>
-            </fieldset>
-            
-            <fieldset>
-                <div class="form-group">
-                <label class="col-lg-3 control-label">Ponderación de Sociales:</label>
-                <div class="col-lg-7">
-                {{ form.sociales }}
-                </div>
-                </div>
-            </fieldset>
-            
-            <fieldset>
-                <div class="form-group">
-                <label class="col-lg-3 control-label">Ponderación de Naturales:</label>
-                <div class="col-lg-7">
-                {{ form.naturales }}
-                </div>
-                </div>
-            </fieldset>
-            
-            <fieldset>
-                <div class="form-group">
-                <label class="col-lg-3 control-label">Ponderación de Inglés:</label>
-                <div class="col-lg-7">
-                {{ form.ingles }}
-                </div>
-                </div>
-            </fieldset>
-            
-            <fieldset>
-                <div class="form-group">
-                <label class="col-lg-3 control-label">Ponderación de Razonamiento cuantitativo:</label>
-                <div class="col-lg-7">
-                {{ form.razonamiento_cuantitativo }}
-                </div>
-                </div>
-            </fieldset>
-            
-            <fieldset>
-                <div class="form-group">
-                <label class="col-lg-3 control-label">Ponderación de Competencias ciudadanas:</label>
-                <div class="col-lg-7">
-                {{ form.competencias_ciudadanas }}
-                </div>
-                </div>
-            </fieldset>
-            
-            <fieldset>
-                <div class="form-group">
-                <label class="col-lg-3 control-label">Puntaje mínimo:</label>
-                <div class="col-lg-7">
-                {{ form.puntaje_min }}
-                </div>
-                </div>
-            </fieldset>
-            
-            <fieldset>
-                <div class="form-group">
-                <label class="col-lg-3 control-label">Cantidad de Cupos:</label>
-                <div class="col-lg-7">
-                {{ form.cupos }}
-                </div>
-                </div>
-            </fieldset>
-            
-            <fieldset>
-                <div class="form-group">
-                <label class="col-lg-3 control-label">Información de la carrera:</label>
-                <div class="col-lg-7">
-                {{ form.info }}
-                </div>
-                </div>
-            </fieldset>
+            </fieldset>   
         <!--===================================================-->
         
         </div>
