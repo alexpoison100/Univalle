@@ -1,0 +1,224 @@
+{% extends 'base.html' %}
+{% block title %} Información de Carreras {% endblock %}
+
+{% block content %}
+
+		<!-- HEADER -->
+		<!--===================================================-->
+			<div align="left" class="cls-header cls-header-lg">
+			<div class="cls-brand">
+				<a class="box-inline" href="./">
+					<div class="col-md-6">
+            			<a href="/"><img src="/media/home/img/logo.png" width="600" height="350" class="img-responsive"></a>
+         			</div>
+				</a>
+			</div>
+		</div>
+		<!--===================================================-->
+		
+		
+		<!-- LOGIN FORM -->
+		<!--===================================================-->
+		<div id="lightbox" class="row">
+    		<div class="cls-content">
+    		   <div class="overlay">
+        		<div class="containerFormularios">
+            		<div class="col-sm-6 col-md-3 col-lg-4 branding">
+                        <div class="portfolio-item">
+                            <div class="hover-bg">
+                                <!-- tabla de ingenieria de sistemas -->
+                                <table class="table table-striped table-bordered" cellspacing="0" width="100%">
+                                    <thead><h4><b>Información del Programa Académico</b></h4></thead>
+                                    <tbody>
+                                            <tr>
+                                                <td>Nombre:</td>
+                                                <td>{{nombre_sistemas}}</td>
+                                            </tr>
+                                             <tr>
+                                                <td>Jornada:</td>
+                                                <td>Diurna</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Cupos:</td>
+                                                <td>{{cupos_sistemas}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Puntaje mínimo:</td>
+                                                <td>{{puntaje_sistemas}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Info General:</td>
+                                                <td>{{info_sistemas}}</td>
+                                            </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+    
+                    <div class="col-sm-6 col-md-3 col-lg-4 photography app">
+                        <div class="portfolio-item">
+                            <div class="hover-bg">
+                                <!-- tabla de tecnologia en sistemas -->
+                                <table class="table table-striped table-bordered" cellspacing="0" width="100%">
+                                    <thead><h4><b>Información del Programa Académico</b></h4></thead>
+                                    <tbody>
+                                            <tr>
+                                                <td>Nombre:</td>
+                                                <td>{{nombre_tecsistemas}}</td>
+                                            </tr>
+                                             <tr>
+                                                <td>Jornada:</td>
+                                                <td>Nocturna</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Cupos:</td>
+                                                <td>{{cupos_tecsistemas}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Puntaje mínimo:</td>
+                                                <td>{{puntaje_tecsistemas}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Info General:</td>
+                                                <td>{{info_tecsistemas}}</td>
+                                            </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                     <div class="col-sm-6 col-md-3 col-lg-4 photography app">
+                        <div class="portfolio-item">
+                            <div class="hover-bg">
+                                <!-- tabla de ingenieria de quimica -->
+                                <table class="table table-striped table-bordered" cellspacing="0" width="100%">
+                                    <thead><h4><b>Información del Programa Académico</b></h4></thead>
+                                    <tbody>
+                                            <tr>
+                                                <td>Nombre:</td>
+                                                <td>{{nombre_quimica}}</td>
+                                            </tr>
+                                             <tr>
+                                                <td>Jornada:</td>
+                                                <td>Diurna</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Cupos:</td>
+                                                <td>{{cupos_quimica}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Puntaje mínimo:</td>
+                                                <td>{{puntaje_quimica}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Info General:</td>
+                                                <td>{{info_quimica}}</td>
+                                            </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                     <div class="col-sm-6 col-md-3 col-lg-4 photography app">
+                        <div class="portfolio-item">
+                            <div class="hover-bg">
+                                <!-- tabla de tecnologia de quimica -->
+                               <table class="table table-striped table-bordered" cellspacing="0" width="100%">
+                                    <thead><h4><b>Información del Programa Académico</b></h4></thead>
+                                    <tbody>
+                                            <tr>
+                                                <td>Nombre:</td>
+                                                <td>{{nombre_tecquimica}}</td>
+                                            </tr>
+                                             <tr>
+                                                <td>Jornada:</td>
+                                                <td>Diurna</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Cupos:</td>
+                                                <td>{{cupos_tecquimica}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Puntaje mínimo:</td>
+                                                <td>{{puntaje_tecquimica}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Info General:</td>
+                                                <td>{{info_tecquimica}}</td>
+                                            </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                     <div class="col-sm-6 col-md-3 col-lg-4 photography app">
+                        <div class="portfolio-item">
+                            <div class="hover-bg">
+                                <!-- tabla de ingenieria de electronica -->
+                                <table class="table table-striped table-bordered" cellspacing="0" width="100%">
+                                    <thead><h4><b>Información del Programa Académico</b></h4></thead>
+                                    <tbody>
+                                            <tr>
+                                                <td>Nombre:</td>
+                                                <td>{{nombre_electronica}}</td>
+                                            </tr>
+                                             <tr>
+                                                <td>Jornada:</td>
+                                                <td>Diurna</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Cupos:</td>
+                                                <td>{{cupos_electronica}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Puntaje mínimo:</td>
+                                                <td>{{puntaje_electronica}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Info General:</td>
+                                                <td>{{info_electronica}}</td>
+                                            </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                     <div class="col-sm-6 col-md-3 col-lg-4 photography app">
+                        <div class="portfolio-item">
+                            <div class="hover-bg">
+                                <!-- tabla de tecnologia de electronica -->
+                                <table class="table table-striped table-bordered" cellspacing="0" width="100%">
+                                    <thead><h4><b>Información del Programa Académico</b></h4></thead>
+                                    <tbody>
+                                            <tr>
+                                                <td>Nombre:</td>
+                                                <td>{{nombre_tecelectronica}}</td>
+                                            </tr>
+                                             <tr>
+                                                <td>Jornada:</td>
+                                                <td>Diurna</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Cupos:</td>
+                                                <td>{{cupos_tecelectronica}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Puntaje mínimo:</td>
+                                                <td>{{puntaje_tecelectronica}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Info General:</td>
+                                                <td>{{info_tecelectronica}}</td>
+                                            </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+            	 </div>
+            	</div>
+            	</div>
+	    </div>
+
+{% endblock %}

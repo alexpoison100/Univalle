@@ -18,4 +18,5 @@ urlpatterns = patterns('',
     url(r'^listar_inscripciones/page/(?P<pagina>.*)/$', views.listar_inscripciones_view,name='vista_listar_inscripciones'),
     url(r'^reporte_admitidos/pagina/(?P<pagina>.*)/$', views.reporte_admitidos_view,name='vista_reporte_admitidos'),
     url(r'^icfes/$', views.icfes,name='vista_icfes'),
+    url(r'^reportes/$', views.reportes_view,name='vista_generar_reporte'),
 )

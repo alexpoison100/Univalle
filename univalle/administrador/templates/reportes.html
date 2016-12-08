@@ -1,0 +1,77 @@
+{% extends "base_admin.html" %}
+{% block title %}Reportes{% endblock title %}
+{% block content %}
+    <h1 class="page-header text-overflow">Gráfico de Estudiantes inscritos por Carrera</h1>
+<div class="panel">
+    <div class="panel-heading panel-colorful panel-primary">
+        <h3 class="panel-title">Gráfico</h3>
+    </div>
+    <br>
+    <div id="demo-custom-toolbar" class="table-toolbar-right" style="text-align: right">
+        <a href="/administrador" class="btn btn-success btn-sm fa fa-list-alt text-lg"><b>Atrás</b></a>
+        
+    </div>
+    <form name="FormularioRegistroUsuario" id="demo-bv-bsc-tabs" class="form-horizontal" action="" method=".">
+            <fieldset>
+                    <div class="col-lg-8">
+                       <div id="piechart" style="width: 900px; height: 500px;"></div>
+                    </div>
+            </fieldset>
+            <fieldset>
+                <div class="col-sm-0 col-sm-offset-3">
+                    <div>
+                        <h3><span><b>Total de Inscripciones = </b>{{totalInscripciones}}</span></h3>
+                    </div>
+                </div>
+            </fieldset>
+
+        <!--===================================================-->
+            <div class="panel-footer">
+                <div class="row">
+                    <div class="col-sm-7 col-sm-offset-3">
+                        <button  class="btn btn-danger"  value="Reload Page" onclick="history.go(0)" name="btncreate">Actualizar</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+</div>
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+      google.charts.load('current', {'packages':['corechart']});
+      google.charts.setOnLoadCallback(drawChart);
+      var ing_sitemas = parseInt("{{totalInscripciones_sitemas}}");
+      var tec_sitemas = parseInt("{{totalInscripciones_tec_sitemas}}");
+      var ing_quimica = parseInt("{{totalInscripciones_quimica}}");
+      var tec_quimica = parseInt("{{totalInscripciones_tec_quimica}}");
+      var ing_electronica = parseInt("{{totalInscripciones_electronica}}")
+      var tec_electronica = parseInt("{{totalInscripciones_tec_electronica}}")
+      function drawChart() {
+
+        var data = google.visualization.arrayToDataTable([
+          ['Task', 'Hours per Day'],
+          ['Ingeniería Sistemas', ing_sitemas],
+          ['Tecnología Sistemas', tec_sitemas],
+          ['Ingeniería Química', ing_quimica],
+          ['Tecnología Química', tec_quimica],
+          ['Ingeniería Electrónica', ing_electronica],
+          ['Tecnología Electrónica', tec_electronica],
+
+        ]);
+
+        var options = {
+          title: '% de Estudiantes inscritos por Carrera'
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+
+        chart.draw(data, options);
+      }
+    </script>
+
+<script>
+    window.onload= function() {
+        llamarMensajes('{{ llamarMensaje }}' , '{{ mensaje }}');
+    };
+</script>
+
+{% endblock %}

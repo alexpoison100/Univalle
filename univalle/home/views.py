@@ -10,6 +10,7 @@ from django.core.paginator import Paginator, EmptyPage, InvalidPage#paginacion d
 from django.contrib.auth.models import User
 import itertools#contador indice de la tabla
 import requests
+import simplejson
 # creamos nuestras vistas
 
 def index_view(request):
@@ -44,6 +45,78 @@ def about_view(request):
 	mensaje ="Esto es un mensaje desde mi vista"
 	ctx = {'msg':mensaje}
 	return render(request,'about.html',ctx)
+
+def info_carreras_view(request):
+	mensaje=""
+	#datos de ingenieria en sistemas
+	try:
+		s= programasAcademico.objects.get(codigo=3743)
+	except programasAcademico.DoesNotExist:
+		mensaje="No existe programa"
+	else:
+		nombre_sistemas= s.nombre
+		puntaje_sistemas= s.puntaje_min
+		cupos_sistemas=s.cupos
+		info_sistemas= s.info
+	#datos de tecnologia en sistemas	
+	try:
+		s= programasAcademico.objects.get(codigo=2711)
+	except programasAcademico.DoesNotExist:
+		mensaje="No existe programa"
+	else:
+		nombre_tecsistemas= s.nombre
+		puntaje_tecsistemas= s.puntaje_min
+		cupos_tecsistemas=s.cupos
+		info_tecsistemas= s.info
+		#datos de ingenieria en quimica
+	try:
+		s= programasAcademico.objects.get(codigo=3749)
+	except programasAcademico.DoesNotExist:
+		mensaje="No existe programa"
+	else:
+		nombre_quimica= s.nombre
+		puntaje_quimica= s.puntaje_min
+		cupos_quimica=s.cupos
+		info_quimica= s.info
+	#datos de tecnologia en quimica	
+	try:
+		s= programasAcademico.objects.get(codigo=2131)
+	except programasAcademico.DoesNotExist:
+		mensaje="No existe programa"
+	else:
+		nombre_tecquimica= s.nombre
+		puntaje_tecquimica= s.puntaje_min
+		cupos_tecquimica=s.cupos
+		info_tecquimica= s.info
+	#datos de ingenieria en electronica
+	try:
+		s= programasAcademico.objects.get(codigo=3744)
+	except programasAcademico.DoesNotExist:
+		mensaje="No existe programa"
+	else:
+		nombre_electronica= s.nombre
+		puntaje_electronica= s.puntaje_min
+		cupos_electronica=s.cupos
+		info_electronica= s.info
+	#datos de tecnologia en electronica	
+	try:
+		s= programasAcademico.objects.get(codigo=2710)
+	except programasAcademico.DoesNotExist:
+		mensaje="No existe programa"
+	else:
+		nombre_tecelectronica= s.nombre
+		puntaje_tecelectronica= s.puntaje_min
+		cupos_tecelectronica=s.cupos
+		info_tecelectronica= s.info
+		
+	ctx = {'nombre_sistemas':nombre_sistemas,'puntaje_sistemas':puntaje_sistemas,'cupos_sistemas':cupos_sistemas,'info_sistemas':info_sistemas,
+		'nombre_tecsistemas':nombre_tecsistemas,'puntaje_tecsistemas':puntaje_tecsistemas,'cupos_tecsistemas':cupos_tecsistemas,'info_tecsistemas':info_tecsistemas,
+		'nombre_quimica':nombre_quimica,'puntaje_quimica':puntaje_quimica,'cupos_quimica':cupos_quimica,'info_quimica':info_quimica,
+		'nombre_tecquimica':nombre_tecquimica,'puntaje_tecquimica':puntaje_tecquimica,'cupos_tecquimica':cupos_tecquimica,'info_tecquimica':info_tecquimica,
+		'nombre_electronica':nombre_electronica,'puntaje_electronica':puntaje_electronica,'cupos_electronica':cupos_electronica,'info_electronica':info_electronica,
+		'nombre_tecelectronica':nombre_tecelectronica,'puntaje_tecelectronica':puntaje_tecelectronica,'cupos_tecelectronica':cupos_tecelectronica,'info_tecelectronica':info_tecelectronica,
+	}
+	return render(request,'info_carreras.html',ctx)
 
 def login_view(request):
 	mensaje=""

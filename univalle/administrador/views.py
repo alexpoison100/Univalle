@@ -9,7 +9,6 @@ from django.http import HttpResponseRedirect, HttpResponse
 from django.core.paginator import Paginator, EmptyPage, InvalidPage#paginacion de Django
 from django.contrib.auth.models import User
 from django.core.exceptions import MultipleObjectsReturned
-import simplejson
 from django.contrib.auth.hashers import check_password#libreria para chequear password actual
 import itertools#contador indice de la tabla
 import requests
@@ -21,7 +20,7 @@ def icfes (request):
         url = "https://morning-brushlands-79611.herokuapp.com/v1/resultados/?codigo=" + snp + "&format=json"
         webservice = requests.get(url, verify=True)
         return HttpResponse(webservice)
-
+        
 def administrador_view(request):
 	#muestra el index pero con el formulario de contacto
 	nombre = ""
@@ -31,7 +30,7 @@ def administrador_view(request):
 	mensaje=""
 	llamarMensaje=""
 	totalUsuarios= User.objects.count()#cuenta la cantidad de usuarios registrados
-	totalInscripciones= inscripciones.objects.count()#cuenta la cantidad de usuarios registrados
+	totalInscripciones= inscripciones.objects.count()#cuenta la cantidad de inscripciones
 	totalCarreras= programasAcademico.objects.count()#cuenta la cantidad de programas academicos
 	form = CorreoForm()
 	
@@ -251,20 +250,20 @@ def editar_inscripcion_view(request,cedula=None):
 		if request.method == "POST":
 			form = EditarInscripcionesForm(request.POST)
 			if form.is_valid():
-				cedula = formulario.cleaned_data['cedula']
-				nombre = formulario.cleaned_data['nombre']
-				apellido = formulario.cleaned_data['apellido']
-				snp = formulario.cleaned_data['snp']
-				lectura_critica= formulario.cleaned_data['lectura_critica']
-				matematicas= formulario.cleaned_data['matematicas']
-				sociales= formulario.cleaned_data['sociales']
-				naturales= formulario.cleaned_data['naturales']
-				ingles= formulario.cleaned_data['ingles']
-				razonamiento_cuantitativo= formulario.cleaned_data['razonamiento_cuantitativo']
-				competencias_ciudadanas= formulario.cleaned_data['competencias_ciudadanas']
-				colegio = formulario.cleaned_data['colegio']
-				ref_pago = formulario.cleaned_data['ref_pago']
-				programa = str(formulario.cleaned_data['programas_academicos'])
+				cedula = form.cleaned_data['cedula']
+				nombre = form.cleaned_data['nombre']
+				apellido = form.cleaned_data['apellido']
+				snp = form.cleaned_data['snp']
+				lectura_critica= form.cleaned_data['lectura_critica']
+				matematicas= form.cleaned_data['matematicas']
+				sociales= form.cleaned_data['sociales']
+				naturales= form.cleaned_data['naturales']
+				ingles= form.cleaned_data['ingles']
+				razonamiento_cuantitativo= form.cleaned_data['razonamiento_cuantitativo']
+				competencias_ciudadanas= form.cleaned_data['competencias_ciudadanas']
+				colegio = form.cleaned_data['colegio']
+				ref_pago = form.cleaned_data['ref_pago']
+				programa = str(form.cleaned_data['programas_academicos'])
 				
 				i = inscripciones() #creo una instancia de la clase inscripcion
 				
@@ -564,3 +563,21 @@ def reporte_admitidos_view(request,pagina,carrera=None):
 	else:
 		return HttpResponseRedirect('/login')	
 		
+def reportes_view(request):
+	mensaje =""
+	totalInscripciones= inscripciones.objects.count()
+	totalInscripciones_tec_sitemas= inscripciones.objects.filter(carrera="TECNOLOGÍA EN SISTEMAS DE INFORMACIÓN").count()
+	totalInscripciones_sitemas= inscripciones.objects.filter(carrera="INGENIERÍA DE SISTEMAS").count()
+	totalInscripciones_quimica= inscripciones.objects.filter(carrera="INGENIERÍA QUÍMICA").count()
+	totalInscripciones_tec_quimica= inscripciones.objects.filter(carrera="TECNOLOGÍA QUÍMICA").count()
+	totalInscripciones_electronica= inscripciones.objects.filter(carrera="INGENIERÍA ELECTRÓNICA").count()
+	totalInscripciones_tec_electronica= inscripciones.objects.filter(carrera="TECNOLOGÍA ELECTRÓNICA").count()
+	
+	if request.user.is_authenticated():
+		ctx = {'msg':mensaje,'totalInscripciones':totalInscripciones,'totalInscripciones_tec_electronica':totalInscripciones_tec_electronica,
+		'totalInscripciones_electronica':totalInscripciones_electronica,'totalInscripciones_quimica':totalInscripciones_quimica,
+		'totalInscripciones_tec_sitemas':totalInscripciones_tec_sitemas,'totalInscripciones_sitemas':totalInscripciones_sitemas,
+		'totalInscripciones_tec_quimica':totalInscripciones_tec_quimica}
+		return render(request,'reportes.html',ctx)
+	else:
+		return HttpResponseRedirect('/login')	
