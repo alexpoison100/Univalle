@@ -17,25 +17,25 @@ var nombre_ventana_modal = "#myModal"; // id
         });
         
         var options = {
-                success:function(response)
-                {
-                    if(response.status=="True"){
-                        $.notify("Eliminado Satisfactoriamente!!","success");
-                        var idPrograma = response.programa_id;
-                        var elementos= $(nombre_tabla+' >tbody >tr').length;
-                        if(elementos==1){
-                                location.reload();
-                        }else{
-                            $('#tr'+idPrograma).remove();
-                            $(nombre_ventana_modal).modal('hide');
-                        }
-                        
+            success:function(response)
+            {
+                if(response.status=="True"){
+                    $.notify("Eliminado Satisfactoriamente!!","success");
+                    var idPrograma = response.programa_id;
+                    var elementos= $(nombre_tabla+' >tbody >tr').length;
+                    if(elementos==1){
+                        location.reload();
                     }else{
-                        alert("Hubo un error al eliminar!");
+                        $('#tr'+idPrograma).remove();
                         $(nombre_ventana_modal).modal('hide');
-                    };
-                }
-            };
+                    }
+                    
+                }else{
+                    alert("Hubo un error al eliminar!");
+                    $(nombre_ventana_modal).modal('hide');
+                };
+            }
+        };
 
         $(nombre_formulario_modal).ajaxForm(options);
     });

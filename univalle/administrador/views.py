@@ -9,6 +9,7 @@ from django.http import HttpResponseRedirect, HttpResponse
 from django.core.paginator import Paginator, EmptyPage, InvalidPage#paginacion de Django
 from django.contrib.auth.models import User
 from django.core.exceptions import MultipleObjectsReturned
+import simplejson
 from django.contrib.auth.hashers import check_password#libreria para chequear password actual
 import itertools#contador indice de la tabla
 import requests

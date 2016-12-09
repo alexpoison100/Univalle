@@ -52,7 +52,7 @@
                     <tr id="tr{{u.id}}">
                         <td>{{ u.username }} </td>
                         <td>{{ u.email }} </td>
-                        <td>
+                       <td>
                             <!--acciones - boton editar y eliminar-->
                             <a class="btn btn-success btn-xs add-tooltip" data-toggle="tooltip" href="/editar_usuario/{{ u.pk }}" data-original-title="Editar" data-container="body"><i class="fa fa-pencil" ></i></a>
                             <a href="#myModal" role="button" class="btn delete" data-toggle="modal" id="{{ u.pk }}" data-name=" {{ u.username }}" data-container="body" ><i class="btn btn-xs btn-danger add-tooltip btn-info fa fa-trash-o" data-toggle="tooltip" data-original-title="Eliminar"></i></a>
@@ -99,5 +99,6 @@
     </form>
     </div>
 </div>
+
 {% endif %}   
 {% endblock %}
