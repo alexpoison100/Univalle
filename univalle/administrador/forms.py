@@ -167,7 +167,7 @@ class RegistroInscripcionesForm(forms.Form):
 			if respuesta_json:
 				return ref_pago
 			else:
-				raise forms.ValidationError('Número de Pago No existe')
+				raise forms.ValidationError('Número de Pago No existe, Clic en Pago Online')
 	
 class EditarInscripcionesForm(forms.Form):
 	cedula = forms.IntegerField(label='Cédula',widget=forms.TextInput(attrs={'required': True,'type':"number",'class':"form-control",'placeholder':'Ingrese Número de Cédula','readonly':"readonly"}))

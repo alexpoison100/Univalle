@@ -113,7 +113,7 @@ class InscripcionesForm(forms.Form):
 			if respuesta_json:
 				return ref_pago
 			else:
-				raise forms.ValidationError('Número de Pago No existe, de clic en botón Pagar')
+				raise forms.ValidationError('Número de Pago No existe, de clic en ')
 
 class ResultadoForm(forms.Form):
 		programas_academicos= forms.ModelChoiceField(widget=forms.Select(attrs={'required': True,'class': "form-control"}), queryset=programasAcademico.objects.all().order_by('nombre'))

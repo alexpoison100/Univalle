@@ -43,6 +43,14 @@
                 <tr>
                     <th class="min-desktop">Código</th>
                     <th class="min-tablet">Nombre</th>
+                    <th class="min-tablet">P.Lec</th>
+                    <th class="min-tablet">P.Mat</th>
+                    <th class="min-tablet">P.Soc</th>
+                    <th class="min-tablet">P.Nat</th>
+                    <th class="min-tablet">P.Ing</th>
+                    <th class="min-tablet">P.Raz</th>
+                    <th class="min-tablet">P.Com</th>
+                    <th class="min-tablet">Cupos</th>
                     <th class="min-tablet">Acción</th>
                 </tr>
             </thead>
@@ -52,6 +60,14 @@
                     <tr id="tr{{c.codigo}}">
                         <td>{{ c.codigo }}</td>
                         <td>{{ c.nombre }} </td>
+                        <td>{{ c.lectura_critica }} </td>
+                        <td>{{ c.matematicas }} </td>
+                        <td>{{ c.sociales }} </td>
+                        <td>{{ c.naturales }} </td>
+                        <td>{{ c.ingles }} </td>
+                        <td>{{ c.razonamiento_cuantitativo }} </td>
+                        <td>{{ c.competencias_ciudadanas }} </td>
+                        <td>{{ c.cupos }} </td>
                         <td>
                             <!--acciones - boton editar y eliminar-->
                             <a class="btn btn-success btn-xs add-tooltip" data-toggle="tooltip" href="/editar_carrera/{{ c.codigo }}" data-original-title="Editar" data-container="body"><i class="fa fa-pencil" ></i></a>

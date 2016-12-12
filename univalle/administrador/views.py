@@ -356,7 +356,7 @@ def listar_inscripciones_view(request,pagina):
 					return HttpResponse(simplejson.dumps(mensaje),content_type ='application/json')
 					
 	#Metodo  para listar inscripciones				
-		lista_inscrip = inscripciones.objects.filter(status=True)
+		lista_inscrip = inscripciones.objects.filter(status=True).order_by('apellido')
 		paginator = Paginator(lista_inscrip,10)
 		try:
 			page = int(pagina)
